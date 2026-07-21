@@ -1,0 +1,32 @@
+# robots.txt — missaocantonfair.com (AMO Embarque)
+# Política: permitir explicitamente buscadores e assistentes de IA.
+
+User-agent: *
+Allow: /
+
+# ── Assistentes de IA e buscadores generativos (acesso liberado) ──
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+User-agent: Bingbot
+Allow: /
+User-agent: CCBot
+Allow: /
+
+# ── Sitemap ──
+Sitemap: https://missaocantonfair.com/sitemap.xml
