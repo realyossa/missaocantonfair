@@ -5,13 +5,6 @@
       data-amo-ga="G-EY0B7MKZ3E G-TKW7ZSSV34">
 <head>
 <meta charset="UTF-8">
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MP8RJ4BK');</script>
-<!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ══ PRIMARY SEO ══ -->
@@ -42,8 +35,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="twitter:image" content="https://missaocantonfair.com/img/guangzhou-skyline-noite-canton-tower-rio-perola-china.png">
 
 <!-- ══ FAVICON ══ -->
-<link rel="icon" type="image/jpeg" href="img/amo-embarque-logo-agencia-viagens-chapeco.jpg">
-<link rel="apple-touch-icon" href="img/amo-embarque-logo-agencia-viagens-chapeco.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#7DFF00">
 <meta name="msapplication-TileColor" content="#080B08">
 <meta name="msapplication-TileImage" content="img/amo-embarque-logo-agencia-viagens-chapeco.jpg">
@@ -54,34 +49,71 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "TravelAgency",
+      "@type": [
+        "Organization",
+        "TravelAgency"
+      ],
       "@id": "https://amoembarque.com/#organizacao",
-      "name": "AMO Embarque Agência de Viagens e Turismo",
-      "url": "https://amoembarque.com",
-      "logo": "https://missaocantonfair.com/img/amo-embarque-logo-agencia-viagens-chapeco.jpg",
-      "image": "https://missaocantonfair.com/img/jamila-amo-embarque-canton-fair-suzhou-2025.webp",
-      "description": "Agência de viagens especializada em missões empresariais à Canton Fair na China. +15 anos de experiência, +12.000 viajantes atendidos.",
-      "foundingDate": "2009",
-      "telephone": "+55-49-99938-0070",
+      "name": "AMO Embarque",
+      "alternateName": "AMO Embarque Agência de Viagens e Turismo",
+      "legalName": "Agencia de Viagens Jamila Umar Ltda",
+      "taxID": "33.541.159/0001-72",
+      "url": "https://amoembarque.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://amoembarque.com/#logo",
+        "url": "https://amoembarque.com/assets/img/amo-embarque-logo-agencia-viagens-chapeco.jpg",
+        "caption": "Logo da AMO Embarque"
+      },
+      "description": "A AMO Embarque é uma agência de viagens de Chapecó-SC formada 100% por mulheres, fundada pelas irmãs Jamila e Kadidia Umar, com atuação nacional, especializada em viagens personalizadas para pessoas e famílias (AMO Turismo) e em gestão de viagens e missões empresariais para empresas (AMO Corporativo). São mais de 15 anos de experiência e mais de 12 mil viajantes atendidos.",
+      "telephone": "+55-49-3316-1858",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Av. Gen. Osório, 231 D - Sala 04",
+        "streetAddress": "Av. General Osório, 231-D, Sala 04, Centro",
         "addressLocality": "Chapecó",
         "addressRegion": "SC",
         "postalCode": "89802-211",
         "addressCountry": "BR"
       },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "reviewCount": "160",
-        "bestRating": "5"
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "18:30"
       },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Brasil"
+      },
+      "founder": [
+        {
+          "@type": "Person",
+          "@id": "https://amoembarque.com/#kadidia-umar",
+          "name": "Kadidia Umar",
+          "jobTitle": "CEO da AMO Embarque"
+        },
+        {
+          "@type": "Person",
+          "@id": "https://amoembarque.com/#jamila-umar",
+          "name": "Jamila Umar",
+          "jobTitle": "Sócia fundadora e consultora sênior da AMO Embarque"
+        }
+      ],
+      "award": [
+        "Top Seller Orinter 2023, 2024 e 2025 (terceiro ano consecutivo)",
+        "Best Seller Operadora Confiança 2024"
+      ],
       "sameAs": [
         "https://www.instagram.com/amoembarque/",
         "https://www.facebook.com/AMOEMBARQUE",
-        "https://www.youtube.com/@amoembarque",
         "https://www.linkedin.com/company/amoembarque-turismo/",
+        "https://www.youtube.com/@amoembarque",
         "https://www.tiktok.com/@amoembarque",
         "https://share.google/GmiOnWB5OwBAfA53e"
       ]
@@ -134,7 +166,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "addressCountry": "CN"
         }
       },
-      "organizer": { "@id": "https://amoembarque.com/#organizacao" },
+      "organizer": {
+        "@id": "https://amoembarque.com/#organizacao"
+      },
       "offers": {
         "@type": "Offer",
         "availability": "https://schema.org/PreOrder",
@@ -162,7 +196,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "addressCountry": "CN"
         }
       },
-      "organizer": { "@id": "https://amoembarque.com/#organizacao" },
+      "organizer": {
+        "@id": "https://amoembarque.com/#organizacao"
+      },
       "offers": {
         "@type": "Offer",
         "availability": "https://schema.org/PreOrder",
@@ -175,11 +211,46 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {
       "@type": "FAQPage",
       "mainEntity": [
-        {"@type":"Question","name":"Preciso de visto para ir à China?","acceptedAnswer":{"@type":"Answer","text":"Para a edição de outubro de 2026, não. A China isenta brasileiros de visto para estadas de até 30 dias desde 1º de junho de 2025, em política unilateral prorrogada até 31 de dezembro de 2026. Basta passaporte com pelo menos 6 meses de validade após o retorno. Para embarques de 2027 a orientação é caso a caso, conforme a política vigente na data da viagem."}},
-        {"@type":"Question","name":"Quando é a Canton Fair em 2027?","acceptedAnswer":{"@type":"Answer","text":"O calendário da Canton Fair é fixo: a edição de primavera abre sempre em 15 de abril e a de outono sempre em 15 de outubro, em três fases de cinco dias com três dias de intervalo. Em 2027 isso corresponde à 141ª edição, de 15 de abril a 5 de maio, e à 142ª edição, de 15 de outubro a 4 de novembro. A AMO Embarque mantém grupo aberto para as duas."}},
-        {"@type":"Question","name":"O que está incluído na missão Canton Fair?","acceptedAnswer":{"@type":"Answer","text":"Passagem aérea, hotel, traslados, credencial de importador, briefing de negociação e suporte completo durante toda a viagem."}},
-        {"@type":"Question","name":"Qual o valor da missão Canton Fair 2026?","acceptedAnswer":{"@type":"Answer","text":"Os valores variam conforme a configuração e quais fases serão visitadas. Entre em contato pelo WhatsApp para uma proposta personalizada. Vagas limitadas."}},
-        {"@type":"Question","name":"A AMO Embarque já realizou essa missão antes?","acceptedAnswer":{"@type":"Answer","text":"Sim. Em outubro de 2025 realizamos missão à Canton Fair em parceria com a ACIC Chapecó, com mais de 20 empresários e cobertura da imprensa regional. No total, já levamos mais de 100 empresários em nossas missões internacionais."}}
+        {
+          "@type": "Question",
+          "name": "Preciso de visto para ir à China?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Para a edição de outubro de 2026, não. A China isenta brasileiros de visto para estadas de até 30 dias desde 1º de junho de 2025, em política unilateral prorrogada até 31 de dezembro de 2026. Basta passaporte com pelo menos 6 meses de validade após o retorno. Para embarques de 2027 a orientação é caso a caso, conforme a política vigente na data da viagem."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quando é a Canton Fair em 2027?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "O calendário da Canton Fair é fixo: a edição de primavera abre sempre em 15 de abril e a de outono sempre em 15 de outubro, em três fases de cinco dias com três dias de intervalo. Em 2027 isso corresponde à 141ª edição, de 15 de abril a 5 de maio, e à 142ª edição, de 15 de outubro a 4 de novembro. A AMO Embarque mantém grupo aberto para as duas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "O que está incluído na missão Canton Fair?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Passagem aérea, hotel, traslados, credencial de importador, briefing de negociação e suporte completo durante toda a viagem."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Qual o valor da missão Canton Fair 2026?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Os valores variam conforme a configuração e quais fases serão visitadas. Entre em contato pelo WhatsApp para uma proposta personalizada. Vagas limitadas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "A AMO Embarque já realizou essa missão antes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim. Em outubro de 2025 realizamos missão à Canton Fair em parceria com a ACIC Chapecó, com mais de 20 empresários e cobertura da imprensa regional. No total, já levamos mais de 100 empresários em nossas missões internacionais."
+          }
+        }
       ]
     }
   ]
@@ -2826,10 +2897,6 @@ body::after{z-index:9999;}
 <link rel="stylesheet" href="/assets/css/amo-crm.css?v=49">
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MP8RJ4BK"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
 
 

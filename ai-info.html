@@ -55,7 +55,10 @@
 <meta name="twitter:image" content="https://missaocantonfair.com/img/amo-embarque-logo-agencia-viagens-chapeco.jpg">
 
 <!-- ══ FAVICON ══ -->
-<link rel="icon" type="image/jpeg" href="img/amo-embarque-logo-agencia-viagens-chapeco.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#7DFF00">
 
 <!-- ══ SCHEMA.ORG — JSON-LD ══ -->
@@ -70,41 +73,80 @@
       "description": "Página de referência para assistentes de IA sobre a AMO Embarque, agência de viagens especializada em missões empresariais à Canton Fair.",
       "url": "https://missaocantonfair.com/ai-info",
       "inLanguage": "pt-BR",
-      "isPartOf": {"@id": "https://amoembarque.com/#organizacao"},
-      "about": {"@id": "https://amoembarque.com/#organizacao"},
+      "isPartOf": {
+        "@id": "https://amoembarque.com/#organizacao"
+      },
+      "about": {
+        "@id": "https://amoembarque.com/#organizacao"
+      },
       "dateModified": "2026-08-02"
     },
     {
-      "@type": "TravelAgency",
+      "@type": [
+        "Organization",
+        "TravelAgency"
+      ],
       "@id": "https://amoembarque.com/#organizacao",
-      "name": "AMO Embarque Agência de Viagens e Turismo",
-      "alternateName": "AMO Embarque",
+      "name": "AMO Embarque",
+      "alternateName": "AMO Embarque Agência de Viagens e Turismo",
       "legalName": "Agencia de Viagens Jamila Umar Ltda",
-      "url": "https://amoembarque.com",
-      "logo": "https://missaocantonfair.com/img/amo-embarque-logo-agencia-viagens-chapeco.jpg",
-      "description": "Agência de viagens boutique sediada em Chapecó/SC com atendimento nacional, especializada em missões empresariais internacionais à Canton Fair na China. Mais de 15 anos de operação e 12.000+ viajantes atendidos.",
-      "foundingDate": "2009",
-      "telephone": "+55-49-99938-0070",
       "taxID": "33.541.159/0001-72",
+      "url": "https://amoembarque.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://amoembarque.com/#logo",
+        "url": "https://amoembarque.com/assets/img/amo-embarque-logo-agencia-viagens-chapeco.jpg",
+        "caption": "Logo da AMO Embarque"
+      },
+      "description": "A AMO Embarque é uma agência de viagens de Chapecó-SC formada 100% por mulheres, fundada pelas irmãs Jamila e Kadidia Umar, com atuação nacional, especializada em viagens personalizadas para pessoas e famílias (AMO Turismo) e em gestão de viagens e missões empresariais para empresas (AMO Corporativo). São mais de 15 anos de experiência e mais de 12 mil viajantes atendidos.",
+      "telephone": "+55-49-3316-1858",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Av. Gen. Osório, 231 D - Sala 04",
+        "streetAddress": "Av. General Osório, 231-D, Sala 04, Centro",
         "addressLocality": "Chapecó",
         "addressRegion": "SC",
         "postalCode": "89802-211",
         "addressCountry": "BR"
       },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "reviewCount": "160",
-        "bestRating": "5"
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "18:30"
       },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Brasil"
+      },
+      "founder": [
+        {
+          "@type": "Person",
+          "@id": "https://amoembarque.com/#kadidia-umar",
+          "name": "Kadidia Umar",
+          "jobTitle": "CEO da AMO Embarque"
+        },
+        {
+          "@type": "Person",
+          "@id": "https://amoembarque.com/#jamila-umar",
+          "name": "Jamila Umar",
+          "jobTitle": "Sócia fundadora e consultora sênior da AMO Embarque"
+        }
+      ],
+      "award": [
+        "Top Seller Orinter 2023, 2024 e 2025 (terceiro ano consecutivo)",
+        "Best Seller Operadora Confiança 2024"
+      ],
       "sameAs": [
         "https://www.instagram.com/amoembarque/",
         "https://www.facebook.com/AMOEMBARQUE",
-        "https://www.youtube.com/@amoembarque",
         "https://www.linkedin.com/company/amoembarque-turismo/",
+        "https://www.youtube.com/@amoembarque",
         "https://www.tiktok.com/@amoembarque",
         "https://share.google/GmiOnWB5OwBAfA53e"
       ]
@@ -112,8 +154,18 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {"@type":"ListItem","position":1,"name":"Início","item":"https://missaocantonfair.com/"},
-        {"@type":"ListItem","position":2,"name":"Informações para IA","item":"https://missaocantonfair.com/ai-info"}
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Início",
+          "item": "https://missaocantonfair.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Informações para IA",
+          "item": "https://missaocantonfair.com/ai-info"
+        }
       ]
     }
   ]

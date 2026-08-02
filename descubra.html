@@ -5,7 +5,6 @@
       data-amo-ga="G-EY0B7MKZ3E G-TKW7ZSSV34">
 <head>
 <meta charset="UTF-8">
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MP8RJ4BK');</script>
 <!-- Google tag (gtag.js) — DUAS propriedades de proposito.
      G-EY0B7MKZ3E e a propriedade historica deste site. G-TKW7ZSSV34 e a da AMO
      Embarque. So com as duas medindo o mesmo visitante da para responder a
@@ -43,7 +42,10 @@
 <meta name="twitter:title" content="Canton Fair 2026 — Descubra sua fase ideal">
 <meta name="twitter:description" content="Fotos reais, depoimentos reais. 3 perguntas para descobrir quando você deve estar em Guangzhou.">
 <meta name="twitter:image" content="https://missaocantonfair.com/img/grupo_canton2025.webp">
-<link rel="icon" type="image/jpeg" href="img/amo-embarque-logo-agencia-viagens-chapeco.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#7DFF00">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -353,6 +355,76 @@ footer a{color:var(--g);}
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": [
+        "Organization",
+        "TravelAgency"
+      ],
+      "@id": "https://amoembarque.com/#organizacao",
+      "name": "AMO Embarque",
+      "alternateName": "AMO Embarque Agência de Viagens e Turismo",
+      "legalName": "Agencia de Viagens Jamila Umar Ltda",
+      "taxID": "33.541.159/0001-72",
+      "url": "https://amoembarque.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://amoembarque.com/#logo",
+        "url": "https://amoembarque.com/assets/img/amo-embarque-logo-agencia-viagens-chapeco.jpg",
+        "caption": "Logo da AMO Embarque"
+      },
+      "description": "A AMO Embarque é uma agência de viagens de Chapecó-SC formada 100% por mulheres, fundada pelas irmãs Jamila e Kadidia Umar, com atuação nacional, especializada em viagens personalizadas para pessoas e famílias (AMO Turismo) e em gestão de viagens e missões empresariais para empresas (AMO Corporativo). São mais de 15 anos de experiência e mais de 12 mil viajantes atendidos.",
+      "telephone": "+55-49-3316-1858",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Av. General Osório, 231-D, Sala 04, Centro",
+        "addressLocality": "Chapecó",
+        "addressRegion": "SC",
+        "postalCode": "89802-211",
+        "addressCountry": "BR"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "18:30"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Brasil"
+      },
+      "founder": [
+        {
+          "@type": "Person",
+          "@id": "https://amoembarque.com/#kadidia-umar",
+          "name": "Kadidia Umar",
+          "jobTitle": "CEO da AMO Embarque"
+        },
+        {
+          "@type": "Person",
+          "@id": "https://amoembarque.com/#jamila-umar",
+          "name": "Jamila Umar",
+          "jobTitle": "Sócia fundadora e consultora sênior da AMO Embarque"
+        }
+      ],
+      "award": [
+        "Top Seller Orinter 2023, 2024 e 2025 (terceiro ano consecutivo)",
+        "Best Seller Operadora Confiança 2024"
+      ],
+      "sameAs": [
+        "https://www.instagram.com/amoembarque/",
+        "https://www.facebook.com/AMOEMBARQUE",
+        "https://www.linkedin.com/company/amoembarque-turismo/",
+        "https://www.youtube.com/@amoembarque",
+        "https://www.tiktok.com/@amoembarque",
+        "https://share.google/GmiOnWB5OwBAfA53e"
+      ]
+    },
+    {
       "@type": "Article",
       "@id": "https://missaocantonfair.com/descubra#article",
       "headline": "Descubra sua melhor fase na Canton Fair 2026",
@@ -360,21 +432,51 @@ footer a{color:var(--g);}
       "image": "https://missaocantonfair.com/img/grupo_canton2025.webp",
       "datePublished": "2026-05-25",
       "dateModified": "2026-06-26",
-      "author": {"@type":"Person","name":"Kadidia Umar","jobTitle":"CEO — AMO Embarque","url":"https://missaocantonfair.com"},
-      "publisher": {"@type":"Organization","name":"AMO Embarque","logo":"https://missaocantonfair.com/img/amo-embarque-logo-agencia-viagens-chapeco.jpg"},
+      "author": {
+        "@type": "Person",
+        "@id": "https://amoembarque.com/#kadidia-umar",
+        "name": "Kadidia Umar",
+        "jobTitle": "CEO da AMO Embarque",
+        "url": "https://amoembarque.com/a-amo/kadidia-umar/"
+      },
+      "publisher": {
+        "@id": "https://amoembarque.com/#organizacao"
+      },
       "mainEntityOfPage": "https://missaocantonfair.com/descubra",
       "about": [
-        {"@type":"Thing","name":"Canton Fair 2026"},
-        {"@type":"Thing","name":"Fases da Canton Fair"},
-        {"@type":"Thing","name":"Missão empresarial à China"},
-        {"@type":"Thing","name":"Importação da China"}
+        {
+          "@type": "Thing",
+          "name": "Canton Fair 2026"
+        },
+        {
+          "@type": "Thing",
+          "name": "Fases da Canton Fair"
+        },
+        {
+          "@type": "Thing",
+          "name": "Missão empresarial à China"
+        },
+        {
+          "@type": "Thing",
+          "name": "Importação da China"
+        }
       ]
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {"@type":"ListItem","position":1,"name":"Início","item":"https://missaocantonfair.com/"},
-        {"@type":"ListItem","position":2,"name":"Descubra sua fase","item":"https://missaocantonfair.com/descubra"}
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Início",
+          "item": "https://missaocantonfair.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Descubra sua fase",
+          "item": "https://missaocantonfair.com/descubra"
+        }
       ]
     }
   ]
@@ -383,7 +485,6 @@ footer a{color:var(--g);}
 <link rel="stylesheet" href="/assets/css/amo-crm.css?v=49">
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MP8RJ4BK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <form name="descubra-lead" data-netlify="true" netlify-honeypot="bot-field" hidden>
   <input type="text" name="bot-field"><input type="text" name="nome"><input type="tel" name="whatsapp">
   <input type="text" name="setor"><input type="text" name="situacao"><input type="text" name="pessoas"><input type="text" name="fase_resultado"><input type="text" name="quando">

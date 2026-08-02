@@ -5,13 +5,6 @@
       data-amo-ga="G-EY0B7MKZ3E G-TKW7ZSSV34">
 <head>
 <meta charset="UTF-8">
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MP8RJ4BK');</script>
-<!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ══ SEO PRIMARY ══ -->
@@ -40,8 +33,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta property="article:author" content="Kadidia Umar — AMO Embarque">
 
 <!-- ══ FAVICON ══ -->
-<link rel="icon" type="image/jpeg" href="img/amo-embarque-logo-agencia-viagens-chapeco.jpg">
-<link rel="apple-touch-icon" href="img/amo-embarque-logo-agencia-viagens-chapeco.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#7DFF00">
 
 <!-- ══ SCHEMA — Article + BreadcrumbList + FAQPage ══ -->
@@ -49,6 +44,76 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 {
   "@context": "https://schema.org",
   "@graph": [
+    {
+      "@type": [
+        "Organization",
+        "TravelAgency"
+      ],
+      "@id": "https://amoembarque.com/#organizacao",
+      "name": "AMO Embarque",
+      "alternateName": "AMO Embarque Agência de Viagens e Turismo",
+      "legalName": "Agencia de Viagens Jamila Umar Ltda",
+      "taxID": "33.541.159/0001-72",
+      "url": "https://amoembarque.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://amoembarque.com/#logo",
+        "url": "https://amoembarque.com/assets/img/amo-embarque-logo-agencia-viagens-chapeco.jpg",
+        "caption": "Logo da AMO Embarque"
+      },
+      "description": "A AMO Embarque é uma agência de viagens de Chapecó-SC formada 100% por mulheres, fundada pelas irmãs Jamila e Kadidia Umar, com atuação nacional, especializada em viagens personalizadas para pessoas e famílias (AMO Turismo) e em gestão de viagens e missões empresariais para empresas (AMO Corporativo). São mais de 15 anos de experiência e mais de 12 mil viajantes atendidos.",
+      "telephone": "+55-49-3316-1858",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Av. General Osório, 231-D, Sala 04, Centro",
+        "addressLocality": "Chapecó",
+        "addressRegion": "SC",
+        "postalCode": "89802-211",
+        "addressCountry": "BR"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "18:30"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Brasil"
+      },
+      "founder": [
+        {
+          "@type": "Person",
+          "@id": "https://amoembarque.com/#kadidia-umar",
+          "name": "Kadidia Umar",
+          "jobTitle": "CEO da AMO Embarque"
+        },
+        {
+          "@type": "Person",
+          "@id": "https://amoembarque.com/#jamila-umar",
+          "name": "Jamila Umar",
+          "jobTitle": "Sócia fundadora e consultora sênior da AMO Embarque"
+        }
+      ],
+      "award": [
+        "Top Seller Orinter 2023, 2024 e 2025 (terceiro ano consecutivo)",
+        "Best Seller Operadora Confiança 2024"
+      ],
+      "sameAs": [
+        "https://www.instagram.com/amoembarque/",
+        "https://www.facebook.com/AMOEMBARQUE",
+        "https://www.linkedin.com/company/amoembarque-turismo/",
+        "https://www.youtube.com/@amoembarque",
+        "https://www.tiktok.com/@amoembarque",
+        "https://share.google/GmiOnWB5OwBAfA53e"
+      ]
+    },
     {
       "@type": "Article",
       "@id": "https://missaocantonfair.com/guia-canton-fair#article",
@@ -59,32 +124,76 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "dateModified": "2026-08-02",
       "author": {
         "@type": "Person",
+        "@id": "https://amoembarque.com/#kadidia-umar",
         "name": "Kadidia Umar",
-        "jobTitle": "CEO — AMO Embarque",
-        "url": "https://missaocantonfair.com"
+        "jobTitle": "CEO da AMO Embarque",
+        "url": "https://amoembarque.com/a-amo/kadidia-umar/"
       },
       "publisher": {
-        "@type": "Organization",
-        "name": "AMO Embarque",
-        "logo": "https://missaocantonfair.com/img/amo-embarque-logo-agencia-viagens-chapeco.jpg"
+        "@id": "https://amoembarque.com/#organizacao"
       },
       "mainEntityOfPage": "https://missaocantonfair.com/guia-canton-fair"
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {"@type":"ListItem","position":1,"name":"Início","item":"https://missaocantonfair.com/"},
-        {"@type":"ListItem","position":2,"name":"Guia Canton Fair","item":"https://missaocantonfair.com/guia-canton-fair"}
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Início",
+          "item": "https://missaocantonfair.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Guia Canton Fair",
+          "item": "https://missaocantonfair.com/guia-canton-fair"
+        }
       ]
     },
     {
       "@type": "FAQPage",
       "mainEntity": [
-        {"@type":"Question","name":"Preciso de visto para ir à Canton Fair?","acceptedAnswer":{"@type":"Answer","text":"Para a edição de outubro de 2026, não. A China isenta brasileiros de visto para estadas de até 30 dias desde 1º de junho de 2025, em política unilateral prorrogada até 31 de dezembro de 2026. Basta passaporte com pelo menos 6 meses de validade após o retorno. Para viagens de 2027 a orientação é caso a caso, conforme a política vigente na data do embarque."}},
-        {"@type":"Question","name":"Quais são as datas da Canton Fair 2026?","acceptedAnswer":{"@type":"Answer","text":"Canton Fair outubro 2026 — Fase 1: 15 a 19 de outubro (Tecnologia, EVs, Energia); Fase 2: 23 a 27 de outubro (Casa, Consumo, Presentes); Fase 3: 31 de outubro a 4 de novembro (Têxtil, Saúde, Esportes)."}},
-        {"@type":"Question","name":"Vale a pena ir à Canton Fair com grupo organizado?","acceptedAnswer":{"@type":"Answer","text":"Sim, especialmente para quem vai pela primeira vez. Um grupo organizado com guia, credencial de importador e roteiro curado permite aproveitar 5x mais a feira do que indo sozinho."}},
-        {"@type":"Question","name":"Como é a negociação com fornecedores chineses na Canton Fair?","acceptedAnswer":{"@type":"Answer","text":"A negociação exige preparação cultural e conhecimento de etiqueta local. Chineses valorizam respeito hierárquico, reuniões formais e paciência. Com o apoio da equipe AMO na negociação, você consegue melhores preços e condições do que negociando sozinho."}},
-        {"@type":"Question","name":"Quanto custa ir à Canton Fair pelo Brasil?","acceptedAnswer":{"@type":"Answer","text":"O investimento inclui passagem aérea, hotel, traslados e credencial. O valor varia conforme as fases escolhidas. A AMO Embarque oferece proposta personalizada pelo WhatsApp (49) 9 9938-0070."}}
+        {
+          "@type": "Question",
+          "name": "Preciso de visto para ir à Canton Fair?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Para a edição de outubro de 2026, não. A China isenta brasileiros de visto para estadas de até 30 dias desde 1º de junho de 2025, em política unilateral prorrogada até 31 de dezembro de 2026. Basta passaporte com pelo menos 6 meses de validade após o retorno. Para viagens de 2027 a orientação é caso a caso, conforme a política vigente na data do embarque."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quais são as datas da Canton Fair 2026?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Canton Fair outubro 2026 — Fase 1: 15 a 19 de outubro (Tecnologia, EVs, Energia); Fase 2: 23 a 27 de outubro (Casa, Consumo, Presentes); Fase 3: 31 de outubro a 4 de novembro (Têxtil, Saúde, Esportes)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Vale a pena ir à Canton Fair com grupo organizado?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim, especialmente para quem vai pela primeira vez. Um grupo organizado com guia, credencial de importador e roteiro curado permite aproveitar 5x mais a feira do que indo sozinho."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Como é a negociação com fornecedores chineses na Canton Fair?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A negociação exige preparação cultural e conhecimento de etiqueta local. Chineses valorizam respeito hierárquico, reuniões formais e paciência. Com o apoio da equipe AMO na negociação, você consegue melhores preços e condições do que negociando sozinho."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quanto custa ir à Canton Fair pelo Brasil?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "O investimento inclui passagem aérea, hotel, traslados e credencial. O valor varia conforme as fases escolhidas. A AMO Embarque oferece proposta personalizada pelo WhatsApp (49) 9 9938-0070."
+          }
+        }
       ]
     }
   ]
@@ -374,10 +483,6 @@ p.art-p:last-child{margin-bottom:0;}
 </head>
 
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MP8RJ4BK"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
 <!-- NAV -->
 <nav class="nav">

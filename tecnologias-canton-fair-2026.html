@@ -5,7 +5,6 @@
       data-amo-ga="G-EY0B7MKZ3E G-TKW7ZSSV34">
 <head>
 <meta charset="UTF-8">
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MP8RJ4BK');</script>
 <!-- Google tag (gtag.js) — DUAS propriedades de proposito.
      G-EY0B7MKZ3E e a propriedade historica deste site. G-TKW7ZSSV34 e a da AMO
      Embarque. So com as duas medindo o mesmo visitante da para responder a
@@ -61,8 +60,10 @@
 <meta property="article:tag" content="robos humanoides">
 
 <!-- ══ FAVICON ══ -->
-<link rel="icon" type="image/jpeg" href="img/amo-embarque-logo-agencia-viagens-chapeco.jpg">
-<link rel="apple-touch-icon" href="img/amo-embarque-logo-agencia-viagens-chapeco.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#7DFF00">
 
 <!-- ══ SCHEMA ══ -->
@@ -71,6 +72,76 @@
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": [
+        "Organization",
+        "TravelAgency"
+      ],
+      "@id": "https://amoembarque.com/#organizacao",
+      "name": "AMO Embarque",
+      "alternateName": "AMO Embarque Agência de Viagens e Turismo",
+      "legalName": "Agencia de Viagens Jamila Umar Ltda",
+      "taxID": "33.541.159/0001-72",
+      "url": "https://amoembarque.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://amoembarque.com/#logo",
+        "url": "https://amoembarque.com/assets/img/amo-embarque-logo-agencia-viagens-chapeco.jpg",
+        "caption": "Logo da AMO Embarque"
+      },
+      "description": "A AMO Embarque é uma agência de viagens de Chapecó-SC formada 100% por mulheres, fundada pelas irmãs Jamila e Kadidia Umar, com atuação nacional, especializada em viagens personalizadas para pessoas e famílias (AMO Turismo) e em gestão de viagens e missões empresariais para empresas (AMO Corporativo). São mais de 15 anos de experiência e mais de 12 mil viajantes atendidos.",
+      "telephone": "+55-49-3316-1858",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Av. General Osório, 231-D, Sala 04, Centro",
+        "addressLocality": "Chapecó",
+        "addressRegion": "SC",
+        "postalCode": "89802-211",
+        "addressCountry": "BR"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
+        "opens": "09:00",
+        "closes": "18:30"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Brasil"
+      },
+      "founder": [
+        {
+          "@type": "Person",
+          "@id": "https://amoembarque.com/#kadidia-umar",
+          "name": "Kadidia Umar",
+          "jobTitle": "CEO da AMO Embarque"
+        },
+        {
+          "@type": "Person",
+          "@id": "https://amoembarque.com/#jamila-umar",
+          "name": "Jamila Umar",
+          "jobTitle": "Sócia fundadora e consultora sênior da AMO Embarque"
+        }
+      ],
+      "award": [
+        "Top Seller Orinter 2023, 2024 e 2025 (terceiro ano consecutivo)",
+        "Best Seller Operadora Confiança 2024"
+      ],
+      "sameAs": [
+        "https://www.instagram.com/amoembarque/",
+        "https://www.facebook.com/AMOEMBARQUE",
+        "https://www.linkedin.com/company/amoembarque-turismo/",
+        "https://www.youtube.com/@amoembarque",
+        "https://www.tiktok.com/@amoembarque",
+        "https://share.google/GmiOnWB5OwBAfA53e"
+      ]
+    },
+    {
       "@type": "Article",
       "@id": "https://missaocantonfair.com/tecnologias-canton-fair-2026#article",
       "headline": "Tecnologias da Canton Fair 2026 — O que Chega no Brasil nos Próximos Anos",
@@ -78,33 +149,106 @@
       "image": "https://missaocantonfair.com/img/canton-fair-2025-xiaomi-su7-veiculo-eletrico-verde.webp",
       "datePublished": "2026-05-25",
       "dateModified": "2026-08-02",
-      "author": {"@type":"Person","name":"Kadidia Umar","jobTitle":"CEO — AMO Embarque","url":"https://missaocantonfair.com"},
-      "publisher": {"@type":"Organization","name":"AMO Embarque","logo":"https://missaocantonfair.com/img/amo-embarque-logo-agencia-viagens-chapeco.jpg"},
+      "author": {
+        "@type": "Person",
+        "@id": "https://amoembarque.com/#kadidia-umar",
+        "name": "Kadidia Umar",
+        "jobTitle": "CEO da AMO Embarque",
+        "url": "https://amoembarque.com/a-amo/kadidia-umar/"
+      },
+      "publisher": {
+        "@id": "https://amoembarque.com/#organizacao"
+      },
       "mainEntityOfPage": "https://missaocantonfair.com/tecnologias-canton-fair-2026",
       "about": [
-        {"@type":"Thing","name":"Canton Fair 2026"},
-        {"@type":"Thing","name":"Robótica Humanóide"},
-        {"@type":"Thing","name":"Inteligência Artificial"},
-        {"@type":"Thing","name":"Veículos Elétricos"},
-        {"@type":"Thing","name":"Importação da China"}
+        {
+          "@type": "Thing",
+          "name": "Canton Fair 2026"
+        },
+        {
+          "@type": "Thing",
+          "name": "Robótica Humanóide"
+        },
+        {
+          "@type": "Thing",
+          "name": "Inteligência Artificial"
+        },
+        {
+          "@type": "Thing",
+          "name": "Veículos Elétricos"
+        },
+        {
+          "@type": "Thing",
+          "name": "Importação da China"
+        }
       ]
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {"@type":"ListItem","position":1,"name":"Início","item":"https://missaocantonfair.com/"},
-        {"@type":"ListItem","position":2,"name":"Guia Canton Fair","item":"https://missaocantonfair.com/guia-canton-fair"},
-        {"@type":"ListItem","position":3,"name":"Tecnologias 2026","item":"https://missaocantonfair.com/tecnologias-canton-fair-2026"}
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Início",
+          "item": "https://missaocantonfair.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Guia Canton Fair",
+          "item": "https://missaocantonfair.com/guia-canton-fair"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Tecnologias 2026",
+          "item": "https://missaocantonfair.com/tecnologias-canton-fair-2026"
+        }
       ]
     },
     {
       "@type": "FAQPage",
       "mainEntity": [
-        {"@type":"Question","name":"Quais são as principais tecnologias da Canton Fair 2026?","acceptedAnswer":{"@type":"Answer","text":"A Canton Fair 2026 é dominada pelo que a China chama de 'ultra-new three': veículos elétricos, baterias de nova energia e painéis solares. Além disso, robôs humanoides, IA embarcada em produtos de consumo, drones eVTOL e wearables inteligentes estão em destaque na Fase 1 de outubro."}},
-        {"@type":"Question","name":"Posso comprar robôs humanoides na Canton Fair?","acceptedAnswer":{"@type":"Answer","text":"Sim. Na edição de abril 2026 já era possível negociar robôs humanoides para funções logísticas e industriais, com preços a partir de 200.000 yuan (aproximadamente R$200.000). Os preços caíram 35% em doze meses e continuam em queda."}},
-        {"@type":"Question","name":"Canton Fair outubro 2026 vai ter mais inovações que abril?","acceptedAnswer":{"@type":"Answer","text":"A edição de outubro (140ª) consolida os produtos lançados em abril com menor custo de produção e maior volume disponível para exportação. É o momento ideal para negociar preços de fábrica em produtos que já foram validados pelo mercado global na edição anterior."}},
-        {"@type":"Question","name":"Quais tecnologias da China ainda não chegaram no Brasil?","acceptedAnswer":{"@type":"Answer","text":"Robôs de serviço para hospitalidade, eVTOL de baixo custo, wearables com IA integrada, soluções de energia off-grid com armazenamento em baterias de estado sólido, e uma nova geração de eletrônicos de consumo com IA local (sem nuvem) são categorias ainda inexploradas no mercado brasileiro."}},
-        {"@type":"Question","name":"Como ir à Canton Fair outubro 2026 para ver essas tecnologias?","acceptedAnswer":{"@type":"Answer","text":"A AMO Embarque organiza missão empresarial à Canton Fair outubro 2026 saindo de São Paulo, com guia, credencial de importador e roteiro curado para a Fase 1 (tecnologia). Entre em contato pelo WhatsApp (49) 9 9938-0070."}}
+        {
+          "@type": "Question",
+          "name": "Quais são as principais tecnologias da Canton Fair 2026?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A Canton Fair 2026 é dominada pelo que a China chama de 'ultra-new three': veículos elétricos, baterias de nova energia e painéis solares. Além disso, robôs humanoides, IA embarcada em produtos de consumo, drones eVTOL e wearables inteligentes estão em destaque na Fase 1 de outubro."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Posso comprar robôs humanoides na Canton Fair?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim. Na edição de abril 2026 já era possível negociar robôs humanoides para funções logísticas e industriais, com preços a partir de 200.000 yuan (aproximadamente R$200.000). Os preços caíram 35% em doze meses e continuam em queda."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Canton Fair outubro 2026 vai ter mais inovações que abril?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A edição de outubro (140ª) consolida os produtos lançados em abril com menor custo de produção e maior volume disponível para exportação. É o momento ideal para negociar preços de fábrica em produtos que já foram validados pelo mercado global na edição anterior."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quais tecnologias da China ainda não chegaram no Brasil?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Robôs de serviço para hospitalidade, eVTOL de baixo custo, wearables com IA integrada, soluções de energia off-grid com armazenamento em baterias de estado sólido, e uma nova geração de eletrônicos de consumo com IA local (sem nuvem) são categorias ainda inexploradas no mercado brasileiro."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Como ir à Canton Fair outubro 2026 para ver essas tecnologias?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A AMO Embarque organiza missão empresarial à Canton Fair outubro 2026 saindo de São Paulo, com guia, credencial de importador e roteiro curado para a Fase 1 (tecnologia). Entre em contato pelo WhatsApp (49) 9 9938-0070."
+          }
+        }
       ]
     }
   ]
@@ -283,7 +427,6 @@ footer a{color:var(--g);}
 <link rel="stylesheet" href="/assets/css/amo-crm.css?v=49">
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MP8RJ4BK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- NAV -->
 <nav class="nav">
