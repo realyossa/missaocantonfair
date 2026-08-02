@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-amo-braco="corporativo"
+      data-amo-assunto="a missão à Canton Fair"
+      data-amo-privacidade="https://amoembarque.com/privacidade/"
+      data-amo-ga="G-EY0B7MKZ3E G-TKW7ZSSV34">
 <head>
 <meta charset="UTF-8">
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MP8RJ4BK');</script>
+<!-- Google tag (gtag.js) — DUAS propriedades de proposito.
+     G-EY0B7MKZ3E e a propriedade historica deste site. G-TKW7ZSSV34 e a da AMO
+     Embarque. So com as duas medindo o mesmo visitante da para responder a
+     unica pergunta que importa aqui: quem chega pela feira vira missao no
+     amoembarque.com? Sem o mesmo identificador nos dois dominios, essa
+     travessia aparece como duas visitas de duas pessoas diferentes. -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EY0B7MKZ3E"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-EY0B7MKZ3E');</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  // LGPD: quem recusou a medicao no aviso desliga o GA4 antes do page_view.
+  // Precisa estar aqui, no head, e nao no amo-crm.js (defer roda tarde demais).
+  // Recusar desliga as DUAS propriedades: a escolha e sobre ser medido, nao
+  // sobre qual planilha recebe.
+  try { if (localStorage.getItem('amo_consent') === 'nao') {
+    window['ga-disable-G-EY0B7MKZ3E'] = true;
+    window['ga-disable-G-TKW7ZSSV34'] = true;
+  } } catch (e) {}
+  var AMO_DOMINIOS = ['missaocantonfair.com', 'www.missaocantonfair.com',
+                      'amoembarque.com', 'www.amoembarque.com'];
+  gtag('config', 'G-EY0B7MKZ3E', { linker: { domains: AMO_DOMINIOS } });
+  gtag('config', 'G-TKW7ZSSV34', { linker: { domains: AMO_DOMINIOS } });
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ══ SEO ══ -->
@@ -52,7 +77,7 @@
       "description": "Robôs humanoides, IA embarcada, veículos elétricos e drones eVTOL. As tecnologias que dominaram a Canton Fair abril 2026 e o que outubro vai trazer para empresários brasileiros.",
       "image": "https://missaocantonfair.com/img/canton-fair-2025-xiaomi-su7-veiculo-eletrico-verde.webp",
       "datePublished": "2026-05-25",
-      "dateModified": "2026-05-26",
+      "dateModified": "2026-08-02",
       "author": {"@type":"Person","name":"Kadidia Umar","jobTitle":"CEO — AMO Embarque","url":"https://missaocantonfair.com"},
       "publisher": {"@type":"Organization","name":"AMO Embarque","logo":"https://missaocantonfair.com/img/amo-embarque-logo-agencia-viagens-chapeco.jpg"},
       "mainEntityOfPage": "https://missaocantonfair.com/tecnologias-canton-fair-2026",
@@ -255,6 +280,7 @@ footer a{color:var(--g);}
   .author-box{flex-direction:column;}
 }
 </style>
+<link rel="stylesheet" href="/assets/css/amo-crm.css?v=49">
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MP8RJ4BK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -267,7 +293,7 @@ footer a{color:var(--g);}
   </a>
   <div class="nav-right">
     <a href="https://missaocantonfair.com/guia-canton-fair" class="nav-back">← Guia completo</a>
-    <a href="https://wa.me/5549999380070?text=Vi%20o%20artigo%20sobre%20tecnologias%20da%20Canton%20Fair%202026%20e%20quero%20saber%20sobre%20a%20missão%20de%20outubro" class="nav-cta" target="_blank" rel="noopener noreferrer">Garantir vaga</a>
+    <a data-amo-cta="menu-whatsapp" href="https://wa.me/5549999380070?text=Vi%20o%20artigo%20sobre%20tecnologias%20da%20Canton%20Fair%202026%20e%20quero%20saber%20sobre%20a%20missão%20de%20outubro" class="nav-cta" target="_blank" rel="noopener noreferrer">Garantir vaga</a>
   </div>
 </nav>
 
@@ -284,8 +310,29 @@ footer a{color:var(--g);}
   <h1 class="art-h1">Canton Fair 2026:<br><em>as tecnologias que ainda<br>não chegaram no Brasil.</em></h1>
   <div class="art-meta">
     <span>Por <strong>Kadidia Umar</strong> · CEO AMO Embarque</span>
-    <span class="art-updated">Atualizado maio 2026</span>
+    <span class="art-updated">Atualizado 2 de agosto de 2026</span>
     <span class="art-reading">⏱ 10 min</span>
+  </div>
+</div>
+
+<!-- RESPOSTA DIRETA. Bloco criado em 02/08/2026 por causa de um numero do GA4
+     desta propriedade: quem chega por assistente de IA fica 6 segundos na
+     pagina, contra 59 segundos de quem chega por busca organica. Essa pessoa
+     JA leu a resposta no chat e clica so para conferir a fonte; se a primeira
+     coisa que ela ve for narrativa, ela sai antes do primeiro fato. Este bloco
+     devolve em texto estatico o que um chat nao entrega: data, fase, quem leva
+     e com quem falar. Rastreador de IA nao executa JavaScript — por isso o
+     bloco e HTML servido, nunca componente. -->
+<div style="padding:0 24px;max-width:calc(var(--max) + 48px);margin:24px auto 0;">
+  <div style="border:1px solid var(--bs);border-radius:14px;padding:20px 22px;background:rgba(125,255,0,.05);">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:12px;">Resposta direta</div>
+    <p style="font-size:14.5px;line-height:1.7;color:var(--wd);margin:0 0 12px;">Na <strong style="color:var(--white);">Canton Fair de abril de 2026</strong> &mdash; 139&ordf; edi&ccedil;&atilde;o &mdash; foram exibidos 4,65 milh&otilde;es de produtos, 23% deles lan&ccedil;amentos absolutos, em 1,55 milh&atilde;o de m&sup2;, recorde hist&oacute;rico da feira. O eixo deixou de ser manufatura barata: o que dominou os pavilh&otilde;es foi <strong style="color:var(--white);">rob&oacute;tica, intelig&ecirc;ncia artificial embarcada e mobilidade el&eacute;trica</strong> &mdash; rob&ocirc;s human&oacute;ides ficaram cerca de 35% mais baratos em doze meses, e eVTOL e drones ganharam espa&ccedil;o pr&oacute;prio. A <strong style="color:var(--white);">140&ordf; edi&ccedil;&atilde;o acontece de 15 de outubro a 4 de novembro de 2026</strong> e deve aprofundar os mesmos tr&ecirc;s eixos. Este artigo detalha, categoria por categoria, o que j&aacute; est&aacute; dispon&iacute;vel para exporta&ccedil;&atilde;o e ainda n&atilde;o chegou ao Brasil.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;border-top:1px solid var(--b);padding-top:14px;">
+      <div><div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wdd);margin-bottom:2px;">Pr&oacute;xima edi&ccedil;&atilde;o</div><div style="font-size:13.5px;color:var(--white);line-height:1.5;">140&ordf; &middot; 15 de outubro a 4 de novembro de 2026</div></div>
+      <div><div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wdd);margin-bottom:2px;">Onde</div><div style="font-size:13.5px;color:var(--white);line-height:1.5;">Complexo Pazhou, Guangzhou, China</div></div>
+      <div><div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wdd);margin-bottom:2px;">Fase da tecnologia</div><div style="font-size:13.5px;color:var(--white);line-height:1.5;">Fase 1 &middot; 15 a 19 de outubro</div></div>
+      <div><div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wdd);margin-bottom:2px;">Quem leva do Brasil</div><div style="font-size:13.5px;color:var(--white);line-height:1.5;">AMO Embarque, Chapec&oacute;-SC, desde 2012 &middot; sa&iacute;da de Guarulhos</div></div>
+    </div>
   </div>
 </div>
 
@@ -406,7 +453,7 @@ footer a{color:var(--g);}
     <h3>Quer ver o <em>ultra-new three</em> pessoalmente?</h3>
     <p>Fase 1 da missão AMO Embarque — 15 a 19 de outubro de 2026. Guia e credencial de importador inclusos.</p>
     <div class="cta-btns">
-      <a href="https://wa.me/5549999380070?text=Quero%20participar%20da%20Fase%201%20da%20missão%20Canton%20Fair%20outubro%202026%20-%20tecnologia%20e%20EVs" class="btn-primary" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.126.554 4.118 1.522 5.851L.044 23.956l6.277-1.446A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.367l-.36-.214-3.724.857.896-3.62-.236-.374A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg> Quero a Fase 1</a>
+      <a data-amo-cta="card-whatsapp-fase-1" href="https://wa.me/5549999380070?text=Quero%20participar%20da%20Fase%201%20da%20missão%20Canton%20Fair%20outubro%202026%20-%20tecnologia%20e%20EVs" class="btn-primary" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.126.554 4.118 1.522 5.851L.044 23.956l6.277-1.446A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.367l-.36-.214-3.724.857.896-3.62-.236-.374A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg> Quero a Fase 1</a>
       <a href="https://missaocantonfair.com/" class="btn-secondary">Ver missão completa</a>
     </div>
   </div>
@@ -624,7 +671,7 @@ footer a{color:var(--g);}
     <h3>Veja essas tecnologias <em>pessoalmente</em> em outubro.</h3>
     <p>Missão AMO Embarque à Canton Fair — Fase 1, 15 a 19 de outubro de 2026. Vagas limitadas.</p>
     <div class="cta-btns">
-      <a href="https://wa.me/5549999380070?text=Li%20o%20artigo%20sobre%20tecnologias%20da%20Canton%20Fair%202026%20e%20quero%20garantir%20minha%20vaga%20na%20missão%20de%20outubro" class="btn-primary" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.126.554 4.118 1.522 5.851L.044 23.956l6.277-1.446A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.367l-.36-.214-3.724.857.896-3.62-.236-.374A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg> Quero minha vaga</a>
+      <a data-amo-cta="final-whatsapp-vaga" href="https://wa.me/5549999380070?text=Li%20o%20artigo%20sobre%20tecnologias%20da%20Canton%20Fair%202026%20e%20quero%20garantir%20minha%20vaga%20na%20missão%20de%20outubro" class="btn-primary" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.126.554 4.118 1.522 5.851L.044 23.956l6.277-1.446A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.367l-.36-.214-3.724.857.896-3.62-.236-.374A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg> Quero minha vaga</a>
       <a href="https://missaocantonfair.com/descubra" class="btn-secondary"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.126.554 4.118 1.522 5.851L.044 23.956l6.277-1.446A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.367l-.36-.214-3.724.857.896-3.62-.236-.374A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg> Descobrir minha fase</a>
     </div>
     <p style="font-size:12px;color:var(--wdd);margin-top:12px;">100% gratuito consultar · Sem compromisso · Resposta em até 24h</p>
@@ -712,5 +759,8 @@ document.querySelectorAll('.faq-item').forEach(item=>{
 });
 </script>
 
+<!-- CRM da AMO. Mesmo arquivo do amoembarque.com, byte a byte: o que muda
+     por site vem nos atributos data-amo-* do <html>, la em cima. -->
+<script defer src="/assets/js/amo-crm.js?v=52"></script>
 </body>
 </html>

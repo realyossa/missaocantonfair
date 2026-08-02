@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-amo-braco="corporativo"
+      data-amo-assunto="a missão à Canton Fair"
+      data-amo-privacidade="https://amoembarque.com/privacidade/"
+      data-amo-ga="G-EY0B7MKZ3E G-TKW7ZSSV34">
 <head>
 <meta charset="UTF-8">
 <!-- Google Tag Manager -->
@@ -53,7 +56,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "description": "Tudo que você precisa saber antes de ir à Canton Fair 2026: fases, setores, visto, o que levar, como negociar com chineses e por que ir com grupo organizado.",
       "image": "https://missaocantonfair.com/img/grupo_canton2025.webp",
       "datePublished": "2026-05-01",
-      "dateModified": "2026-05-23",
+      "dateModified": "2026-08-02",
       "author": {
         "@type": "Person",
         "name": "Kadidia Umar",
@@ -77,7 +80,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {
       "@type": "FAQPage",
       "mainEntity": [
-        {"@type":"Question","name":"Preciso de visto para ir à Canton Fair?","acceptedAnswer":{"@type":"Answer","text":"Não. Desde 2025 brasileiros têm isenção de visto para a China por até 30 dias. Você precisa apenas de passaporte válido com mais de 6 meses de validade."}},
+        {"@type":"Question","name":"Preciso de visto para ir à Canton Fair?","acceptedAnswer":{"@type":"Answer","text":"Para a edição de outubro de 2026, não. A China isenta brasileiros de visto para estadas de até 30 dias desde 1º de junho de 2025, em política unilateral prorrogada até 31 de dezembro de 2026. Basta passaporte com pelo menos 6 meses de validade após o retorno. Para viagens de 2027 a orientação é caso a caso, conforme a política vigente na data do embarque."}},
         {"@type":"Question","name":"Quais são as datas da Canton Fair 2026?","acceptedAnswer":{"@type":"Answer","text":"Canton Fair outubro 2026 — Fase 1: 15 a 19 de outubro (Tecnologia, EVs, Energia); Fase 2: 23 a 27 de outubro (Casa, Consumo, Presentes); Fase 3: 31 de outubro a 4 de novembro (Têxtil, Saúde, Esportes)."}},
         {"@type":"Question","name":"Vale a pena ir à Canton Fair com grupo organizado?","acceptedAnswer":{"@type":"Answer","text":"Sim, especialmente para quem vai pela primeira vez. Um grupo organizado com guia, credencial de importador e roteiro curado permite aproveitar 5x mais a feira do que indo sozinho."}},
         {"@type":"Question","name":"Como é a negociação com fornecedores chineses na Canton Fair?","acceptedAnswer":{"@type":"Answer","text":"A negociação exige preparação cultural e conhecimento de etiqueta local. Chineses valorizam respeito hierárquico, reuniões formais e paciência. Com o apoio da equipe AMO na negociação, você consegue melhores preços e condições do que negociando sozinho."}},
@@ -343,14 +346,31 @@ p.art-p:last-child{margin-bottom:0;}
   .author-box{flex-direction:column;}
 }
 </style>
-<!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js) — DUAS propriedades de proposito.
+     G-EY0B7MKZ3E e a propriedade historica deste site. G-TKW7ZSSV34 e a da AMO
+     Embarque. So com as duas medindo o mesmo visitante da para responder a
+     unica pergunta que importa aqui: quem chega pela feira vira missao no
+     amoembarque.com? Sem o mesmo identificador nos dois dominios, essa
+     travessia aparece como duas visitas de duas pessoas diferentes. -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EY0B7MKZ3E"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-EY0B7MKZ3E');
+  // LGPD: quem recusou a medicao no aviso desliga o GA4 antes do page_view.
+  // Precisa estar aqui, no head, e nao no amo-crm.js (defer roda tarde demais).
+  // Recusar desliga as DUAS propriedades: a escolha e sobre ser medido, nao
+  // sobre qual planilha recebe.
+  try { if (localStorage.getItem('amo_consent') === 'nao') {
+    window['ga-disable-G-EY0B7MKZ3E'] = true;
+    window['ga-disable-G-TKW7ZSSV34'] = true;
+  } } catch (e) {}
+  var AMO_DOMINIOS = ['missaocantonfair.com', 'www.missaocantonfair.com',
+                      'amoembarque.com', 'www.amoembarque.com'];
+  gtag('config', 'G-EY0B7MKZ3E', { linker: { domains: AMO_DOMINIOS } });
+  gtag('config', 'G-TKW7ZSSV34', { linker: { domains: AMO_DOMINIOS } });
 </script>
+<link rel="stylesheet" href="/assets/css/amo-crm.css?v=49">
 </head>
 
 <body>
@@ -369,7 +389,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
     <span>Voltar à missão</span>
   </a>
-  <a href="https://wa.me/5549999380070?text=Vi%20o%20guia%20da%20Canton%20Fair%20e%20quero%20saber%20mais%20sobre%20a%20missão%202026" class="nav-cta" target="_blank" rel="noopener noreferrer">Garantir vaga</a>
+  <a data-amo-cta="menu-whatsapp" href="https://wa.me/5549999380070?text=Vi%20o%20guia%20da%20Canton%20Fair%20e%20quero%20saber%20mais%20sobre%20a%20missão%202026" class="nav-cta" target="_blank" rel="noopener noreferrer">Garantir vaga</a>
 </nav>
 
 <!-- HERO -->
@@ -386,8 +406,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <img src="img/kadidia-jamila-umar-amo-embarque-topseller-orinter-2024.webp" alt="Kadidia Umar — CEO AMO Embarque">
       <div><strong>Kadidia Umar</strong> · CEO, AMO Embarque</div>
     </div>
-    <span>Atualizado em maio de 2026</span>
+    <span>Atualizado em 2 de agosto de 2026</span>
     <span class="art-reading">⏱ 8 min de leitura</span>
+  </div>
+</div>
+
+<!-- RESPOSTA DIRETA. Bloco criado em 02/08/2026 por causa de um numero do GA4
+     desta propriedade: quem chega por assistente de IA fica 6 segundos na
+     pagina, contra 59 segundos de quem chega por busca organica. Nao e falta
+     de interesse — e que essa pessoa JA leu a resposta no chat e clica so
+     para conferir a fonte. Se a primeira coisa que ela ve for narrativa
+     ("voce ouviu falar da Canton Fair..."), ela sai antes do primeiro fato.
+     Este bloco devolve, em texto estatico e autossuficiente, exatamente o
+     que um chat nao entrega: quem leva, de onde sai, com que data e com quem
+     falar. Estatico de proposito: rastreador de IA nao executa JavaScript. -->
+<div style="padding:0 24px;max-width:calc(720px + 48px);margin:0 auto 8px;">
+  <div style="border:1px solid var(--bs);border-radius:14px;padding:20px 22px;background:rgba(125,255,0,.05);">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:12px;">Resposta direta</div>
+    <p style="font-size:14.5px;line-height:1.7;color:var(--wd);margin:0 0 12px;">A <strong style="color:var(--white);">Canton Fair</strong> (nome oficial: China Import and Export Fair) &eacute; a maior feira multissetorial do mundo, realizada duas vezes por ano em Guangzhou, na China, desde 1957. A 140&ordf; edi&ccedil;&atilde;o acontece de <strong style="color:var(--white);">15 de outubro a 4 de novembro de 2026</strong>, em tr&ecirc;s fases de cinco dias. Um empres&aacute;rio brasileiro pode ir por conta pr&oacute;pria &mdash; credenciamento, passagem, hotel, deslocamento di&aacute;rio e agenda de fornecedores por sua conta &mdash; ou com miss&atilde;o organizada. A <strong style="color:var(--white);">AMO Embarque</strong> leva grupos brasileiros &agrave; feira <strong style="color:var(--white);">desde 2012</strong>, com sa&iacute;da de Guarulhos, guia especializado em miss&otilde;es Brasil&ndash;China e agenda montada por setor.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;border-top:1px solid var(--b);padding-top:14px;">
+      <div><div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wdd);margin-bottom:2px;">Onde</div><div style="font-size:13.5px;color:var(--white);line-height:1.5;">Complexo Pazhou, Guangzhou, China</div></div>
+      <div><div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wdd);margin-bottom:2px;">Pr&oacute;ximas edi&ccedil;&otilde;es</div><div style="font-size:13.5px;color:var(--white);line-height:1.5;">140&ordf;: 15/10 a 04/11/2026<br>141&ordf;: 15/04 a 05/05/2027<br>142&ordf;: 15/10 a 04/11/2027</div></div>
+      <div><div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wdd);margin-bottom:2px;">Documento</div><div style="font-size:13.5px;color:var(--white);line-height:1.5;">Passaporte com 6 meses de validade. Isen&ccedil;&atilde;o de visto declarada at&eacute; 31/12/2026</div></div>
+      <div><div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wdd);margin-bottom:2px;">Quem leva do Brasil</div><div style="font-size:13.5px;color:var(--white);line-height:1.5;">AMO Embarque, Chapec&oacute;-SC &middot; <a href="https://amoembarque.com/corporativo/canton-fair/" style="color:var(--g);">amoembarque.com</a></div></div>
+    </div>
   </div>
 </div>
 
@@ -423,7 +465,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="callout green">
     <div class="callout-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-    <div class="callout-text"><strong>Boa notícia:</strong> desde 2025, brasileiros têm isenção total de visto para a China por até 30 dias. A burocracia diminuiu bastante. O principal obstáculo agora é saber como aproveitar a feira — e é exatamente disso que este guia trata.</div>
+    <div class="callout-text"><strong>Boa notícia:</strong> desde junho de 2025 brasileiros entram na China sem visto por até 30 dias — política chinesa prorrogada até 31 de dezembro de 2026, o que cobre integralmente a edição de outubro de 2026. A burocracia diminuiu bastante. O principal obstáculo agora é saber como aproveitar a feira — e é exatamente disso que este guia trata.</div>
   </div>
 
   <div class="art-divider"></div>
@@ -449,7 +491,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h3>Quer ir à Canton Fair <em>outubro 2026?</em></h3>
     <p>A AMO Embarque organiza missão com guia, credencial de importador e roteiro completo. Vagas limitadas.</p>
     <div class="cta-btns">
-      <a href="https://wa.me/5549999380070?text=Vi%20o%20guia%20da%20Canton%20Fair%20e%20quero%20saber%20mais%20sobre%20a%20missão%202026" class="btn-primary" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.126.554 4.118 1.522 5.851L.044 23.956l6.277-1.446A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.367l-.36-.214-3.724.857.896-3.62-.236-.374A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg> Falar no WhatsApp</a>
+      <a data-amo-cta="meio-whatsapp-vagas" href="https://wa.me/5549999380070?text=Vi%20o%20guia%20da%20Canton%20Fair%20e%20quero%20saber%20mais%20sobre%20a%20missão%202026" class="btn-primary" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.126.554 4.118 1.522 5.851L.044 23.956l6.277-1.446A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.367l-.36-.214-3.724.857.896-3.62-.236-.374A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg> Falar no WhatsApp</a>
       <a href="https://missaocantonfair.com/" class="btn-secondary">Ver a missão completa</a>
     </div>
   </div>
@@ -535,7 +577,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- SEÇÃO 3 -->
   <div class="art-section" id="visto">
     <h2 class="art-h2">Visto para a China: o que <em>mudou em 2025</em></h2>
-    <p class="art-p">Esta é a melhor notícia dos últimos anos para o empresário brasileiro: <strong>desde 2025, o Brasil tem isenção bilateral de visto com a China</strong> por até 30 dias consecutivos. Você precisa apenas de:</p>
+    <p class="art-p">Esta é a melhor notícia dos últimos anos para o empresário brasileiro: <strong>desde 1º de junho de 2025 a China isenta brasileiros de visto</strong> para estadas de até 30 dias, a negócios ou a turismo. É uma política unilateral chinesa, hoje prorrogada até <strong>31 de dezembro de 2026</strong> — desde 11 de maio de 2026 o Brasil isenta chineses na mesma linha. Para a edição de outubro de 2026 você precisa apenas de:</p>
     <ul class="checklist">
       <li><strong>Passaporte brasileiro válido</strong> com pelo menos 6 meses de validade após a data de retorno</li>
       <li><strong>Bilhete de ida e volta</strong> confirmado</li>
@@ -543,6 +585,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li><strong>Dinheiro ou cartão</strong> para as despesas pessoais</li>
     </ul>
     <p class="art-p">Nada de consulado, nada de formulário online, nada de espera. A entrada é feita direto no aeroporto com o passaporte. A AMO Embarque orienta todos os participantes sobre o processo completo no briefing pré-viagem.</p>
+    <p class="art-p"><strong>Planejando 2027?</strong> A isenção está declarada até 31 de dezembro de 2026. Para as edições de abril e outubro de 2027 a AMO orienta a documentação caso a caso, conforme a política vigente na data do embarque — e avisa cada participante assim que houver definição.</p>
 
     <div class="callout blue">
       <div class="callout-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
@@ -611,7 +654,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p>Grupo pequeno, atenção individualizada. Saída de São Paulo para todo o Brasil.</p>
     <div class="cta-btns">
       <a href="https://missaocantonfair.com/#formulario" class="btn-primary"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.126.554 4.118 1.522 5.851L.044 23.956l6.277-1.446A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.367l-.36-.214-3.724.857.896-3.62-.236-.374A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg> Quero minha vaga →</a>
-      <a href="https://wa.me/5549999380070?text=Quero%20saber%20mais%20sobre%20a%20Missão%20Canton%20Fair%202026" class="btn-secondary" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a data-amo-cta="card-whatsapp-minha-vaga" href="https://wa.me/5549999380070?text=Quero%20saber%20mais%20sobre%20a%20Missão%20Canton%20Fair%202026" class="btn-secondary" target="_blank" rel="noopener noreferrer">WhatsApp</a>
     </div>
   </div>
 
@@ -688,7 +731,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h3>Pronto para ir à Canton Fair <em>em outubro?</em></h3>
     <p>Fale agora com a AMO Embarque. Nossa equipe está pronta para montar sua proposta personalizada — sem compromisso.</p>
     <div class="cta-btns">
-      <a href="https://wa.me/5549999380070?text=Vi%20o%20guia%20da%20Canton%20Fair%20e%20quero%20minha%20proposta%20para%20a%20missão%20outubro%202026" class="btn-primary" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.126.554 4.118 1.522 5.851L.044 23.956l6.277-1.446A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.367l-.36-.214-3.724.857.896-3.62-.236-.374A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg> Quero minha proposta</a>
+      <a data-amo-cta="final-whatsapp-proposta" href="https://wa.me/5549999380070?text=Vi%20o%20guia%20da%20Canton%20Fair%20e%20quero%20minha%20proposta%20para%20a%20missão%20outubro%202026" class="btn-primary" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.126.554 4.118 1.522 5.851L.044 23.956l6.277-1.446A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.367l-.36-.214-3.724.857.896-3.62-.236-.374A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg> Quero minha proposta</a>
       <a href="https://missaocantonfair.com/#formulario" class="btn-secondary">Preencher formulário</a>
     </div>
     <p style="font-size:12px;color:var(--wdd);margin-top:14px;">100% gratuito · Sem compromisso · Resposta em até 24h</p>
@@ -710,5 +753,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p>© 2026 <a href="https://missaocantonfair.com/">AMO Embarque</a> — Missão Canton Fair 2026 · Chapecó/SC · <a href="https://missaocantonfair.com/">Voltar à página principal</a></p>
 </footer>
 
+<!-- CRM da AMO. Mesmo arquivo do amoembarque.com, byte a byte: o que muda
+     por site vem nos atributos data-amo-* do <html>, la em cima. -->
+<script defer src="/assets/js/amo-crm.js?v=52"></script>
 </body>
 </html>

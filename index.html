@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-amo-braco="corporativo"
+      data-amo-assunto="a missão à Canton Fair"
+      data-amo-privacidade="https://amoembarque.com/privacidade/"
+      data-amo-ga="G-EY0B7MKZ3E G-TKW7ZSSV34">
 <head>
 <meta charset="UTF-8">
 <!-- Google Tag Manager -->
@@ -114,9 +117,66 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "image": "https://missaocantonfair.com/img/jamila-amo-embarque-canton-fair-suzhou-2025.webp"
     },
     {
+      "@type": "Event",
+      "@id": "https://missaocantonfair.com/#event-141",
+      "name": "Missão Empresarial Canton Fair Abril 2027 — 141ª edição",
+      "description": "Viagem empresarial organizada pela AMO Embarque à Canton Fair 141ª edição, em Guangzhou, China, de 15 de abril a 5 de maio de 2027, em três fases de cinco dias. Saída de Guarulhos, guia especializado em missões Brasil-China e agenda montada por setor.",
+      "startDate": "2027-04-15",
+      "endDate": "2027-05-05",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Canton Fair — Pazhou Complex",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Guangzhou",
+          "addressCountry": "CN"
+        }
+      },
+      "organizer": { "@id": "https://amoembarque.com/#organizacao" },
+      "offers": {
+        "@type": "Offer",
+        "availability": "https://schema.org/PreOrder",
+        "url": "https://amoembarque.com/corporativo/canton-fair/missao-abril-2027/",
+        "priceCurrency": "BRL",
+        "validFrom": "2026-08-02"
+      },
+      "image": "https://missaocantonfair.com/img/canton-fair-abril-2027-141-edicao-convite-missao-brasil.png"
+    },
+    {
+      "@type": "Event",
+      "@id": "https://missaocantonfair.com/#event-142",
+      "name": "Missão Empresarial Canton Fair Outubro 2027 — 142ª edição",
+      "description": "Viagem empresarial organizada pela AMO Embarque à Canton Fair 142ª edição, em Guangzhou, China, de 15 de outubro a 4 de novembro de 2027, em três fases de cinco dias. Saída de Guarulhos, guia especializado em missões Brasil-China e agenda montada por setor.",
+      "startDate": "2027-10-15",
+      "endDate": "2027-11-04",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "Canton Fair — Pazhou Complex",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Guangzhou",
+          "addressCountry": "CN"
+        }
+      },
+      "organizer": { "@id": "https://amoembarque.com/#organizacao" },
+      "offers": {
+        "@type": "Offer",
+        "availability": "https://schema.org/PreOrder",
+        "url": "https://amoembarque.com/corporativo/canton-fair/missao-outubro-2027/",
+        "priceCurrency": "BRL",
+        "validFrom": "2026-08-02"
+      },
+      "image": "https://missaocantonfair.com/img/jamila-amo-embarque-canton-fair-suzhou-2025.webp"
+    },
+    {
       "@type": "FAQPage",
       "mainEntity": [
-        {"@type":"Question","name":"Preciso de visto para ir à China?","acceptedAnswer":{"@type":"Answer","text":"Não. Desde 2025 o Brasil tem isenção de visto para a China por até 30 dias. Você precisa apenas de passaporte válido com mais de 6 meses de validade."}},
+        {"@type":"Question","name":"Preciso de visto para ir à China?","acceptedAnswer":{"@type":"Answer","text":"Para a edição de outubro de 2026, não. A China isenta brasileiros de visto para estadas de até 30 dias desde 1º de junho de 2025, em política unilateral prorrogada até 31 de dezembro de 2026. Basta passaporte com pelo menos 6 meses de validade após o retorno. Para embarques de 2027 a orientação é caso a caso, conforme a política vigente na data da viagem."}},
+        {"@type":"Question","name":"Quando é a Canton Fair em 2027?","acceptedAnswer":{"@type":"Answer","text":"O calendário da Canton Fair é fixo: a edição de primavera abre sempre em 15 de abril e a de outono sempre em 15 de outubro, em três fases de cinco dias com três dias de intervalo. Em 2027 isso corresponde à 141ª edição, de 15 de abril a 5 de maio, e à 142ª edição, de 15 de outubro a 4 de novembro. A AMO Embarque mantém grupo aberto para as duas."}},
         {"@type":"Question","name":"O que está incluído na missão Canton Fair?","acceptedAnswer":{"@type":"Answer","text":"Passagem aérea, hotel, traslados, credencial de importador, briefing de negociação e suporte completo durante toda a viagem."}},
         {"@type":"Question","name":"Qual o valor da missão Canton Fair 2026?","acceptedAnswer":{"@type":"Answer","text":"Os valores variam conforme a configuração e quais fases serão visitadas. Entre em contato pelo WhatsApp para uma proposta personalizada. Vagas limitadas."}},
         {"@type":"Question","name":"A AMO Embarque já realizou essa missão antes?","acceptedAnswer":{"@type":"Answer","text":"Sim. Em outubro de 2025 realizamos missão à Canton Fair em parceria com a ACIC Chapecó, com mais de 20 empresários e cobertura da imprensa regional. No total, já levamos mais de 100 empresários em nossas missões internacionais."}}
@@ -1756,6 +1816,26 @@ footer{background:rgba(5,7,5,0.95);border-top:1px solid var(--b);padding:52px 0 
 /* ──────────────────────────────────────────
    HERO STATS BAR (substitui info-card + proof)
    ────────────────────────────────────────── */
+/* Faixa de proximas edicoes na primeira tela. Estatica de proposito: e
+   exatamente o bloco que precisa existir no HTML servido, porque rastreador
+   de IA nao executa JavaScript. */
+.hero-edicoes{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+  margin:22px auto 0;max-width:640px;
+}
+.hero-edicoes a{
+  display:flex;flex-direction:column;gap:2px;
+  padding:10px 18px;border:1px solid var(--b);border-radius:10px;
+  background:rgba(125,255,0,.05);text-decoration:none;
+  transition:border-color .25s,background .25s;
+}
+.hero-edicoes a:hover{border-color:var(--bs);background:rgba(125,255,0,.09);}
+.hero-edicoes strong{font-size:13px;font-weight:700;color:var(--g);letter-spacing:.02em;}
+.hero-edicoes span{font-size:12px;color:var(--wd);}
+@media(max-width:600px){
+  .hero-edicoes{gap:8px;}
+  .hero-edicoes a{padding:8px 14px;flex:1 1 auto;align-items:center;}
+}
 .hero-stats-bar{
   position:relative;
   z-index:5;
@@ -2719,14 +2799,31 @@ body::after{z-index:9999;}
 .descubra-banner a{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid var(--bs);color:var(--g);font-size:13px;font-weight:600;padding:10px 18px;border-radius:30px;text-decoration:none;white-space:nowrap;transition:background .25s,color .25s;flex-shrink:0;}
 .descubra-banner a:hover{background:var(--g);color:#080B08;}
 </style>
-<!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js) — DUAS propriedades de proposito.
+     G-EY0B7MKZ3E e a propriedade historica deste site. G-TKW7ZSSV34 e a da AMO
+     Embarque. So com as duas medindo o mesmo visitante da para responder a
+     unica pergunta que importa aqui: quem chega pela feira vira missao no
+     amoembarque.com? Sem o mesmo identificador nos dois dominios, essa
+     travessia aparece como duas visitas de duas pessoas diferentes. -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EY0B7MKZ3E"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-EY0B7MKZ3E');
+  // LGPD: quem recusou a medicao no aviso desliga o GA4 antes do page_view.
+  // Precisa estar aqui, no head, e nao no amo-crm.js (defer roda tarde demais).
+  // Recusar desliga as DUAS propriedades: a escolha e sobre ser medido, nao
+  // sobre qual planilha recebe.
+  try { if (localStorage.getItem('amo_consent') === 'nao') {
+    window['ga-disable-G-EY0B7MKZ3E'] = true;
+    window['ga-disable-G-TKW7ZSSV34'] = true;
+  } } catch (e) {}
+  var AMO_DOMINIOS = ['missaocantonfair.com', 'www.missaocantonfair.com',
+                      'amoembarque.com', 'www.amoembarque.com'];
+  gtag('config', 'G-EY0B7MKZ3E', { linker: { domains: AMO_DOMINIOS } });
+  gtag('config', 'G-TKW7ZSSV34', { linker: { domains: AMO_DOMINIOS } });
 </script>
+<link rel="stylesheet" href="/assets/css/amo-crm.css?v=49">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -2804,7 +2901,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </ul>
 
     <div class="nav-actions">
-      <a href="https://wa.me/5549999380070" target="_blank" rel="noopener" class="nav-wa">
+      <a data-amo-cta="menu-whatsapp" href="https://wa.me/5549999380070" target="_blank" rel="noopener" class="nav-wa">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         <span>WhatsApp</span>
       </a>
@@ -2829,7 +2926,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a href="#faq" onclick="closeMM()">FAQ</a>
   <a href="#onde" onclick="closeMM()">Localização</a>
   <div class="mm-divider"></div>
-  <a href="https://wa.me/5549999380070" target="_blank" rel="noopener noreferrer" style="color:#25D366">WhatsApp</a>
+  <a data-amo-cta="menu-whatsapp-mobile" href="https://wa.me/5549999380070" target="_blank" rel="noopener noreferrer" style="color:#25D366">WhatsApp</a>
   <a href="#formulario" onclick="closeMM()" style="background:var(--g);color:var(--ink);font-weight:700;margin-top:4px">Quero participar →</a>
 </div>
 
@@ -2843,7 +2940,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="wrap">
     <div class="hero-cinematic">
-      <div class="hero-badge">140ª Edição — Outubro / Novembro 2026</div>
+      <div class="hero-badge">140ª edição · 15 de outubro a 4 de novembro de 2026 · Guangzhou</div>
 
       <h1 class="hero-h1-big">
         Vá à <em>Canton Fair</em><br>
@@ -2851,9 +2948,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         conhece o caminho.
       </h1>
 
+      <!-- Primeira tela reescrita em 02/08/2026. O GA4 desta propriedade mostra
+           que quem chega por assistente de IA fica 6 segundos, contra 59 de quem
+           chega por busca organica. A diferenca nao e de interesse: e que essa
+           pessoa JA recebeu a resposta no chat e clica para conferir a fonte.
+           Se a primeira tela repete adjetivo em vez de devolver fato, ela sai.
+           Por isso a abertura agora e definicional e carrega, na propria frase,
+           o que um chat nao tem como entregar: quem organiza, de onde sai, com
+           quem se fala e quais sao as proximas edicoes com data. -->
       <p class="hero-sub-center">
-        Missões à <strong>Canton Fair desde 2012</strong> — levando empresários brasileiros ao <em>epicentro global dos negócios</em>, com foco total em <strong>oportunidades reais de business.</strong>
+        A <strong>AMO Embarque</strong> é a agência de Chapecó-SC que leva empresários brasileiros à <strong>Canton Fair desde 2012</strong>, com saída de Guarulhos, guia especializado em missões Brasil&ndash;China e agenda montada por setor. <em>Grupo aberto para outubro de 2026 e para as duas edições de 2027.</em>
       </p>
+
+      <!-- As proximas edicoes, com data, na primeira tela. E a informacao mais
+           procurada do nicho e a que faz alguem ficar em vez de voltar. -->
+      <div class="hero-edicoes">
+        <a href="#fases">
+          <strong>140ª · out 2026</strong>
+          <span>15 out — 4 nov</span>
+        </a>
+        <a href="/descubra#2027">
+          <strong>141ª · abr 2027</strong>
+          <span>15 abr — 5 mai</span>
+        </a>
+        <a href="/descubra#2027">
+          <strong>142ª · out 2027</strong>
+          <span>15 out — 4 nov</span>
+        </a>
+      </div>
       <!-- Quiz CTA pulsante centralizado -->
       <button type="button" class="quiz-cta-btn pulsing hero-quiz-btn-cinema" onclick="openQuiz()">
         <span class="qcb-text">
@@ -3538,7 +3660,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div style="display:flex;align-items:center;gap:5px;">
           <span itemprop="ratingValue" content="4.8" style="font-size:12px;font-weight:700;color:var(--white);">4,8</span>
           <span style="color:#FBBC05;font-size:13px;">★★★★★</span>
-          <span itemprop="reviewCount" content="161" style="font-size:11px;color:var(--wd);margin-left:2px;">161 avaliações</span>
+          <span itemprop="reviewCount" content="160" style="font-size:11px;color:var(--wd);margin-left:2px;">160 avaliações</span>
           <meta itemprop="bestRating" content="5">
         </div>
         <div style="font-size:10px;color:var(--g);font-weight:600;letter-spacing:.06em;text-transform:uppercase;">Verificar no Google</div>
@@ -3618,7 +3740,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             Ver cobertura na imprensa — Missão 2025
           </a>
-          <div class="g-badge"><svg width="80" height="13" viewBox="0 0 82 14" fill="#F4C542" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle"><polygon points="7,0.5 8.6,5 13.5,5.3 9.8,8.5 11,13.3 7,10.7 3,13.3 4.2,8.5 0.5,5.3 5.4,5"/><polygon points="23,0.5 24.6,5 29.5,5.3 25.8,8.5 27,13.3 23,10.7 19,13.3 20.2,8.5 16.5,5.3 21.4,5"/><polygon points="39,0.5 40.6,5 45.5,5.3 41.8,8.5 43,13.3 39,10.7 35,13.3 36.2,8.5 32.5,5.3 37.4,5"/><polygon points="55,0.5 56.6,5 61.5,5.3 57.8,8.5 59,13.3 55,10.7 51,13.3 52.2,8.5 48.5,5.3 53.4,5"/><polygon points="71,0.5 72.6,5 77.5,5.3 73.8,8.5 75,13.3 71,10.7 67,13.3 68.2,8.5 64.5,5.3 69.4,5"/></svg> 4,8 · 161 aval. Google</div>
+          <div class="g-badge"><svg width="80" height="13" viewBox="0 0 82 14" fill="#F4C542" xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle"><polygon points="7,0.5 8.6,5 13.5,5.3 9.8,8.5 11,13.3 7,10.7 3,13.3 4.2,8.5 0.5,5.3 5.4,5"/><polygon points="23,0.5 24.6,5 29.5,5.3 25.8,8.5 27,13.3 23,10.7 19,13.3 20.2,8.5 16.5,5.3 21.4,5"/><polygon points="39,0.5 40.6,5 45.5,5.3 41.8,8.5 43,13.3 39,10.7 35,13.3 36.2,8.5 32.5,5.3 37.4,5"/><polygon points="55,0.5 56.6,5 61.5,5.3 57.8,8.5 59,13.3 55,10.7 51,13.3 52.2,8.5 48.5,5.3 53.4,5"/><polygon points="71,0.5 72.6,5 77.5,5.3 73.8,8.5 75,13.3 71,10.7 67,13.3 68.2,8.5 64.5,5.3 69.4,5"/></svg> 4,8 · 160 aval. Google</div>
         </div>
       </div>
     </div>
@@ -3657,8 +3779,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         </div>
         <div>
-          <div style="font-size:13px;font-weight:700;color:var(--white);">Outubro 2026 não dá? A próxima edição é em 2027.</div>
-          <div style="font-size:12px;color:var(--wdd);margin-top:2px;">Quem planeja com antecedência negocia melhor e voa mais barato.</div>
+          <div style="font-size:13px;font-weight:700;color:var(--white);">Outubro 2026 não dá? Em 2027 são duas edições: 15 de abril a 5 de maio e 15 de outubro a 4 de novembro.</div>
+          <div style="font-size:12px;color:var(--wdd);margin-top:2px;">Grupo aberto para as duas. Quem planeja cedo escolhe fornecedor com calma e voa mais barato.</div>
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--g);white-space:nowrap;flex-shrink:0;">
@@ -3703,7 +3825,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div class="quiz-cta-alt">
         <span>Prefere falar agora?</span>
-        <a href="https://wa.me/5549999380070?text=Olá%2C%20tenho%20interesse%20na%20Missão%20Canton%20Fair%20e%20gostaria%20de%20mais%20informações." target="_blank" rel="noopener">
+        <a data-amo-cta="formulario-whatsapp-falar-agora" href="https://wa.me/5549999380070?text=Olá%2C%20tenho%20interesse%20na%20Missão%20Canton%20Fair%20e%20gostaria%20de%20mais%20informações." target="_blank" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.195 2.105 3.195 5.1 4.485.714.3 1.27.48 1.704.629.714.227 1.365.195 1.88.121.574-.091 1.767-.721 2.016-1.426.255-.705.255-1.29.18-1.425-.074-.135-.27-.21-.57-.345m-5.446 7.443h-.016a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.999-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
           WhatsApp · (49) 9 9938-0070
         </a>
@@ -3755,7 +3877,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="fi fade-up" onclick="toggleFaq(this)"><div class="fq"><span>Preciso de visto para ir à China à Canton Fair?</span><div class="fi-ico">+</div></div><div class="fa"><p class="fa-in">Não. Desde 2025 o Brasil tem isenção de visto para a China por até 30 dias. Você precisa apenas de passaporte válido com mais de 6 meses de validade.</p></div></div>
       <div class="fi fade-up stagger-1" onclick="toggleFaq(this)"><div class="fq"><span>Quanto custa ir à Canton Fair pelo Brasil?</span><div class="fi-ico">+</div></div><div class="fa"><p class="fa-in">O investimento varia conforme as fases visitadas e o roteiro escolhido (só a Canton Fair ou com add-on Dubai/Pequim). A AMO oferece proposta personalizada com condições de parcelamento. Fale pelo WhatsApp (49) 9 9938-0070 para receber uma cotação sem compromisso.</p></div></div>
       <div class="fi fade-up stagger-2" onclick="toggleFaq(this)"><div class="fq"><span>Posso ir apenas em uma das fases?</span><div class="fi-ico">+</div></div><div class="fa"><p class="fa-in">Sim. Você pode escolher uma, duas ou todas as três fases. O roteiro pode ser adaptado. Fale conosco para montar sua visita ideal.</p></div></div>
-      <div class="fi fade-up stagger-3" onclick="toggleFaq(this)"><div class="fq"><span>A AMO Embarque é uma agência confiável para a Canton Fair?</span><div class="fi-ico">+</div></div><div class="fa"><p class="fa-in">Sim. Em outubro de 2025 realizamos missão empresarial à Canton Fair com +100 empresários do Sul do Brasil, em parceria oficial com a ACIC Chapecó — com cobertura da imprensa regional e depoimentos verificáveis. +15 anos de operação, 4,8 estrelas no Google com 161 avaliações e premiações consecutivas Top Seller Orinter 2023, 2024 e 2025.</p></div></div>
+      <div class="fi fade-up stagger-3" onclick="toggleFaq(this)"><div class="fq"><span>A AMO Embarque é uma agência confiável para a Canton Fair?</span><div class="fi-ico">+</div></div><div class="fa"><p class="fa-in">Sim. Em outubro de 2025 realizamos missão empresarial à Canton Fair com +100 empresários do Sul do Brasil, em parceria oficial com a ACIC Chapecó — com cobertura da imprensa regional e depoimentos verificáveis. +15 anos de operação, 4,8 estrelas no Google com 160 avaliações e premiações consecutivas Top Seller Orinter 2023, 2024 e 2025.</p></div></div>
       <div class="fi fade-up stagger-4" onclick="toggleFaq(this)"><div class="fq"><span>Preciso falar inglês ou mandarim?</span><div class="fi-ico">+</div></div><div class="fa"><p class="fa-in">Não. O roteiro é conduzido em português do início ao fim, com a equipe AMO junto em todos os momentos. Você se comunica tranquilamente.</p></div></div>
       <div class="fi fade-up stagger-5" onclick="toggleFaq(this)"><div class="fq"><span>Como funciona o pagamento?</span><div class="fi-ico">+</div></div><div class="fa"><p class="fa-in">Trabalhamos com entrada e parcelamento. Detalhes definidos no momento da reserva. Fale conosco pelo WhatsApp para as condições atuais.</p></div></div>
       <div class="fi fade-up" onclick="toggleFaq(this)"><div class="fq"><span>Vale a pena ir à Canton Fair com grupo organizado?</span><div class="fi-ico">+</div></div><div class="fa"><p class="fa-in">Sim — especialmente para quem nunca foi. A China é um dos destinos mais seguros do mundo para empresários, e Guangzhou é uma metrópole moderna. Com a missão AMO você tem guia, traslado e suporte completo: a única coisa que você precisa fazer é chegar no aeroporto de São Paulo.</p></div></div>
@@ -3776,7 +3898,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2 class="fcta-h fade-up stagger-1">Sua empresa merece estar na<br><em>maior feira</em> do mundo.</h2>
     <p class="fcta-sub fade-up stagger-2">Vagas limitadas. Saída de São Paulo. Garanta sua vaga agora.</p>
     <div class="fcta-btns fade-up stagger-3">
-      <a href="https://wa.me/5549999380070?text=Quero%20participar%20da%20Missão%20Canton%20Fair%202026" target="_blank" rel="noopener" class="btn-wa">
+      <a data-amo-cta="final-whatsapp-garantir-vaga" href="https://wa.me/5549999380070?text=Quero%20participar%20da%20Missão%20Canton%20Fair%202026" target="_blank" rel="noopener" class="btn-wa">
         <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Falar no WhatsApp
       </a>
@@ -3894,7 +4016,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </svg>
           </a>
           <!-- WhatsApp -->
-          <a href="https://wa.me/5549999380070" target="_blank" rel="noopener" class="social-btn" title="WhatsApp AMO Embarque">
+          <a data-amo-cta="rodape-whatsapp-social" href="https://wa.me/5549999380070" target="_blank" rel="noopener" class="social-btn" title="WhatsApp AMO Embarque">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <rect width="24" height="24" rx="5" fill="#25D366"/>
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="white"/>
@@ -3922,9 +4044,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="fc">
         <h5>Contato</h5>
         <ul>
-          <li><a href="tel:+554933161858">(49) 3316-1858</a></li>
-          <li><a href="tel:+5549999380070">(49) 9 9938-0070</a></li>
-          <li><a href="https://wa.me/5549999380070" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+          <li><a data-amo-cta="rodape-tel-fixo" href="tel:+554933161858">(49) 3316-1858</a></li>
+          <li><a data-amo-cta="rodape-tel-celular" href="tel:+5549999380070">(49) 9 9938-0070</a></li>
+          <li><a data-amo-cta="rodape-whatsapp-contato" href="https://wa.me/5549999380070" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
           <li><a href="https://www.instagram.com/amoembarque/" target="_blank" rel="noopener noreferrer">@amoembarque</a></li>
         </ul>
         <p style="font-size:11px;color:var(--wd);margin-top:12px;line-height:1.6">
@@ -4175,7 +4297,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h3 class="qs-question">Recebemos seus dados!</h3>
       <p class="quiz-result-text">Em até <strong>24h úteis</strong> nossa equipe entra em contato pelo WhatsApp com a proposta personalizada da Missão Canton Fair Outubro/2026.</p>
 
-      <a id="quiz-wa-link" href="https://wa.me/5549999380070" target="_blank" rel="noopener" class="quiz-wa-cta">
+      <a data-amo-cta="formulario-whatsapp-sucesso" id="quiz-wa-link" href="https://wa.me/5549999380070" target="_blank" rel="noopener" class="quiz-wa-cta">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.195 2.105 3.195 5.1 4.485.714.3 1.27.48 1.704.629.714.227 1.365.195 1.88.121.574-.091 1.767-.721 2.016-1.426.255-.705.255-1.29.18-1.425-.074-.135-.27-.21-.57-.345m-5.446 7.443h-.016a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.999-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
         Adiantar conversa pelo WhatsApp
       </a>
@@ -4186,7 +4308,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <!-- FLOATING WA -->
-<a href="https://wa.me/5549999380070?text=Vi%20a%20página%20da%20Missão%20Canton%20Fair%202026%20e%20quero%20saber%20mais" target="_blank" rel="noopener" class="float-wa" title="WhatsApp">
+<a data-amo-cta="flutuante-whatsapp" href="https://wa.me/5549999380070?text=Vi%20a%20página%20da%20Missão%20Canton%20Fair%202026%20e%20quero%20saber%20mais" target="_blank" rel="noopener" class="float-wa" title="WhatsApp">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
@@ -4259,6 +4381,9 @@ function openQuiz(){
   $modal().setAttribute('aria-hidden', 'false');
   $body().classList.add('quiz-open');
   resetQuiz();
+  /* Funil (ver amo-crm.js). Chamado DEPOIS de resetQuiz para que a etapa
+     'abriu' nao seja engolida pelo reset, e antes de qualquer interacao. */
+  if (typeof window.amoFunil === 'function') window.amoFunil('quiz-cf', 'abriu');
 }
 function closeQuiz(){
   $modal().classList.remove('open');
@@ -4292,10 +4417,21 @@ function goToStep(n){
   const shell = document.querySelector('.quiz-shell');
   if(shell) shell.scrollTop = 0;
   quizState.step = n;
+  /* Funil: uma etapa por passo alcancado. O amo-crm.js deduplica, entao
+     voltar e avancar de novo nao infla o numero. O passo 1 nao entra: ele
+     e a propria abertura, ja registrada em openQuiz. */
+  if (typeof n === 'number' && n > 1 && typeof window.amoFunil === 'function'){
+    window.amoFunil('quiz-cf', 'passo-' + n);
+  }
 }
 
 function quizBack(){
   if(typeof quizState.step === 'number' && quizState.step > 1){
+    /* Funil: voltar e sinal de pergunta confusa ou de resposta que a pessoa
+       nao encontrou na lista. Registrado com o passo de origem. */
+    if (typeof window.amoFunil === 'function'){
+      window.amoFunil('quiz-cf', 'voltou', { de: 'passo-' + quizState.step });
+    }
     goToStep(quizState.step - 1);
   }
 }
@@ -4344,25 +4480,65 @@ async function submitQuiz(){
   [
     ['q-nome', nome.length >= 2],
     ['q-whatsapp', whatsapp.replace(/\D/g,'').length >= 10],
-    ['q-email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)]
+    /* E-mail e opcional desde 02/08/2026. Quem entregou WhatsApp ja entregou o
+       canal de atendimento; exigir um segundo canal na mesma tela e atrito que
+       custa lead. Se a pessoa escrever algo, o formato ainda e validado — campo
+       opcional nao significa campo que aceita lixo. */
+    ['q-email', email === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)]
   ].forEach(([id, ok]) => {
     const el = document.getElementById(id);
     if(!ok){ el.classList.add('invalid'); valid = false; }
     else el.classList.remove('invalid');
   });
-  if(!valid) return;
+  if(!valid){
+    /* Funil: registra QUAIS campos barraram o envio. E o unico jeito de saber
+       se um campo esta matando conversao antes de tirar o campo no escuro. */
+    if (typeof window.amoFunil === 'function'){
+      const ruins = ['q-nome','q-whatsapp','q-email']
+        .filter(id => document.getElementById(id).classList.contains('invalid'))
+        .join(',');
+      window.amoFunil('quiz-cf', 'erro-validacao', { campos: ruins });
+    }
+    return;
+  }
 
   const perfil = identifyProfile();
+  /* Funil: etapa final. O lead em si sai como tipo 'form' logo abaixo; esta
+     etapa existe para o funil inteiro ser lido num filtro so, por nome_cta. */
+  if (typeof window.amoFunil === 'function') window.amoFunil('quiz-cf', 'enviou');
   const btn = document.querySelector('.quiz-submit-btn');
   btn.disabled = true;
   btn.querySelector('.qsb-text').textContent = 'Enviando...';
 
-  /* 1. Submit to Netlify Forms (background) */
+  /* 1. CRM da AMO (planilha + atribuicao).
+     Vem ANTES do fetch de proposito: o despacho e por sendBeacon e nao
+     depende de a rede responder. Ate 02/08/2026 este lead so existia no
+     Netlify Forms — que parou de receber no dia em que o site saiu da Netlify
+     e foi para o GitHub Pages, onde o POST em '/' nao tem quem atenda. O
+     catch abaixo engolia o erro e mostrava a tela de sucesso do mesmo jeito:
+     a pessoa preenchia, via 'enviado', e nada chegava. Agora o registro sai
+     por sendBeacon para a planilha da AMO, com visitor_id, origem (quem veio
+     do ChatGPT deixa de aparecer como trafego direto), codigo de atribuicao
+     e fila de reenvio se o navegador estiver offline. */
+  if (typeof window.amoLead === 'function'){
+    window.amoLead('canton-fair-quiz', {
+      nome: nome,
+      whatsapp: whatsapp,
+      email: email,
+      empresa: empresa,
+      tipo_participacao: quizState.tipo_participacao,
+      fase_interesse: quizState.fase_interesse,
+      momento_importacao: quizState.momento_importacao,
+      perfil_identificado: perfil
+    });
+  }
+
+  /* 2. Submit to Netlify Forms (background) */
   const formData = new URLSearchParams();
   formData.append('form-name', 'canton-fair-lead');
   formData.append('nome', nome);
   formData.append('whatsapp', whatsapp);
-  formData.append('email', email);
+  formData.append('email', email || '—');
   formData.append('empresa', empresa || '—');
   formData.append('tipo_participacao', quizState.tipo_participacao);
   formData.append('fase_interesse', quizState.fase_interesse);
@@ -4381,13 +4557,13 @@ async function submitQuiz(){
     // Continue anyway — user still gets WhatsApp option
   }
 
-  /* 2. Prepare WhatsApp message for success screen */
+  /* 3. Prepare WhatsApp message for success screen */
   const waMsg = encodeURIComponent(
     `Olá AMO Embarque! Acabei de preencher o quiz da Missão Canton Fair Out/2026.\n\n` +
     `*Meus dados:*\n` +
     `• Nome: ${nome}\n` +
     `• WhatsApp: ${whatsapp}\n` +
-    `• E-mail: ${email}\n` +
+    (email ? `• E-mail: ${email}\n` : '') +
     (empresa ? `• Empresa: ${empresa}\n` : '') +
     `\n*Minhas respostas:*\n` +
     `• Tipo: ${quizState.tipo_participacao}\n` +
@@ -4398,7 +4574,7 @@ async function submitQuiz(){
   );
   document.getElementById('quiz-wa-link').href = `https://wa.me/5549999380070?text=${waMsg}`;
 
-  /* 3. Go to success state */
+  /* 4. Go to success state */
   goToStep('success');
 }
 
@@ -4710,5 +4886,8 @@ document.querySelectorAll('a,button,.pc-wrap,.fi,.oc').forEach(el=>{
   }
 })();
 </script>
+<!-- CRM da AMO. Mesmo arquivo do amoembarque.com, byte a byte: o que muda
+     por site vem nos atributos data-amo-* do <html>, la em cima. -->
+<script defer src="/assets/js/amo-crm.js?v=52"></script>
 </body>
 </html>

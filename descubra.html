@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-amo-braco="corporativo"
+      data-amo-assunto="a missão à Canton Fair"
+      data-amo-privacidade="https://amoembarque.com/privacidade/"
+      data-amo-ga="G-EY0B7MKZ3E G-TKW7ZSSV34">
 <head>
 <meta charset="UTF-8">
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MP8RJ4BK');</script>
+<!-- Google tag (gtag.js) — DUAS propriedades de proposito.
+     G-EY0B7MKZ3E e a propriedade historica deste site. G-TKW7ZSSV34 e a da AMO
+     Embarque. So com as duas medindo o mesmo visitante da para responder a
+     unica pergunta que importa aqui: quem chega pela feira vira missao no
+     amoembarque.com? Sem o mesmo identificador nos dois dominios, essa
+     travessia aparece como duas visitas de duas pessoas diferentes. -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EY0B7MKZ3E"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-EY0B7MKZ3E');</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  // LGPD: quem recusou a medicao no aviso desliga o GA4 antes do page_view.
+  // Precisa estar aqui, no head, e nao no amo-crm.js (defer roda tarde demais).
+  // Recusar desliga as DUAS propriedades: a escolha e sobre ser medido, nao
+  // sobre qual planilha recebe.
+  try { if (localStorage.getItem('amo_consent') === 'nao') {
+    window['ga-disable-G-EY0B7MKZ3E'] = true;
+    window['ga-disable-G-TKW7ZSSV34'] = true;
+  } } catch (e) {}
+  var AMO_DOMINIOS = ['missaocantonfair.com', 'www.missaocantonfair.com',
+                      'amoembarque.com', 'www.amoembarque.com'];
+  gtag('config', 'G-EY0B7MKZ3E', { linker: { domains: AMO_DOMINIOS } });
+  gtag('config', 'G-TKW7ZSSV34', { linker: { domains: AMO_DOMINIOS } });
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Descubra sua melhor fase na Canton Fair 2026 — AMO Embarque</title>
 <meta name="description" content="A maior feira de fornecedores do mundo. Veja o que é, quem foi em 2025 e descubra em 1 minuto qual fase é a certa para o seu negócio.">
@@ -355,6 +380,7 @@ footer a{color:var(--g);}
   ]
 }
 </script>
+<link rel="stylesheet" href="/assets/css/amo-crm.css?v=49">
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MP8RJ4BK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -406,7 +432,7 @@ footer a{color:var(--g);}
 <div class="ticker-wrap" aria-hidden="true">
   <div class="ticker-track" id="ticker-track">
     <!-- first set -->
-    <span class="ticker-item"><span class="ti-dot"></span>4,8 no Google · 161 avaliações</span>
+    <span class="ticker-item"><span class="ti-dot"></span>4,8 no Google · 160 avaliações</span>
     <span class="ticker-item ti-div">·</span>
     <span class="ticker-item"><span class="ti-dot"></span>+15 anos de experiência</span>
     <span class="ticker-item ti-div">·</span>
@@ -427,7 +453,7 @@ footer a{color:var(--g);}
     <span class="ticker-item"><span class="ti-dot"></span>210+ países na Canton Fair</span>
     <span class="ticker-item ti-div">·</span>
     <!-- duplicate for seamless loop -->
-    <span class="ticker-item"><span class="ti-dot"></span>4,8 no Google · 161 avaliações</span>
+    <span class="ticker-item"><span class="ti-dot"></span>4,8 no Google · 160 avaliações</span>
     <span class="ticker-item ti-div">·</span>
     <span class="ticker-item"><span class="ti-dot"></span>+15 anos de experiência</span>
     <span class="ticker-item ti-div">·</span>
@@ -648,7 +674,7 @@ footer a{color:var(--g);}
          onmouseover="this.style.borderColor='rgba(125,255,0,.5)'" onmouseout="this.style.borderColor='rgba(125,255,0,.2)'">
         <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         <div style="text-align:left;">
-          <div style="display:flex;align-items:center;gap:5px;"><span style="font-size:12px;font-weight:700;color:var(--white);">4,8</span><span style="color:#FBBC05;font-size:13px;">★★★★★</span><span style="font-size:11px;color:var(--wd);margin-left:2px;">161 avaliações</span></div>
+          <div style="display:flex;align-items:center;gap:5px;"><span style="font-size:12px;font-weight:700;color:var(--white);">4,8</span><span style="color:#FBBC05;font-size:13px;">★★★★★</span><span style="font-size:11px;color:var(--wd);margin-left:2px;">160 avaliações</span></div>
           <div style="font-size:10px;color:var(--g);font-weight:600;letter-spacing:.06em;text-transform:uppercase;">Verificar no Google</div>
         </div>
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(244,247,238,.4)" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
@@ -674,6 +700,30 @@ footer a{color:var(--g);}
           Com <strong style="color:var(--white);">12 meses de antecedência</strong>, a AMO prepara você do zero: mapeamento do seu setor, briefing personalizado, roteiro por pavilhão e orientação de negociação — antes mesmo de embarcar.
         </p>
 
+        <!-- Datas de 2027 afirmativas. O calendario da Canton Fair e fixo ha
+             decadas: a edicao de primavera abre sempre em 15 de abril e a de
+             outono sempre em 15 de outubro, em tres fases de cinco dias com
+             tres dias de intervalo. Ate 01/08/2026 esta secao dizia "datas
+             confirmadas quando disponiveis" — o que e pior que vago: sugere
+             que a AMO nao sabe quando e a feira que ela organiza ha mais de
+             uma decada. O que a pagina continua NAO podendo dizer e que o
+             CCPIT ja publicou o calendario de 2027; a fonte da afirmacao e o
+             padrao da feira, nao um anuncio do organizador. -->
+        <div style="border:1px solid var(--b);border-radius:12px;padding:18px 20px;margin-bottom:26px;background:rgba(125,255,0,.04);">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:12px;">As duas edicoes de 2027</div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--white);">141&ordf; edi&ccedil;&atilde;o &middot; 15 de abril a 5 de maio de 2027</div>
+              <div style="font-size:13px;color:var(--wd);line-height:1.6;">Fase 1: 15 a 19 de abril &middot; Fase 2: 23 a 27 de abril &middot; Fase 3: 1&ordm; a 5 de maio</div>
+            </div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--white);">142&ordf; edi&ccedil;&atilde;o &middot; 15 de outubro a 4 de novembro de 2027</div>
+              <div style="font-size:13px;color:var(--wd);line-height:1.6;">Fase 1: 15 a 19 de outubro &middot; Fase 2: 23 a 27 de outubro &middot; Fase 3: 31 de outubro a 4 de novembro</div>
+            </div>
+          </div>
+          <p style="font-size:11px;color:var(--wdd);margin-top:12px;line-height:1.55;">O calend&aacute;rio da feira &eacute; fixo: a edi&ccedil;&atilde;o de primavera abre em 15 de abril e a de outono em 15 de outubro, sempre em tr&ecirc;s fases de cinco dias com tr&ecirc;s dias de intervalo entre elas. Sobre documenta&ccedil;&atilde;o: a isen&ccedil;&atilde;o unilateral de visto concedida pela China est&aacute; declarada at&eacute; 31 de dezembro de 2026 &mdash; para viagens de 2027 a AMO orienta o visto caso a caso.</p>
+        </div>
+
         <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">
           <div style="display:flex;align-items:flex-start;gap:10px;">
             <span style="width:18px;height:18px;border-radius:50%;background:rgba(125,255,0,.15);border:1px solid rgba(125,255,0,.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></span>
@@ -693,7 +743,7 @@ footer a{color:var(--g);}
           </div>
         </div>
 
-        <a href="https://wa.me/5549999380070?text=Outubro%202026%20não%20vai%20dar%20para%20mim.%20Tenho%20interesse%20em%20planejar%20para%202027%20com%20a%20AMO%20Embarque.%20Pode%20me%20contar%20mais?"
+        <a data-amo-cta="meio-whatsapp-planejar-2027" href="https://wa.me/5549999380070?text=Outubro%202026%20não%20vai%20dar%20para%20mim.%20Tenho%20interesse%20em%20planejar%20para%202027%20com%20a%20AMO%20Embarque.%20Pode%20me%20contar%20mais?"
            target="_blank" rel="noopener noreferrer"
            style="display:inline-flex;align-items:center;gap:10px;background:transparent;border:1.5px solid var(--bs);color:var(--g);font-size:14px;font-weight:700;padding:14px 24px;border-radius:40px;text-decoration:none;transition:background .25s,color .25s;"
            onmouseover="this.style.background='var(--g)';this.style.color='#080B08'"
@@ -701,7 +751,7 @@ footer a{color:var(--g);}
           <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.126.554 4.118 1.522 5.851L.044 23.956l6.277-1.446A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.367l-.36-.214-3.724.857.896-3.62-.236-.374A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
           Planejar para 2027
         </a>
-        <p style="font-size:11px;color:var(--wdd);margin-top:10px;">Sem compromisso · Resposta em até 24h · Datas confirmadas quando disponíveis</p>
+        <p style="font-size:11px;color:var(--wdd);margin-top:10px;">Sem compromisso · Resposta em até 24h · Grupo aberto para as duas edições de 2027</p>
       </div>
 
       <div>
@@ -709,13 +759,13 @@ footer a{color:var(--g);}
           <div style="aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid var(--b);box-shadow:0 16px 48px rgba(0,0,0,.4);">
             <img
               src="img/canton-fair-abril-2027-141-edicao-convite-missao-brasil.png"
-              alt="Canton Fair Abril 2027 141ª edição convite missão Brasil AMO Embarque — datas e fases previstas missaocantonfair.com"
+              alt="Canton Fair Abril 2027 141ª edição convite missão Brasil AMO Embarque — 15 de abril a 5 de maio de 2027, tres fases"
               title="Missão Canton Fair Abril 2027 — 141ª Edição AMO Embarque"
               loading="lazy" width="1672" height="941"
               style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
           </div>
           <figcaption style="font-size:11px;color:var(--wdd);margin-top:8px;text-align:center;">
-            Canton Fair Abril 2027 — 141ª Edição · Datas sujeitas a confirmação oficial
+            Canton Fair abril de 2027 — 141ª edição · 15 de abril a 5 de maio
           </figcaption>
         </figure>
       </div>
@@ -808,12 +858,12 @@ footer a{color:var(--g);}
         <div class="opt" onclick="sel(this,'s4','abr2027')">
           <span class="opt-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
           <div class="opt-label">Abril 2027</div>
-          <div class="opt-sub">Próxima edição de abril — boa para planejar</div>
+          <div class="opt-sub">141ª edição — 15 de abril a 5 de maio de 2027</div>
         </div>
         <div class="opt" onclick="sel(this,'s4','out2027')">
           <span class="opt-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
           <div class="opt-label">Outubro 2027</div>
-          <div class="opt-sub">Mais tempo para preparar a empresa</div>
+          <div class="opt-sub">142ª edição — 15 de outubro a 4 de novembro de 2027</div>
         </div>
         <div class="opt" onclick="sel(this,'s4','naosei')">
           <span class="opt-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
@@ -867,6 +917,24 @@ if(c&&gp&&gn){
 }
 
 // Quiz
+/* Funil: 'abriu' e disparado quando o diagnostico entra na tela, e nao no
+   carregamento da pagina — a maior parte de quem chega no /descubra nunca
+   rola ate aqui, e contar essas pessoas como abertura de funil apagaria a
+   unica queda que interessa medir. */
+if('IntersectionObserver' in window){
+  document.addEventListener('DOMContentLoaded',function(){
+    var alvo=document.getElementById('quiz');
+    if(!alvo)return;
+    var obs=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        if(typeof window.amoFunil==='function')window.amoFunil('diag-cf','abriu');
+        obs.disconnect();
+      });
+    },{threshold:0.35});
+    obs.observe(alvo);
+  });
+}
 const ans={s1:null,s2:null,s3:null,s4:null};
 const phases={
   tech:{phase:'Fase 1',color:'#4285F4',bg:'rgba(66,133,244,.15)',name:'Tecnologia & Inovação',date:'15 a 19 de outubro de 2026',items:['<strong>Veículos elétricos</strong> — EVs que chegam no Brasil só em 2028','<strong>Eletrônicos e IA embarcada</strong> — O que seus concorrentes ainda não conhecem','<strong>Energia solar</strong> — Painéis e sistemas com preço de fábrica','<strong>Robótica e automação</strong> — Tecnologia industrial da próxima década'],proof:'"Encontrei um fornecedor de componentes solares que reduziu meu custo em 35%." — Participante 2025'},
@@ -890,6 +958,12 @@ function sel(el,step,val){
 function nextStep(from){
   const btn=document.getElementById('next-'+from);
   if(btn&&!btn.classList.contains('ready'))return;
+  /* Funil (ver amo-crm.js). Uma etapa por passo alcancado; o amo-crm.js
+     deduplica por carregamento de pagina, entao refazer o diagnostico nao
+     infla o numero. Ate 02/08/2026 este diagnostico era cego: so o envio
+     final gerava evento, e nao havia como saber em qual pergunta as pessoas
+     paravam. */
+  if(typeof window.amoFunil==='function')window.amoFunil('diag-cf','passo-'+(from+1));
   document.getElementById('step-'+from).classList.remove('active');
   const next=from+1;
   if(next===5){document.getElementById('step-5').classList.add('active');}
@@ -905,8 +979,17 @@ function nextStep(from){
 function submitLead(){
   const nome=document.getElementById('cf-nome').value.trim();
   const wa=document.getElementById('cf-wa').value.trim();
-  if(!nome){document.getElementById('cf-nome').focus();return;}
-  if(!wa){document.getElementById('cf-wa').focus();return;}
+  if(!nome||!wa){
+    /* Funil: registra QUAL campo barrou. Sem isto, um campo que mata
+       conversao so aparece como queda inexplicada entre o passo 5 e o
+       resultado. */
+    if(typeof window.amoFunil==='function'){
+      window.amoFunil('diag-cf','erro-validacao',
+        {campos:[!nome?'cf-nome':'',!wa?'cf-wa':''].filter(Boolean).join(',')});
+    }
+    document.getElementById(!nome?'cf-nome':'cf-wa').focus();
+    return;
+  }
   const d=phases[ans.s1||'tech'];
   const fd=new FormData();
   fd.append('form-name','descubra-lead');
@@ -914,6 +997,20 @@ function submitLead(){
   fd.append('setor',ans.s1||'');fd.append('situacao',ans.s2||'');
   fd.append('pessoas',ans.s3||'');fd.append('fase_resultado',d.phase+' — '+d.name);
   fd.append('quando',ans.s4||'');
+  /* CRM da AMO — vem ANTES do fetch de proposito. O despacho e por
+     sendBeacon e nao depende de a rede responder. Ate 02/08/2026 este lead
+     so existia no Netlify Forms, que parou de receber no dia em que o site
+     saiu da Netlify e foi para o GitHub Pages: o POST em '/' passou a nao
+     ter quem atendesse, o .catch() engolia o erro e o resultado aparecia do
+     mesmo jeito. A pessoa preenchia, via o diagnostico, e nada chegava. */
+  if(typeof window.amoFunil==='function')window.amoFunil('diag-cf','enviou');
+  if(typeof window.amoLead==='function'){
+    window.amoLead('canton-fair-diagnostico',{
+      nome:nome,whatsapp:wa,
+      setor:ans.s1||'',situacao:ans.s2||'',pessoas:ans.s3||'',
+      quando:ans.s4||'',fase_resultado:d.phase+' — '+d.name
+    });
+  }
   fetch('/',{method:'POST',body:fd}).catch(()=>{});
   if(typeof gtag!=='undefined')gtag('event','lead_captured',{sector:ans.s1,phase:d.phase,situation:ans.s2,timing:ans.s4});
   showResult(nome);
@@ -929,7 +1026,11 @@ function showResult(nome){
   document.getElementById('result-items').innerHTML=d.items.map(i=>'<div class="result-item">'+i+'</div>').join('');
   document.getElementById('result-proof').innerHTML=d.proof.split('—')[0]+'<cite>— '+d.proof.split('—')[1]+'</cite>';
   const timingMap={'out2026':'outubro de 2026','abr2027':'abril de 2027','out2027':'outubro de 2027','naosei':'ainda não decidi quando'};
-  const timingTxt=timingMap[ans.s4]||'em breve';
+  /* Sem 'em breve': a skill amo-voz-assertiva proibe a expressao, e aqui ela
+     seria pior que vaga — entraria numa mensagem que a propria pessoa manda
+     para a AMO, dizendo que ela pensa em ir 'em breve'. Quem nao escolheu
+     data nao pensa em breve; pensa em entender antes. */
+  const timingTxt=timingMap[ans.s4]||'quando fizer sentido para a empresa';
   const msg=encodeURIComponent('Olá! Fiz o diagnóstico no site. Meu nome é '+(nome||'visitante')+'. A melhor fase para minha empresa é a '+d.phase+' ('+d.date+'). Penso em ir em '+timingTxt+'. Quero saber mais sobre a missão Canton Fair.');
   document.getElementById('result-wa').href='https://wa.me/5549999380070?text='+msg;
   document.getElementById('progress-fill').style.width='100%';
@@ -953,5 +1054,8 @@ function restart(){
   document.getElementById('quiz').scrollIntoView({behavior:'smooth',block:'start'});
 }
 </script>
+<!-- CRM da AMO. Mesmo arquivo do amoembarque.com, byte a byte: o que muda
+     por site vem nos atributos data-amo-* do <html>, la em cima. -->
+<script defer src="/assets/js/amo-crm.js?v=52"></script>
 </body>
 </html>

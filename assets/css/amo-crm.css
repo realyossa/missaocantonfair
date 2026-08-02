@@ -1,0 +1,428 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   amo-crm.css — estilo dos dois elementos que assets/js/amo-crm.js cria
+   em tempo de execucao: o aviso de medicao (#amo-lgpd) e a captura de
+   segunda chance (#amo-cap).
+
+   Por que arquivo proprio e nao dentro de amo.css: nove paginas do site
+   (a familia canton-fair) carregam amo-crm.js e NAO carregam amo.css —
+   elas tem CSS inline ou cf-lp.css. Se o estilo morasse so em amo.css,
+   nessas nove paginas o aviso e o popup apareceriam crus, sem caixa, sem
+   botao, no meio do conteudo. CSS anda junto com o JS que cria o
+   elemento; quem carrega um carrega o outro.
+
+   Toda variavel tem valor de reserva no proprio var(), porque nessas
+   nove paginas os tokens :root da AMO podem nao existir.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ---------- LGPD: aviso de medicao ---------- */
+/* Barra inferior, nao modal: nao bloqueia leitura nem exige clique para
+   navegar. A /privacidade/ promete "aviso na primeira visita com opcao de
+   recusar" — entao as duas escolhas tem o mesmo peso de alvo. Recusar nao
+   e escondido, nao e cinza-sobre-cinza, nao e menor. */
+#amo-lgpd {
+  position: fixed; left: 50%; bottom: 0; transform: translateX(-50%);
+  z-index: 9998; width: min(100vw, 980px); box-sizing: border-box;
+  background: var(--amo-paper, #F7F8F3); color: var(--amo-ink, #0F130F);
+  border: 1px solid var(--amo-neutral-300, #D3D6CC); border-bottom: 0;
+  border-radius: var(--radius-lg, 20px) var(--radius-lg, 20px) 0 0;
+  padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
+  box-shadow: 0 -10px 34px rgba(15, 19, 15, .16);
+  font-family: var(--font-text, "Plus Jakarta Sans", system-ui, sans-serif);
+  display: grid; gap: var(--space-3, .75rem); align-items: center;
+}
+#amo-lgpd p {
+  margin: 0; max-width: none; font-size: .86rem; line-height: 1.5;
+  color: var(--amo-neutral-700, #45483F);
+}
+/* Estado recolhido: depois de 22 segundos a barra vira uma pastilha discreta
+   no canto. Continua clicavel — quem quiser recusar a medicao encontra a
+   escolha ali, como /privacidade/ promete — mas para de ocupar a tela e para
+   de bloquear o cartao de captura. Barra que so some no clique vira pedagio:
+   o visitante que ignora nunca chega ao cartao, e esse e o caminho mais
+   comum. */
+.amo-lgpd-pill { display: none; }
+#amo-lgpd.recolhido {
+  left: auto; right: var(--space-4, 1rem);
+  bottom: var(--space-4, 1rem);
+  transform: none; width: auto;
+  padding: 0; border: 0; border-radius: 999px;
+  box-shadow: none; background: transparent;
+}
+#amo-lgpd.recolhido p,
+#amo-lgpd.recolhido .amo-lgpd-b { display: none; }
+#amo-lgpd.recolhido .amo-lgpd-pill {
+  display: block;
+  font-family: var(--font-text, "Plus Jakarta Sans", system-ui, sans-serif);
+  font-size: .74rem; font-weight: 600; letter-spacing: .02em;
+  padding: .4rem .85rem;
+  border: 1px solid var(--amo-neutral-300, #D3D6CC);
+  border-radius: 999px;
+  background: var(--amo-paper, #F7F8F3);
+  color: var(--amo-neutral-700, #45483F);
+  box-shadow: 0 .25rem .75rem rgba(15, 19, 15, .12);
+  cursor: pointer; opacity: .82;
+}
+#amo-lgpd.recolhido .amo-lgpd-pill:hover { opacity: 1; }
+#amo-lgpd.recolhido .amo-lgpd-pill:focus-visible {
+  outline: 2px solid var(--amo-ink, #0F130F); outline-offset: 2px; opacity: 1;
+}
+#amo-lgpd p a {
+  color: var(--amo-green-deep, #3E7B00);
+  text-decoration: underline; text-underline-offset: 2px;
+}
+#amo-lgpd .amo-lgpd-b { display: flex; gap: var(--space-2, .5rem); flex-wrap: wrap; }
+#amo-lgpd .amo-lgpd-b button {
+  flex: 1 1 auto; min-width: 9rem; padding: .7rem 1rem; cursor: pointer;
+  border-radius: var(--radius-md, 10px);
+  font: inherit; font-weight: 600; font-size: .88rem;
+  border: 1px solid var(--amo-neutral-300, #D3D6CC);
+  background: #fff; color: var(--amo-neutral-700, #45483F);
+}
+#amo-lgpd .amo-lgpd-b button:hover { border-color: var(--amo-neutral-500, #878B80); }
+#amo-lgpd .amo-lgpd-b .amo-lgpd-ok {
+  background: var(--amo-green-deep, #3E7B00);
+  border-color: var(--amo-green-deep, #3E7B00); color: #fff;
+}
+#amo-lgpd .amo-lgpd-b .amo-lgpd-ok:hover {
+  background: var(--amo-ink, #0F130F); border-color: var(--amo-ink, #0F130F);
+}
+#amo-lgpd .amo-lgpd-b button:focus-visible {
+  outline: 2px solid var(--amo-green, #7DFF00); outline-offset: 2px;
+}
+@media (min-width: 720px) {
+  #amo-lgpd { grid-template-columns: 1fr auto; gap: var(--space-5, 1.25rem); }
+  #amo-lgpd .amo-lgpd-b button { min-width: 10rem; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  #amo-lgpd { animation: amoLgpdIn .3s ease-out; }
+}
+@keyframes amoLgpdIn {
+  from { opacity: 0; transform: translate(-50%, 16px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* ---------- CRM: convite de contato ----------
+   Regra de layout: no desktop o cartao mora no canto inferior DIREITO, nunca
+   no centro. Centralizado ele cobria os botoes principais do hero ("Planejar
+   minha viagem" / "Ver tipos de viagem") — o convite competia com a acao que
+   converte melhor. No celular ele ocupa a faixa de baixo, onde o polegar
+   alcanca e nada importante fica escondido.
+
+   Regra de identidade (revisao de 31/07/2026): o cartao nao inventa estilo
+   proprio. Ele usa os MESMOS tokens semanticos das paginas —
+   --color-surface para o fundo, --color-cta-bg/--color-cta-text no botao
+   (o verde #7DFF00 sobre tinta, identico a .btn--primary do site) e
+   --color-arm na listra de topo e no rotulo. Como amo.css declara
+   [data-arm="turismo"] { --color-arm: gold-deep } e
+   [data-arm="corporativo"] { --color-arm: blue-deep } no <body>, e o cartao
+   e filho do <body>, ele HERDA a cor do braco sozinho: dourado em /turismo,
+   azul em /corporativo, verde-escuro no institucional. Nenhuma linha de JS
+   precisa saber disso.
+
+   Toda variavel continua com valor de reserva literal por causa das nove
+   paginas canton-fair que carregam amo-crm.js sem amo.css. */
+#amo-cap {
+  position: fixed; left: var(--space-3, .75rem); right: var(--space-3, .75rem);
+  bottom: var(--space-3, .75rem); margin-inline: auto;
+  z-index: 9999; max-width: 24rem; box-sizing: border-box;
+  background: var(--color-surface, #FFFFFF);
+  color: var(--color-text, #0F130F);
+  border: 1px solid var(--color-border, #D3D6CC);
+  border-top: 3px solid var(--color-arm, #3E7B00);
+  border-radius: var(--radius-lg, 20px);
+  padding: var(--space-4, 1rem) var(--space-6, 1.5rem) var(--space-4, 1rem);
+  box-shadow: 0 18px 44px rgba(15, 19, 15, .22);
+  font-family: var(--font-text, "Plus Jakarta Sans", system-ui, sans-serif);
+  font-size: var(--text-sm, .9rem);
+}
+@media (min-width: 821px) {
+  #amo-cap { left: auto; right: var(--space-6, 1.5rem); bottom: var(--space-6, 1.5rem); }
+}
+#amo-cap .amo-cap-x {
+  position: absolute; top: 8px; right: 10px; background: none;
+  border: 1px solid transparent; border-radius: 999px;
+  width: 1.9rem; height: 1.9rem; padding: 0;
+  font-size: 1.35rem; line-height: 1; cursor: pointer;
+  color: var(--color-text-muted, #45483F);
+}
+#amo-cap .amo-cap-x:hover { border-color: var(--color-border, #D3D6CC); }
+#amo-cap .amo-cap-x:focus-visible {
+  outline: 2px solid var(--color-arm, #3E7B00); outline-offset: 2px;
+}
+/* Mesmo desenho do .kicker das paginas: e o rotulo que diz de quem e o
+   convite sem precisar de logo nem selo. Carrega o assunto da pagina
+   ("AMO · Lua de mel na Grecia") em vez de gastar uma frase inteira
+   explicando o que a pessoa ja estava lendo. */
+#amo-cap .amo-cap-marca {
+  display: block; margin: 0 0 var(--space-2, .5rem); max-width: none;
+  padding-right: 1.8rem;
+  font-size: var(--text-xs, .8rem); font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; line-height: 1.35;
+  color: var(--color-arm, #3E7B00);
+}
+#amo-cap .amo-cap-t {
+  font-family: var(--font-display, Fraunces, Georgia, serif);
+  font-size: var(--text-lg, 1.25rem); font-weight: 700; line-height: 1.2;
+  margin: 0 0 var(--space-2, .5rem); max-width: none;
+  color: var(--color-text, #0F130F);
+}
+#amo-cap .amo-cap-s {
+  font-size: var(--text-sm, .9rem); line-height: 1.5;
+  color: var(--color-text-muted, #45483F);
+  margin: 0 0 var(--space-3, .75rem); max-width: none;
+}
+#amo-cap .amo-cap-s b { color: var(--color-text, #0F130F); font-weight: 600; }
+#amo-cap .amo-cap-s a {
+  color: var(--color-arm, #3E7B00); font-weight: 600;
+  text-decoration: underline; text-underline-offset: 2px;
+}
+#amo-cap .amo-cap-f { display: grid; gap: var(--space-2, .5rem); margin: 0; }
+#amo-cap .amo-cap-f input {
+  padding: .72rem .85rem;
+  border: 1px solid var(--color-border, #D3D6CC);
+  border-radius: var(--radius-md, 10px);
+  font-family: inherit; font-size: var(--text-sm, .9rem);
+  background: #fff; color: var(--color-text, #0F130F);
+}
+#amo-cap .amo-cap-f input::placeholder { color: var(--amo-neutral-500, #878B80); }
+#amo-cap .amo-cap-f input:focus-visible {
+  outline: 2px solid var(--color-arm, #3E7B00); outline-offset: 1px;
+  border-color: var(--color-arm, #3E7B00);
+}
+/* Vermelho da marca escurecido ate passar em contraste sobre branco; o
+   --amo-red puro (#E84A37) reprova em texto pequeno. */
+#amo-cap .amo-cap-erro {
+  margin: 0; max-width: none; font-size: var(--text-xs, .8rem); line-height: 1.4;
+  color: #8A2B12;
+}
+/* Identico ao .btn--primary do site: verde #7DFF00 sobre tinta. Era aqui o
+   maior desvio da versao anterior, que usava verde-escuro com texto branco —
+   uma cor que o site nunca usa em botao primario. */
+#amo-cap .amo-cap-f button[type="submit"] {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: .8rem 1.4rem; border: 2px solid transparent;
+  border-radius: var(--radius-md, 10px);
+  background: var(--color-cta-bg, #7DFF00);
+  color: var(--color-cta-text, #0F130F);
+  font-family: var(--font-text, "Plus Jakarta Sans", system-ui, sans-serif);
+  font-weight: 700; font-size: var(--text-sm, .9rem); cursor: pointer;
+  transition: background var(--motion-fast, 120ms) var(--ease-standard, cubic-bezier(.23,1,.32,1)),
+              transform var(--motion-fast, 120ms) var(--ease-standard, cubic-bezier(.23,1,.32,1));
+}
+#amo-cap .amo-cap-f button[type="submit"]:hover {
+  background: var(--amo-green-light, #A5FF4D); transform: translateY(-1px);
+}
+#amo-cap .amo-cap-f button[type="submit"]:focus-visible {
+  outline: 2px solid var(--color-text, #0F130F); outline-offset: 2px;
+}
+/* A saida escrita existe de proposito. Um X minusculo no canto e a unica porta
+   deixa a pessoa com a sensacao de que so ha um caminho — e e ai que ela fecha
+   a aba inteira em vez de fechar o convite. */
+#amo-cap .amo-cap-saidas {
+  display: flex; align-items: center; gap: var(--space-2, .5rem);
+  margin: var(--space-3, .75rem) 0 0; max-width: none;
+  font-size: var(--text-xs, .8rem); flex-wrap: wrap;
+}
+#amo-cap .amo-cap-saidas span { color: var(--color-border, #D3D6CC); }
+#amo-cap .amo-cap-saidas a,
+#amo-cap .amo-cap-saidas button {
+  background: none; border: 0; padding: 0; cursor: pointer;
+  font-family: inherit; font-size: inherit;
+  color: var(--color-text-muted, #45483F);
+  text-decoration: underline; text-underline-offset: 3px;
+}
+#amo-cap .amo-cap-saidas a:hover,
+#amo-cap .amo-cap-saidas button:hover { color: var(--color-arm, #3E7B00); }
+#amo-cap .amo-cap-saidas a:focus-visible,
+#amo-cap .amo-cap-saidas button:focus-visible {
+  outline: 2px solid var(--color-arm, #3E7B00); outline-offset: 2px;
+}
+/* Nota de rodape: menor que --text-xs de proposito. E texto de conformidade,
+   nao de leitura — precisa estar la, nao precisa disputar espaco com o
+   convite. Em 24rem de largura cabe em uma linha e meia. */
+#amo-cap .amo-cap-p {
+  font-size: .7rem; line-height: 1.4;
+  color: var(--amo-neutral-500, #878B80);
+  margin: var(--space-2, .5rem) 0 0; max-width: none;
+}
+#amo-cap .amo-cap-p a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+#amo-cap .amo-cap-p a:hover { color: var(--color-arm, #3E7B00); }
+@media (prefers-reduced-motion: no-preference) {
+  #amo-cap { animation: amoCapIn var(--motion-slow, 240ms) var(--ease-standard, cubic-bezier(.23,1,.32,1)); }
+}
+@keyframes amoCapIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Os dois moram no mesmo canto de baixo. Se coexistirem, o aviso de LGPD
+   sai de cena para nao cobrir o campo de nome do popup — que e o unico
+   dos dois que o visitante precisa preencher. */
+#amo-lgpd:has(~ #amo-cap) {
+  transform: translateX(-50%) translateY(100%);
+  pointer-events: none; animation: none;
+}
+
+/* --------------------------------------------- nome na pagina de obrigado
+   Injetado por amo-crm.js logo abaixo do paragrafo de confirmacao. Nao e um
+   segundo formulario disputando conversao: a conversao ja aconteceu na
+   pagina anterior. Por isso ele e discreto, cabe em uma linha e nao tem
+   nenhum aviso de obrigatoriedade — quem ignorar segue a vida igual. */
+.amo-nome {
+  margin: var(--space-6, 1.5rem) 0 0;
+  max-width: 32rem;
+}
+.amo-nome label {
+  display: block;
+  font-family: var(--font-text, "Plus Jakarta Sans", system-ui, sans-serif);
+  font-size: .875rem; line-height: 1.4;
+  color: var(--amo-neutral-700, #45483F);
+  margin: 0 0 var(--space-2, .5rem);
+}
+.amo-nome .amo-nome-l { display: flex; gap: var(--space-2, .5rem); }
+.amo-nome input {
+  flex: 1 1 auto; min-width: 0;
+  font: inherit;
+  font-family: var(--font-text, "Plus Jakarta Sans", system-ui, sans-serif);
+  font-size: 1rem;
+  padding: var(--space-3, .75rem) var(--space-4, 1rem);
+  border: 1px solid var(--color-border, #D3D6CC);
+  border-radius: var(--radius-md, 10px);
+  background: var(--color-surface, #FFFFFF);
+  color: var(--amo-ink, #0F130F);
+}
+.amo-nome input:focus-visible {
+  outline: 2px solid var(--color-arm, #3E7B00); outline-offset: 1px;
+  border-color: var(--color-arm, #3E7B00);
+}
+.amo-nome button {
+  flex: 0 0 auto;
+  font-family: var(--font-text, "Plus Jakarta Sans", system-ui, sans-serif);
+  font-size: 1rem; font-weight: 600;
+  padding: var(--space-3, .75rem) var(--space-6, 1.5rem);
+  border: 0; border-radius: var(--radius-md, 10px);
+  background: var(--color-cta-bg, #7DFF00);
+  color: var(--color-cta-text, #0F130F);
+  cursor: pointer;
+  transition: filter var(--motion-fast, 120ms) var(--ease-standard, cubic-bezier(.23,1,.32,1));
+}
+.amo-nome button:hover { filter: brightness(.94); }
+.amo-nome button:focus-visible { outline: 2px solid var(--amo-ink, #0F130F); outline-offset: 2px; }
+.amo-nome-ok {
+  margin: var(--space-6, 1.5rem) 0 0;
+  font-family: var(--font-text, "Plus Jakarta Sans", system-ui, sans-serif);
+  font-size: .95rem;
+  color: var(--amo-neutral-700, #45483F);
+}
+@media (max-width: 480px) {
+  .amo-nome .amo-nome-l { flex-wrap: wrap; }
+  .amo-nome button { width: 100%; }
+}
+
+/* ============================================================
+   MODAL DE VAGA (generico)
+   Centralizado na tela, com o resto da pagina borrado atras.
+   Usado por qualquer pagina que carregue amo-crm.js: basta o
+   atributo data-amo-vaga em um <a>/<button> e o bloco de markup
+   #amo-vaga na pagina. O href do CTA continua apontando para o
+   formulario completo, entao sem JS (e para um crawler) o link
+   segue funcionando.
+   Tokens com fallback: nove paginas carregam amo-crm.css sem
+   carregar amo.css.
+   ============================================================ */
+.amo-vaga {
+  display: none;
+  position: fixed; inset: 0; z-index: 10000;
+  align-items: center; justify-content: center;
+  padding: var(--space-4, 1rem);
+}
+.amo-vaga.open { display: flex; }
+.amo-vaga-bd {
+  position: absolute; inset: 0;
+  background: rgba(8, 11, 8, .74);
+  backdrop-filter: blur(7px) saturate(.85);
+  -webkit-backdrop-filter: blur(7px) saturate(.85);
+}
+.amo-vaga-box {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 27rem;
+  max-height: 92vh; overflow-y: auto;
+  background: #FFFFFF;
+  border-radius: var(--radius-lg, 14px);
+  padding: var(--space-8, 2rem) var(--space-7, 1.75rem) var(--space-6, 1.5rem);
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .45);
+  animation: amoVagaIn 260ms var(--ease-standard, cubic-bezier(.23,1,.32,1)) both;
+}
+@keyframes amoVagaIn { from { opacity: 0; transform: translateY(14px) scale(.97); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .amo-vaga-box { animation: none; } }
+.amo-vaga-x {
+  position: absolute; top: .5rem; right: .625rem;
+  width: 2rem; height: 2rem;
+  background: transparent; border: 0; cursor: pointer;
+  font-size: 1.5rem; line-height: 1;
+  color: #45483F;
+  border-radius: var(--radius-sm, 8px);
+}
+.amo-vaga-x:hover { color: #0F130F; }
+.amo-vaga-x:focus-visible { outline: 2px solid var(--amo-ink, #0F130F); outline-offset: 2px; }
+.amo-vaga-ey {
+  font-family: var(--font-text, "Plus Jakarta Sans", system-ui, sans-serif);
+  font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: #3E7B00;
+  margin-bottom: var(--space-2, .5rem);
+}
+.amo-vaga-t {
+  font-family: var(--font-display, "Fraunces", Georgia, serif);
+  font-size: 1.5rem; line-height: 1.2; margin: 0 0 var(--space-3, .75rem);
+  color: #0F130F;
+}
+.amo-vaga-s {
+  font-family: var(--font-text, "Plus Jakarta Sans", system-ui, sans-serif);
+  font-size: .95rem; line-height: 1.55; margin: 0 0 var(--space-5, 1.25rem);
+  color: #45483F;
+}
+.amo-vaga-fg { margin-bottom: var(--space-4, 1rem); }
+.amo-vaga-fg label {
+  display: block;
+  font-family: var(--font-text, "Plus Jakarta Sans", system-ui, sans-serif);
+  font-size: .85rem; font-weight: 600; margin-bottom: var(--space-2, .5rem);
+  color: #0F130F;
+}
+.amo-vaga-fg input {
+  width: 100%; box-sizing: border-box;
+  font-family: var(--font-text, "Plus Jakarta Sans", system-ui, sans-serif);
+  font-size: 1rem;
+  padding: var(--space-3, .75rem) var(--space-4, 1rem);
+  border: 1px solid #D5D7CF;
+  border-radius: var(--radius-md, 10px);
+  background: #FFFFFF;
+  color: #0F130F;
+}
+.amo-vaga-fg input:focus-visible {
+  outline: 0; border-color: #3E7B00;
+  box-shadow: 0 0 0 3px rgba(62, 123, 0, .18);
+}
+.amo-vaga-sub {
+  width: 100%;
+  font-family: var(--font-text, "Plus Jakarta Sans", system-ui, sans-serif);
+  font-size: 1rem; font-weight: 700;
+  padding: var(--space-4, 1rem);
+  border: 0; border-radius: var(--radius-md, 10px);
+  background: #7DFF00;
+  color: #0F130F;
+  cursor: pointer;
+  transition: filter var(--motion-fast, 120ms) var(--ease-standard, cubic-bezier(.23,1,.32,1));
+}
+.amo-vaga-sub:hover { filter: brightness(.94); }
+.amo-vaga-sub:focus-visible { outline: 2px solid var(--amo-ink, #0F130F); outline-offset: 2px; }
+.amo-vaga-note {
+  font-family: var(--font-text, "Plus Jakarta Sans", system-ui, sans-serif);
+  font-size: .78rem; line-height: 1.5;
+  margin: var(--space-4, 1rem) 0 0;
+  color: #45483F;
+}
+.amo-vaga-note a { color: inherit; }
+@media (max-width: 480px) {
+  .amo-vaga-box { padding: var(--space-7, 1.75rem) var(--space-5, 1.25rem) var(--space-5, 1.25rem); }
+  .amo-vaga-t { font-size: 1.3rem; }
+}
