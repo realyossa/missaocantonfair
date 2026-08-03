@@ -258,7 +258,12 @@
 </script>
 
 <!-- ══ PRELOAD CRITICAL IMAGES ══ -->
-<link rel="preload" as="image" href="img/canton-fair-2025-xiaomi-su7-veiculo-eletrico-verde.webp">
+<!-- LCP: a imagem do hero, nao uma miniatura da galeria. O imagesrcset precisa
+     ser identico ao do <img> do hero, senao o navegador baixa duas versoes. -->
+<link rel="preload" as="image" fetchpriority="high"
+      href="img/canton-fair-pazhou-complex-guangzhou-china-1200.webp"
+      imagesrcset="img/canton-fair-pazhou-complex-guangzhou-china-800.webp 800w, img/canton-fair-pazhou-complex-guangzhou-china-1200.webp 1200w, img/canton-fair-pazhou-complex-guangzhou-china.webp 1242w"
+      imagesizes="100vw">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3001,7 +3006,7 @@ body::after{z-index:9999;}
 <section class="hero hero-fullscreen" id="inicio">
   <!-- Background image -->
   <div class="hero-bg-img">
-    <img src="img/canton-fair-pazhou-complex-guangzhou-china.webp" alt="Canton Fair — China Import and Export Fair, Pazhou Complex, Guangzhou, China · A maior feira multissetorial do mundo" loading="eager" fetchpriority="high">
+    <img src="img/canton-fair-pazhou-complex-guangzhou-china-1200.webp" srcset="img/canton-fair-pazhou-complex-guangzhou-china-800.webp 800w, img/canton-fair-pazhou-complex-guangzhou-china-1200.webp 1200w, img/canton-fair-pazhou-complex-guangzhou-china.webp 1242w" sizes="100vw" width="1200" height="800" decoding="async" alt="Canton Fair — China Import and Export Fair, Pazhou Complex, Guangzhou, China · A maior feira multissetorial do mundo" loading="eager" fetchpriority="high">
     <div class="hero-bg-overlay"></div>
   </div>
 
@@ -3119,7 +3124,7 @@ body::after{z-index:9999;}
     <div class="solo-grid">
       <!-- Photo with scale stats overlay -->
       <div class="solo-photo fade-up">
-        <img src="img/canton-fair-2025-multitude-compradores-corredor-principal.webp" alt="Multidão de compradores no corredor principal da Canton Fair 2025 — Pazhou Complex, Guangzhou" loading="lazy" >
+        <img src="img/canton-fair-2025-multitude-compradores-corredor-principal-400.webp" srcset="img/canton-fair-2025-multitude-compradores-corredor-principal-400.webp 400w, img/canton-fair-2025-multitude-compradores-corredor-principal.webp 720w" sizes="(max-width:900px) 92vw, 600px" width="400" height="222" decoding="async" alt="Multidão de compradores no corredor principal da Canton Fair 2025 — Pazhou Complex, Guangzhou" loading="lazy" >
         <div class="solo-photo-overlay">
           <div class="spo-stat">
             <strong>1,1 milhão</strong>
@@ -3590,18 +3595,18 @@ body::after{z-index:9999;}
       <div class="gal-fade gal-fade-right"></div>
 
       <div class="gal-carousel" id="gal-carousel">
-        <div class="gc"><img src="img/canton-fair-2025-xiaomi-su7-veiculo-eletrico-verde.webp" alt="Veículo elétrico Xiaomi SU7 verde — Fase 1 Tecnologia e EVs" loading="lazy" ><div class="gc-cap">Xiaomi SU7 · Fase 1</div></div>
-        <div class="gc"><img src="img/canton-fair-2025-haibao-mini-veiculo-eletrico-amarelo.webp" alt="Mini veículo elétrico Haibao na Canton Fair 2025 — Fase 1 EVs" loading="lazy" ><div class="gc-cap">Mini EV Haibao · Fase 1</div></div>
-        <div class="gc"><img src="img/canton-fair-2025-fifine-microfones-eletronicos-tech.webp" alt="Estande Fifine microfones e eletrônicos na Canton Fair 2025 — Fase 1" loading="lazy" ><div class="gc-cap">Fifine Tech · Fase 1</div></div>
-        <div class="gc"><img src="img/canton-fair-2025-estande-componentes-eletricos-solares.webp" alt="Estande de componentes elétricos e solares na Canton Fair 2025 — Fase 1 Energia" loading="lazy" ><div class="gc-cap">Componentes Solar · Fase 1</div></div>
-        <div class="gc"><img src="img/canton-fair-2025-componentes-plasticos-eletricos-display.webp" alt="Display de componentes plásticos diversos na Canton Fair 2025 — Fase 2" loading="lazy" ><div class="gc-cap">Componentes plásticos · Fase 2</div></div>
-        <div class="gc"><img src="img/canton-fair-2025-lustre-cristal-iluminacao-luxo.webp" alt="Lustre de cristal luxo na seção de iluminação — Fase 2 Casa e Decoração" loading="lazy" ><div class="gc-cap">Iluminação luxo · Fase 2</div></div>
-        <div class="gc"><img src="img/canton-fair-2025-luminarias-bambu-rattan-decoracao.webp" alt="Luminárias de bambu e rattan — decoração sustentável Fase 2" loading="lazy" ><div class="gc-cap">Decoração natural · Fase 2</div></div>
-        <div class="gc"><img src="img/canton-fair-2025-lanternas-wildland-camping-outdoor.webp" alt="Lanternas Wild Land — Fase 3 Esportes e Outdoor" loading="lazy" ><div class="gc-cap">Outdoor &amp; Camping · Fase 3</div></div>
+        <div class="gc"><img src="img/canton-fair-2025-xiaomi-su7-veiculo-eletrico-verde-800.webp" srcset="img/canton-fair-2025-xiaomi-su7-veiculo-eletrico-verde-400.webp 400w, img/canton-fair-2025-xiaomi-su7-veiculo-eletrico-verde-800.webp 800w, img/canton-fair-2025-xiaomi-su7-veiculo-eletrico-verde.webp 1400w" sizes="280px" width="800" height="1066" decoding="async" alt="Veículo elétrico Xiaomi SU7 verde — Fase 1 Tecnologia e EVs" loading="lazy" ><div class="gc-cap">Xiaomi SU7 · Fase 1</div></div>
+        <div class="gc"><img src="img/canton-fair-2025-haibao-mini-veiculo-eletrico-amarelo-800.webp" srcset="img/canton-fair-2025-haibao-mini-veiculo-eletrico-amarelo-400.webp 400w, img/canton-fair-2025-haibao-mini-veiculo-eletrico-amarelo-800.webp 800w, img/canton-fair-2025-haibao-mini-veiculo-eletrico-amarelo.webp 1400w" sizes="280px" width="800" height="1066" decoding="async" alt="Mini veículo elétrico Haibao na Canton Fair 2025 — Fase 1 EVs" loading="lazy" ><div class="gc-cap">Mini EV Haibao · Fase 1</div></div>
+        <div class="gc"><img src="img/canton-fair-2025-fifine-microfones-eletronicos-tech-800.webp" srcset="img/canton-fair-2025-fifine-microfones-eletronicos-tech-400.webp 400w, img/canton-fair-2025-fifine-microfones-eletronicos-tech-800.webp 800w, img/canton-fair-2025-fifine-microfones-eletronicos-tech.webp 1400w" sizes="280px" width="800" height="1066" decoding="async" alt="Estande Fifine microfones e eletrônicos na Canton Fair 2025 — Fase 1" loading="lazy" ><div class="gc-cap">Fifine Tech · Fase 1</div></div>
+        <div class="gc"><img src="img/canton-fair-2025-estande-componentes-eletricos-solares-800.webp" srcset="img/canton-fair-2025-estande-componentes-eletricos-solares-400.webp 400w, img/canton-fair-2025-estande-componentes-eletricos-solares-800.webp 800w, img/canton-fair-2025-estande-componentes-eletricos-solares.webp 1400w" sizes="280px" width="800" height="1066" decoding="async" alt="Estande de componentes elétricos e solares na Canton Fair 2025 — Fase 1 Energia" loading="lazy" ><div class="gc-cap">Componentes Solar · Fase 1</div></div>
+        <div class="gc"><img src="img/canton-fair-2025-componentes-plasticos-eletricos-display-800.webp" srcset="img/canton-fair-2025-componentes-plasticos-eletricos-display-400.webp 400w, img/canton-fair-2025-componentes-plasticos-eletricos-display-800.webp 800w, img/canton-fair-2025-componentes-plasticos-eletricos-display.webp 1400w" sizes="280px" width="800" height="1066" decoding="async" alt="Display de componentes plásticos diversos na Canton Fair 2025 — Fase 2" loading="lazy" ><div class="gc-cap">Componentes plásticos · Fase 2</div></div>
+        <div class="gc"><img src="img/canton-fair-2025-lustre-cristal-iluminacao-luxo-800.webp" srcset="img/canton-fair-2025-lustre-cristal-iluminacao-luxo-400.webp 400w, img/canton-fair-2025-lustre-cristal-iluminacao-luxo-800.webp 800w, img/canton-fair-2025-lustre-cristal-iluminacao-luxo.webp 1400w" sizes="280px" width="800" height="1066" decoding="async" alt="Lustre de cristal luxo na seção de iluminação — Fase 2 Casa e Decoração" loading="lazy" ><div class="gc-cap">Iluminação luxo · Fase 2</div></div>
+        <div class="gc"><img src="img/canton-fair-2025-luminarias-bambu-rattan-decoracao-800.webp" srcset="img/canton-fair-2025-luminarias-bambu-rattan-decoracao-400.webp 400w, img/canton-fair-2025-luminarias-bambu-rattan-decoracao-800.webp 800w, img/canton-fair-2025-luminarias-bambu-rattan-decoracao.webp 1400w" sizes="280px" width="800" height="1066" decoding="async" alt="Luminárias de bambu e rattan — decoração sustentável Fase 2" loading="lazy" ><div class="gc-cap">Decoração natural · Fase 2</div></div>
+        <div class="gc"><img src="img/canton-fair-2025-lanternas-wildland-camping-outdoor-800.webp" srcset="img/canton-fair-2025-lanternas-wildland-camping-outdoor-400.webp 400w, img/canton-fair-2025-lanternas-wildland-camping-outdoor-800.webp 800w, img/canton-fair-2025-lanternas-wildland-camping-outdoor.webp 1400w" sizes="280px" width="800" height="1066" decoding="async" alt="Lanternas Wild Land — Fase 3 Esportes e Outdoor" loading="lazy" ><div class="gc-cap">Outdoor &amp; Camping · Fase 3</div></div>
         <div class="gc"><img src="img/jamila-umar-amo-embarque-entrada-canton-fair-2025.png" alt="Jamila Umar (sócia AMO Embarque) na entrada da Canton Fair 2025 — China Import and Export Fair" loading="lazy" ><div class="gc-cap">Sócia Jamila · Entrada Canton Fair</div></div>
-        <div class="gc"><img src="img/jamila-amo-embarque-canton-fair-suzhou-2025.webp" alt="Jamila Umar (sócia AMO Embarque) na Canton Fair 2025, hall Suzhou ao fundo" loading="lazy" ><div class="gc-cap">Sócia Jamila · Hall Suzhou</div></div>
-        <div class="gc"><img src="img/canton-fair-2025-entrada-compradores-bagagem-pazhou.webp" alt="Entrada do complexo Pazhou com compradores — Canton Fair 2025" loading="lazy" ><div class="gc-cap">Entrada Pazhou Complex</div></div>
-        <div class="gc"><img src="img/canton-fair-2025-skyline-guangzhou-janela-complexo.webp" alt="Vista do skyline de Guangzhou pela janela do complexo Pazhou" loading="lazy" ><div class="gc-cap">Skyline Guangzhou</div></div>
+        <div class="gc"><img src="img/jamila-amo-embarque-canton-fair-suzhou-2025-800.webp" srcset="img/jamila-amo-embarque-canton-fair-suzhou-2025-400.webp 400w, img/jamila-amo-embarque-canton-fair-suzhou-2025-800.webp 800w, img/jamila-amo-embarque-canton-fair-suzhou-2025.webp 1400w" sizes="280px" width="800" height="1066" decoding="async" alt="Jamila Umar (sócia AMO Embarque) na Canton Fair 2025, hall Suzhou ao fundo" loading="lazy" ><div class="gc-cap">Sócia Jamila · Hall Suzhou</div></div>
+        <div class="gc"><img src="img/canton-fair-2025-entrada-compradores-bagagem-pazhou-800.webp" srcset="img/canton-fair-2025-entrada-compradores-bagagem-pazhou-400.webp 400w, img/canton-fair-2025-entrada-compradores-bagagem-pazhou-800.webp 800w, img/canton-fair-2025-entrada-compradores-bagagem-pazhou.webp 1400w" sizes="280px" width="800" height="1066" decoding="async" alt="Entrada do complexo Pazhou com compradores — Canton Fair 2025" loading="lazy" ><div class="gc-cap">Entrada Pazhou Complex</div></div>
+        <div class="gc"><img src="img/canton-fair-2025-skyline-guangzhou-janela-complexo-800.webp" srcset="img/canton-fair-2025-skyline-guangzhou-janela-complexo-400.webp 400w, img/canton-fair-2025-skyline-guangzhou-janela-complexo-800.webp 800w, img/canton-fair-2025-skyline-guangzhou-janela-complexo.webp 1400w" sizes="280px" width="800" height="1066" decoding="async" alt="Vista do skyline de Guangzhou pela janela do complexo Pazhou" loading="lazy" ><div class="gc-cap">Skyline Guangzhou</div></div>
       </div>
     </div>
   </div>
@@ -3670,7 +3675,7 @@ body::after{z-index:9999;}
         <div class="tc-stars"><svg width="80" height="14" viewBox="0 0 82 14" fill="#7DFF00" xmlns="http://www.w3.org/2000/svg"><polygon points="7,0.5 8.6,5 13.5,5.3 9.8,8.5 11,13.3 7,10.7 3,13.3 4.2,8.5 0.5,5.3 5.4,5"/><polygon points="23,0.5 24.6,5 29.5,5.3 25.8,8.5 27,13.3 23,10.7 19,13.3 20.2,8.5 16.5,5.3 21.4,5"/><polygon points="39,0.5 40.6,5 45.5,5.3 41.8,8.5 43,13.3 39,10.7 35,13.3 36.2,8.5 32.5,5.3 37.4,5"/><polygon points="55,0.5 56.6,5 61.5,5.3 57.8,8.5 59,13.3 55,10.7 51,13.3 52.2,8.5 48.5,5.3 53.4,5"/><polygon points="71,0.5 72.6,5 77.5,5.3 73.8,8.5 75,13.3 71,10.7 67,13.3 68.2,8.5 64.5,5.3 69.4,5"/></svg></div>
         <p class="tc-text">"Foi uma experiência fantástica, tivemos uma atenção especial da Amo Embarque em todos os trechos da viagem. Parabéns a todos os organizadores desta missão."</p>
         <div class="tc-person">
-          <div class="tc-av"><img src="img/edimar-niec-empresario-missao-canton-fair-2025.png" loading="lazy" alt="Edimar Niec — empresário participante da missão Canton Fair 2025 AMO Embarque" draggable="false"></div>
+          <div class="tc-av"><img src="img/edimar-niec-empresario-missao-canton-fair-2025-96.webp" width="96" height="96" decoding="async" loading="lazy" alt="Edimar Niec — empresário participante da missão Canton Fair 2025 AMO Embarque" draggable="false"></div>
           <div>
             <div class="tc-name">Edimar Niec</div>
             <div class="tc-role">Participante — Missão Canton Fair 2025</div>
@@ -3682,7 +3687,7 @@ body::after{z-index:9999;}
         <div class="tc-stars"><svg width="80" height="14" viewBox="0 0 82 14" fill="#7DFF00" xmlns="http://www.w3.org/2000/svg"><polygon points="7,0.5 8.6,5 13.5,5.3 9.8,8.5 11,13.3 7,10.7 3,13.3 4.2,8.5 0.5,5.3 5.4,5"/><polygon points="23,0.5 24.6,5 29.5,5.3 25.8,8.5 27,13.3 23,10.7 19,13.3 20.2,8.5 16.5,5.3 21.4,5"/><polygon points="39,0.5 40.6,5 45.5,5.3 41.8,8.5 43,13.3 39,10.7 35,13.3 36.2,8.5 32.5,5.3 37.4,5"/><polygon points="55,0.5 56.6,5 61.5,5.3 57.8,8.5 59,13.3 55,10.7 51,13.3 52.2,8.5 48.5,5.3 53.4,5"/><polygon points="71,0.5 72.6,5 77.5,5.3 73.8,8.5 75,13.3 71,10.7 67,13.3 68.2,8.5 64.5,5.3 69.4,5"/></svg></div>
         <p class="tc-text">"A agência Amo Embarque nos atende há muitos anos tanto na empresa como em nossas viagens de férias em família, porque é uma agência séria e de confiabilidade, monta nossos pacotes de acordo com nossas particularidades e estão sempre disponíveis para nos ajudar."</p>
         <div class="tc-person">
-          <div class="tc-av"><img src="img/logo-silveira.png" loading="lazy" alt="Silveira Industrial" draggable="false"></div>
+          <div class="tc-av"><img src="img/logo-silveira-96.webp" width="96" height="96" decoding="async" loading="lazy" alt="Silveira Industrial" draggable="false"></div>
           <div>
             <div class="tc-name">Jacqueline Trevisan Silveira</div>
             <div class="tc-role">Sócia Proprietária — Silveira Industrial</div>
@@ -3694,7 +3699,7 @@ body::after{z-index:9999;}
         <div class="tc-stars"><svg width="80" height="14" viewBox="0 0 82 14" fill="#7DFF00" xmlns="http://www.w3.org/2000/svg"><polygon points="7,0.5 8.6,5 13.5,5.3 9.8,8.5 11,13.3 7,10.7 3,13.3 4.2,8.5 0.5,5.3 5.4,5"/><polygon points="23,0.5 24.6,5 29.5,5.3 25.8,8.5 27,13.3 23,10.7 19,13.3 20.2,8.5 16.5,5.3 21.4,5"/><polygon points="39,0.5 40.6,5 45.5,5.3 41.8,8.5 43,13.3 39,10.7 35,13.3 36.2,8.5 32.5,5.3 37.4,5"/><polygon points="55,0.5 56.6,5 61.5,5.3 57.8,8.5 59,13.3 55,10.7 51,13.3 52.2,8.5 48.5,5.3 53.4,5"/><polygon points="71,0.5 72.6,5 77.5,5.3 73.8,8.5 75,13.3 71,10.7 67,13.3 68.2,8.5 64.5,5.3 69.4,5"/></svg></div>
         <p class="tc-text">"A Amoembarque nos surpreendeu com tamanha excelência no serviço prestado. Retorno rápido nos orçamentos, várias opções de embarques e lembram de todos os detalhes — documentações, seguro viagem, mensagens durante o percurso."</p>
         <div class="tc-person">
-          <div class="tc-av"><img src="img/logo-apti.png" loading="lazy" alt="APTI Alimentos" draggable="false"></div>
+          <div class="tc-av"><img src="img/logo-apti-96.webp" width="96" height="96" decoding="async" loading="lazy" alt="APTI Alimentos" draggable="false"></div>
           <div>
             <div class="tc-name">Ana Carolina Zilio Dalla Costa</div>
             <div class="tc-role">Diretora — APTI Alimentos</div>
@@ -3744,17 +3749,17 @@ body::after{z-index:9999;}
       <!-- Left: foto principal + 2 fotos da missão -->
       <div class="qs-imgs">
         <div class="qs-img-main scale-in">
-          <img src="img/jamila-umar-amo-embarque-interior-canton-fair-guangzhou-2025.jpg" alt="Jamila Umar sócia AMO Embarque dentro da Canton Fair 2025 — hall interior Guangzhou China" loading="lazy" >
+          <img src="img/jamila-umar-amo-embarque-interior-canton-fair-guangzhou-2025-800.webp" srcset="img/jamila-umar-amo-embarque-interior-canton-fair-guangzhou-2025-400.webp 400w, img/jamila-umar-amo-embarque-interior-canton-fair-guangzhou-2025-800.webp 800w, img/jamila-umar-amo-embarque-interior-canton-fair-guangzhou-2025.jpg 900w" sizes="(max-width:900px) 92vw, 580px" width="800" height="1067" decoding="async" alt="Jamila Umar sócia AMO Embarque dentro da Canton Fair 2025 — hall interior Guangzhou China" loading="lazy" >
           <div class="qs-img-badge">
             <strong>Dentro da Canton Fair 2025</strong>
             <span>Missão empresarial · Guangzhou, China</span>
           </div>
         </div>
         <div class="qs-img-v fade-left stagger-2">
-          <img src="img/kadidia-jamila-umar-amo-embarque-topseller-orinter-2024.webp" alt="Kadidia Umar e Jamila Umar sócias AMO Embarque prêmio Topseller Orinter 2024 — Chapecó SC" loading="lazy" >
+          <img src="img/kadidia-jamila-umar-amo-embarque-topseller-orinter-2024-400.webp" srcset="img/kadidia-jamila-umar-amo-embarque-topseller-orinter-2024-400.webp 400w, img/kadidia-jamila-umar-amo-embarque-topseller-orinter-2024.webp 739w" sizes="(max-width:900px) 46vw, 280px" width="400" height="866" decoding="async" alt="Kadidia Umar e Jamila Umar sócias AMO Embarque prêmio Topseller Orinter 2024 — Chapecó SC" loading="lazy" >
         </div>
         <div class="qs-img-v fade-right stagger-3">
-          <img src="img/grupo_canton2025.webp" alt="Grupo de empresários brasileiros AMO Embarque na Missão Canton Fair 2025 — Guangzhou China" loading="lazy" >
+          <img src="img/grupo_canton2025-400.webp" srcset="img/grupo_canton2025-400.webp 400w, img/grupo_canton2025.webp 1536w" sizes="(max-width:900px) 46vw, 280px" width="400" height="300" decoding="async" alt="Grupo de empresários brasileiros AMO Embarque na Missão Canton Fair 2025 — Guangzhou China" loading="lazy" >
         </div>
       </div>
 
@@ -3917,7 +3922,7 @@ body::after{z-index:9999;}
       </div>
       <div class="oc fade-up stagger-2" onclick="toggleOc(this)">
         <div class="oc-q"><span>Como sei que vocês são confiáveis?</span><span class="oc-q-ico">+</span></div>
-        <div class="oc-a-wrap"><p class="oc-a">Missão 2025 realizada com +100 empresários em parceria com a <strong>ACIC Chapecó</strong>. <strong>+15 anos</strong> de experiência, 4,8 no Google com 160 avaliações e cobertura da imprensa. Temos referências reais.</p></div>
+        <div class="oc-a-wrap"><p class="oc-a">Missão de outubro de 2025 realizada com mais de 20 empresários, em parceria com a <strong>ACIC Chapecó</strong> — e mais de 100 empresários levados desde 2012. <strong>+15 anos</strong> de experiência, 4,8 no Google com 160 avaliações e cobertura da imprensa. Temos referências reais. <a href="https://amoembarque.com/corporativo/canton-fair/missoes-realizadas/">Veja como foi a missão de 2025</a>.</p></div>
       </div>
       <div class="oc fade-up stagger-3" onclick="toggleOc(this)">
         <div class="oc-q"><span>É difícil negociar com chineses?</span><span class="oc-q-ico">+</span></div>
@@ -3944,7 +3949,7 @@ body::after{z-index:9999;}
       <div class="fi fade-up" onclick="toggleFaq(this)"><div class="fq"><span>Preciso de visto para ir à China à Canton Fair?</span><div class="fi-ico">+</div></div><div class="fa"><p class="fa-in">Não. Desde 2025 o Brasil tem isenção de visto para a China por até 30 dias. Você precisa apenas de passaporte válido com mais de 6 meses de validade.</p></div></div>
       <div class="fi fade-up stagger-1" onclick="toggleFaq(this)"><div class="fq"><span>Quanto custa ir à Canton Fair pelo Brasil?</span><div class="fi-ico">+</div></div><div class="fa"><p class="fa-in">O investimento varia conforme as fases visitadas e o roteiro escolhido (só a Canton Fair ou com add-on Dubai/Pequim). A AMO oferece proposta personalizada com condições de parcelamento. Fale pelo WhatsApp (49) 9 9938-0070 para receber uma cotação sem compromisso.</p></div></div>
       <div class="fi fade-up stagger-2" onclick="toggleFaq(this)"><div class="fq"><span>Posso ir apenas em uma das fases?</span><div class="fi-ico">+</div></div><div class="fa"><p class="fa-in">Sim. Você pode escolher uma, duas ou todas as três fases. O roteiro pode ser adaptado. Fale conosco para montar sua visita ideal.</p></div></div>
-      <div class="fi fade-up stagger-3" onclick="toggleFaq(this)"><div class="fq"><span>A AMO Embarque é uma agência confiável para a Canton Fair?</span><div class="fi-ico">+</div></div><div class="fa"><p class="fa-in">Sim. Em outubro de 2025 realizamos missão empresarial à Canton Fair com +100 empresários do Sul do Brasil, em parceria oficial com a ACIC Chapecó — com cobertura da imprensa regional e depoimentos verificáveis. +15 anos de operação, 4,8 estrelas no Google com 160 avaliações e premiações consecutivas Top Seller Orinter 2023, 2024 e 2025.</p></div></div>
+      <div class="fi fade-up stagger-3" onclick="toggleFaq(this)"><div class="fq"><span>A AMO Embarque é uma agência confiável para a Canton Fair?</span><div class="fi-ico">+</div></div><div class="fa"><p class="fa-in">Sim. Em outubro de 2025 realizamos missão empresarial à Canton Fair com mais de 20 empresários do Sul do Brasil, em parceria oficial com a ACIC Chapecó — com cobertura da imprensa regional e depoimentos verificáveis. Desde 2012 já são mais de 100 empresários levados em nossas missões. +15 anos de operação, 4,8 estrelas no Google com 160 avaliações e premiações consecutivas Top Seller Orinter 2023, 2024 e 2025.</p></div></div>
       <div class="fi fade-up stagger-4" onclick="toggleFaq(this)"><div class="fq"><span>Preciso falar inglês ou mandarim?</span><div class="fi-ico">+</div></div><div class="fa"><p class="fa-in">Não. O roteiro é conduzido em português do início ao fim, com a equipe AMO junto em todos os momentos. Você se comunica tranquilamente.</p></div></div>
       <div class="fi fade-up stagger-5" onclick="toggleFaq(this)"><div class="fq"><span>Como funciona o pagamento?</span><div class="fi-ico">+</div></div><div class="fa"><p class="fa-in">Trabalhamos com entrada e parcelamento. Detalhes definidos no momento da reserva. Fale conosco pelo WhatsApp para as condições atuais.</p></div></div>
       <div class="fi fade-up" onclick="toggleFaq(this)"><div class="fq"><span>Vale a pena ir à Canton Fair com grupo organizado?</span><div class="fi-ico">+</div></div><div class="fa"><p class="fa-in">Sim — especialmente para quem nunca foi. A China é um dos destinos mais seguros do mundo para empresários, e Guangzhou é uma metrópole moderna. Com a missão AMO você tem guia, traslado e suporte completo: a única coisa que você precisa fazer é chegar no aeroporto de São Paulo.</p></div></div>
@@ -3984,7 +3989,7 @@ body::after{z-index:9999;}
 
     <!-- Fachada highlight -->
     <div class="loc-fachada scale-in" style="margin-top:20px">
-      <img src="img/amo-embarque-fachada-agencia-chapeco-sc.webp" alt="Fachada AMO Embarque agência de viagens Chapecó SC — 15 anos de experiência em missões empresariais" loading="lazy" style="object-position:center 60%;">
+      <img src="img/amo-embarque-fachada-agencia-chapeco-sc-1200.webp" srcset="img/amo-embarque-fachada-agencia-chapeco-sc-800.webp 800w, img/amo-embarque-fachada-agencia-chapeco-sc-1200.webp 1200w, img/amo-embarque-fachada-agencia-chapeco-sc.webp 1360w" sizes="(max-width:1200px) 96vw, 1150px" width="1200" height="800" decoding="async" alt="Fachada AMO Embarque agência de viagens Chapecó SC — 15 anos de experiência em missões empresariais" loading="lazy" style="object-position:center 60%;">
       <div class="loc-fachada-overlay">
         <div class="loc-fachada-badge">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
