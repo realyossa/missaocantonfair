@@ -423,6 +423,42 @@ footer a{color:var(--g);}
   .nav-back{display:none;}
   .author-box{flex-direction:column;}
 }
+/* -- Captura de um campo (.amo1f) ------------------------------------
+   Um input so, name="contato". O amo-crm.js ja sabe rotear esse nome:
+   com 8+ digitos vira telefone, senao vira campo de texto (e-mail).
+   Convive com o WhatsApp em vez de substitui-lo: quem quer falar agora
+   clica no botao verde; quem nao quer se comprometer deixa um contato
+   e recebe por escrito.
+   -------------------------------------------------------------------- */
+.amo1f{margin:22px auto 0;max-width:520px;text-align:left;}
+.amo1f-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+.amo1f .amo1f-lb{display:block;font-size:13px;line-height:1.55;color:var(--wd,rgba(244,247,238,.72));margin:0 0 10px;}
+.amo1f-row{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;}
+.amo1f .amo1f-in{
+  flex:1 1 220px;min-width:0;font-family:inherit;font-size:14px;line-height:1.2;
+  padding:13px 18px;border-radius:30px;
+  background:var(--card,#101510);
+  border:1px solid var(--b,rgba(125,255,0,.14));
+  color:var(--white,#F4F7EE);
+}
+.amo1f .amo1f-in::placeholder{color:var(--wdd,rgba(244,247,238,.58));}
+.amo1f .amo1f-in:focus-visible{outline:2px solid var(--g,#7DFF00);outline-offset:1px;border-color:var(--bs,rgba(125,255,0,.36));}
+.amo1f .amo1f-bt{
+  flex:0 0 auto;font-family:inherit;font-size:14px;font-weight:700;line-height:1.2;
+  padding:13px 24px;border:0;border-radius:30px;cursor:pointer;
+  background:var(--g,#7DFF00);color:#080B08;transition:filter .2s;
+}
+.amo1f .amo1f-bt:hover{filter:brightness(.94);}
+.amo1f .amo1f-bt[disabled]{filter:brightness(.7);cursor:default;}
+.amo1f .amo1f-bt:focus-visible{outline:2px solid var(--white,#F4F7EE);outline-offset:2px;}
+.amo1f .amo1f-nt{font-size:11.5px;line-height:1.5;color:var(--wdd,rgba(244,247,238,.58));margin:10px 0 0;}
+.amo1f .amo1f-nt a{color:inherit;text-decoration:underline;}
+@media(max-width:520px){
+  .amo1f-row{flex-direction:column;}
+  /* em coluna, flex-basis vira ALTURA: sem isto o input estica ate 220px */
+  .amo1f .amo1f-in{flex:0 0 auto;width:100%;}
+  .amo1f .amo1f-bt{width:100%;}
+}
 </style>
 <link rel="stylesheet" href="/assets/css/amo-crm.css?v=49">
 </head>
@@ -811,7 +847,35 @@ footer a{color:var(--g);}
       <a data-amo-cta="final-whatsapp-vaga" href="https://wa.me/5549999380070?text=Li%20o%20artigo%20sobre%20tecnologias%20da%20Canton%20Fair%202026%20e%20quero%20garantir%20minha%20vaga%20na%20missão%20de%20outubro" class="btn-primary" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.126.554 4.118 1.522 5.851L.044 23.956l6.277-1.446A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.367l-.36-.214-3.724.857.896-3.62-.236-.374A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg> Quero minha vaga</a>
       <a href="https://missaocantonfair.com/descubra" class="btn-secondary"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.126.554 4.118 1.522 5.851L.044 23.956l6.277-1.446A11.942 11.942 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.003-1.367l-.36-.214-3.724.857.896-3.62-.236-.374A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg> Descobrir minha fase</a>
     </div>
-    <p style="font-size:12px;color:var(--wdd);margin-top:12px;">100% gratuito consultar · Sem compromisso · Resposta em até 24h</p>
+        <form class="amo1f" name="lead-mcf-tecnologias" method="POST"
+          action="https://amoembarque.com/corporativo/obrigado/" data-lead="1" data-amo-cta="final-form" onsubmit="return amo1fEnviar(this)">
+      <label class="amo1f-lb" for="c-tecnologias">Prefere não falar agora? Deixe um contato e a AMO envia a lista dos pavilhões de tecnologia e a fase que atende o seu setor.</label>
+      <div class="amo1f-row">
+        <input class="amo1f-in" id="c-tecnologias" type="text" name="contato" autocomplete="off"
+               placeholder="WhatsApp ou e-mail" aria-label="Seu WhatsApp ou e-mail" required>
+        <button class="amo1f-bt" type="submit">Receber a lista</button>
+      </div>
+      <p class="amo1f-nt">Um campo só, sem compromisso. Seus dados ficam com a AMO Embarque — veja a <a href="https://amoembarque.com/privacidade/" rel="noopener">política de privacidade</a>.</p>
+    </form>
+    <script>
+    /* missaocantonfair.com roda no GitHub Pages: nao existe Netlify Forms
+       aqui. O lead ja foi despachado pelo ouvinte de 'submit' do
+       amo-crm.js, que roda na fase de captura (antes deste handler) e usa
+       sendBeacon, que sobrevive ao unload. Este handler so impede o GET
+       padrao - que jogaria o contato na query string da URL - e leva a
+       pessoa para a pagina de obrigado no dominio principal. */
+    function amo1fEnviar(f){
+      var c = f.elements.contato;
+      if(!c || !c.value.trim()) return false;
+      var b = f.querySelector('button[type="submit"]');
+      if(b){ b.disabled = true; b.textContent = 'Enviando...'; }
+      setTimeout(function(){
+        location.href = 'https://amoembarque.com/corporativo/obrigado/';
+      }, 150);
+      return false;
+    }
+    </script>
+    <p style="font-size:12px;color:var(--wdd);margin-top:12px;">Consulta 100% gratuita · Sem compromisso · Resposta em até 24h</p>
   </div>
 
   <div class="art-divider"></div>

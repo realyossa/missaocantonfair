@@ -485,10 +485,9 @@ footer a{color:var(--g);}
 <link rel="stylesheet" href="/assets/css/amo-crm.css?v=49">
 </head>
 <body>
-<form name="descubra-lead" data-netlify="true" netlify-honeypot="bot-field" hidden>
-  <input type="text" name="bot-field"><input type="text" name="nome"><input type="tel" name="whatsapp">
-  <input type="text" name="setor"><input type="text" name="situacao"><input type="text" name="pessoas"><input type="text" name="fase_resultado"><input type="text" name="quando">
-</form>
+<!-- O stub oculto do Netlify Forms foi removido em 03/08/2026: este site
+     mora no GitHub Pages desde 02/08/2026 e o Netlify nunca chegou a ver
+     este HTML. O lead do diagnostico e despachado pelo amo-crm.js. -->
 
 <!-- ─── NAV ─── -->
 <nav class="nav">
@@ -1128,18 +1127,13 @@ function submitLead(){
     return;
   }
   const d=phases[ans.s1||'tech'];
-  const fd=new FormData();
-  fd.append('form-name','descubra-lead');
-  fd.append('nome',nome);fd.append('whatsapp',wa);
-  fd.append('setor',ans.s1||'');fd.append('situacao',ans.s2||'');
-  fd.append('pessoas',ans.s3||'');fd.append('fase_resultado',d.phase+' — '+d.name);
-  fd.append('quando',ans.s4||'');
-  /* CRM da AMO — vem ANTES do fetch de proposito. O despacho e por
-     sendBeacon e nao depende de a rede responder. Ate 02/08/2026 este lead
-     so existia no Netlify Forms, que parou de receber no dia em que o site
-     saiu da Netlify e foi para o GitHub Pages: o POST em '/' passou a nao
-     ter quem atendesse, o .catch() engolia o erro e o resultado aparecia do
-     mesmo jeito. A pessoa preenchia, via o diagnostico, e nada chegava. */
+  /* CRM da AMO — caminho unico e suficiente. Ate 02/08/2026 este lead
+     tambem tentava o Netlify Forms; quando o site saiu da Netlify e foi
+     para o GitHub Pages, o POST em '/' deixou de ter quem atendesse e o
+     .catch() engolia o erro em silencio. Em 03/08/2026 o fetch morto, o
+     FormData que so existia para ele e o stub oculto do formulario foram
+     removidos: o despacho e por sendBeacon, que nao depende de a rede
+     responder e sobrevive ao unload da pagina. */
   if(typeof window.amoFunil==='function')window.amoFunil('diag-cf','enviou');
   if(typeof window.amoLead==='function'){
     window.amoLead('canton-fair-diagnostico',{
@@ -1148,7 +1142,6 @@ function submitLead(){
       quando:ans.s4||'',fase_resultado:d.phase+' — '+d.name
     });
   }
-  fetch('/',{method:'POST',body:fd}).catch(()=>{});
   if(typeof gtag!=='undefined')gtag('event','lead_captured',{sector:ans.s1,phase:d.phase,situation:ans.s2,timing:ans.s4});
   showResult(nome);
 }
