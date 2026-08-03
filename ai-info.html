@@ -221,6 +221,20 @@ ul{list-style:none;margin:6px 0 10px}
 .links{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:10px;font-size:14.5px}
 .foot{margin-top:64px;padding-top:24px;border-top:1px solid var(--wf);font-size:12.5px;color:rgba(244,247,238,.4)}
 .foot a{color:rgba(244,247,238,.55)}
+
+/* ==========================================================
+   CONTRATO DE LAYOUT MOBILE — AMO
+   Bloco padrao, identico nas paginas do missaocantonfair.com.
+   Regra unica: nenhum elemento pode ultrapassar a largura da
+   tela. Coluna centralizada, margens simetricas, texto alinhado
+   a esquerda dentro da coluna. Verificado automaticamente pelo
+   passo 10 do portao de publicacao (render a 390px e 360px).
+   ========================================================== */
+@media (max-width:760px){
+  img,svg,video,iframe{max-width:100%;}
+  h1,h2,h3,h4,p,li,td,th,dd,dt,figcaption{overflow-wrap:break-word;}
+  .wrap{padding-left:20px;padding-right:20px;}
+}
 </style>
 <link rel="stylesheet" href="/assets/css/amo-crm.css?v=49">
 </head>

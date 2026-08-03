@@ -176,7 +176,7 @@
         "priceCurrency": "BRL",
         "validFrom": "2026-08-02"
       },
-      "image": "https://missaocantonfair.com/img/canton-fair-abril-2027-141-edicao-convite-missao-brasil.png"
+      "image": "https://missaocantonfair.com/img/canton-fair-pazhou-complex-guangzhou-china.webp"
     },
     {
       "@type": "Event",
@@ -2874,6 +2874,20 @@ body::after{z-index:9999;}
 .descubra-banner p strong{color:var(--white);}
 .descubra-banner a{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid var(--bs);color:var(--g);font-size:13px;font-weight:600;padding:10px 18px;border-radius:30px;text-decoration:none;white-space:nowrap;transition:background .25s,color .25s;flex-shrink:0;}
 .descubra-banner a:hover{background:var(--g);color:#080B08;}
+
+/* ==========================================================
+   CONTRATO DE LAYOUT MOBILE — AMO
+   Bloco padrao, identico nas paginas do missaocantonfair.com.
+   Regra unica: nenhum elemento pode ultrapassar a largura da
+   tela. Coluna centralizada, margens simetricas, texto alinhado
+   a esquerda dentro da coluna. Verificado automaticamente pelo
+   passo 10 do portao de publicacao (render a 390px e 360px).
+   ========================================================== */
+@media (max-width:760px){
+  img,svg,video,iframe{max-width:100%;}
+  h1,h2,h3,h4,p,li,td,th,dd,dt,figcaption{overflow-wrap:break-word;}
+  .wrap{padding-left:20px;padding-right:20px;}
+}
 </style>
 <!-- Google tag (gtag.js) — DUAS propriedades de proposito.
      G-EY0B7MKZ3E e a propriedade historica deste site. G-TKW7ZSSV34 e a da AMO

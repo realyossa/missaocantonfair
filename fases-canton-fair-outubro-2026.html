@@ -537,6 +537,26 @@ p.art-p{font-size:15px;color:var(--wd);line-height:1.78;margin-bottom:16px;}
   .amo1f .amo1f-in{flex:0 0 auto;width:100%;}
   .amo1f .amo1f-bt{width:100%;}
 }
+
+/* ==========================================================
+   CONTRATO DE LAYOUT MOBILE — AMO
+   Bloco padrao, identico nas paginas do missaocantonfair.com.
+   Regra unica: nenhum elemento pode ultrapassar a largura da
+   tela. Coluna centralizada, margens simetricas, texto alinhado
+   a esquerda dentro da coluna. Verificado automaticamente pelo
+   passo 10 do portao de publicacao (render a 390px e 360px).
+   ========================================================== */
+@media (max-width:760px){
+  img,svg,video,iframe{max-width:100%;}
+  h1,h2,h3,h4,p,li,td,th,dd,dt,figcaption{overflow-wrap:break-word;}
+  .wrap{padding-left:20px;padding-right:20px;}
+}
+
+@media (max-width:760px){
+  .phase-hero{grid-template-columns:1fr;padding-left:20px;padding-right:20px;}
+  .sector-grid{grid-template-columns:1fr;}
+  .img-row{grid-template-columns:1fr 1fr;}
+}
 </style>
 <link rel="stylesheet" href="/assets/css/amo-crm.css?v=49">
 </head>
@@ -861,19 +881,6 @@ p.art-p{font-size:15px;color:var(--wd);line-height:1.78;margin-bottom:16px;}
         <div style="font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px;">142ª edição &middot; 15 de outubro a 4 de novembro de 2027</div>
         <div style="font-size:13px;color:var(--wd);line-height:1.6;">Fase 1: 15 a 19 de outubro &middot; Fase 2: 23 a 27 de outubro &middot; Fase 3: 31 de outubro a 4 de novembro</div>
       </div>
-    </div>
-
-    <div style="margin:20px 0;">
-      <figure>
-        <img src="img/canton-fair-abril-2027-141-edicao-convite-missao-brasil-1200.webp" srcset="img/canton-fair-abril-2027-141-edicao-convite-missao-brasil-400.webp 400w, img/canton-fair-abril-2027-141-edicao-convite-missao-brasil-800.webp 800w, img/canton-fair-abril-2027-141-edicao-convite-missao-brasil-1200.webp 1200w, img/canton-fair-abril-2027-141-edicao-convite-missao-brasil.png 1672w" sizes="(max-width:900px) 92vw, 840px" width="1200" height="675" decoding="async"
-          alt="Canton Fair abril de 2027, 141ª edição, missão Brasil AMO Embarque — 15 de abril a 5 de maio, três fases"
-          title="Canton Fair Abril 2027 — 141ª Edição Missão Brasil AMO Embarque"
-          loading="lazy"
-          style="width:100%;border-radius:14px;border:1px solid var(--b);display:block;">
-        <figcaption style="font-size:11px;color:var(--wdd);margin-top:8px;text-align:center;">
-          Canton Fair abril de 2027 — 141ª edição · 15 de abril a 5 de maio · missaocantonfair.com
-        </figcaption>
-      </figure>
     </div>
 
     <div style="background:rgba(125,255,0,.06);border:1px solid rgba(125,255,0,.2);border-radius:12px;padding:16px 18px;margin:16px 0;">

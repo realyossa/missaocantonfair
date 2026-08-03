@@ -347,6 +347,30 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 
 footer{position:relative;z-index:1;text-align:center;padding:28px 24px;border-top:1px solid var(--b);font-size:11px;color:var(--wdd);}
 footer a{color:var(--g);}
+
+/* ==========================================================
+   CONTRATO DE LAYOUT MOBILE — AMO
+   Bloco padrao, identico nas paginas do missaocantonfair.com.
+   Regra unica: nenhum elemento pode ultrapassar a largura da
+   tela. Coluna centralizada, margens simetricas, texto alinhado
+   a esquerda dentro da coluna. Verificado automaticamente pelo
+   passo 10 do portao de publicacao (render a 390px e 360px).
+   ========================================================== */
+@media (max-width:760px){
+  img,svg,video,iframe{max-width:100%;}
+  h1,h2,h3,h4,p,li,td,th,dd,dt,figcaption{overflow-wrap:break-word;}
+  .wrap{padding-left:20px;padding-right:20px;}
+}
+
+@media (max-width:900px){
+  .cf-mosaic{grid-template-columns:1fr 1fr;grid-template-rows:none;grid-auto-rows:170px;}
+  .cf-mosaic .cfm-big{grid-column:1 / -1;grid-row:auto;}
+}
+@media (max-width:760px){
+  .cf-stats{grid-template-columns:1fr 1fr;}
+  .why-grid{grid-template-columns:1fr;}
+  .gal-carousel-wrap{margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px;}
+}
 </style>
 
 <!-- ══ SCHEMA.ORG — JSON-LD ══ -->
@@ -660,7 +684,7 @@ footer a{color:var(--g);}
 <!-- INFOGRAPHIC + MAP — 2 colunas -->
 <section style="position:relative;z-index:1;background:rgba(13,18,13,.88);padding:40px 0 48px;">
   <div class="wrap">
-    <div class="info-grid-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div class="info-grid-2col" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
 
       <!-- Bloco 1 — Infográfico números -->
       <div style="background:var(--card);border:1px solid var(--b);border-radius:16px;overflow:hidden;">
@@ -784,7 +808,7 @@ footer a{color:var(--g);}
 <!-- ─── 2027 SECTION ─── -->
 <section id="2027" style="position:relative;z-index:1;background:var(--bg);border-top:1px solid var(--b);padding:72px 0;">
   <div class="wrap">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+    <div style="max-width:760px;margin:0 auto;">
 
       <div>
         <div class="sec-lbl" style="margin-bottom:18px">Para quem pensa no futuro</div>
@@ -852,20 +876,6 @@ footer a{color:var(--g);}
         <p style="font-size:11px;color:var(--wdd);margin-top:10px;">Sem compromisso · Resposta em até 24h · Grupo aberto para as duas edições de 2027</p>
       </div>
 
-      <div>
-        <figure style="margin:0;">
-          <div style="aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid var(--b);box-shadow:0 16px 48px rgba(0,0,0,.4);">
-            <img src="img/canton-fair-abril-2027-141-edicao-convite-missao-brasil-1200.webp" srcset="img/canton-fair-abril-2027-141-edicao-convite-missao-brasil-400.webp 400w, img/canton-fair-abril-2027-141-edicao-convite-missao-brasil-800.webp 800w, img/canton-fair-abril-2027-141-edicao-convite-missao-brasil-1200.webp 1200w, img/canton-fair-abril-2027-141-edicao-convite-missao-brasil.png 1672w" sizes="(max-width:900px) 92vw, 840px" width="1200" height="675" decoding="async"
-              alt="Canton Fair Abril 2027 141ª edição convite missão Brasil AMO Embarque — 15 de abril a 5 de maio de 2027, três fases"
-              title="Missão Canton Fair Abril 2027 — 141ª Edição AMO Embarque"
-              loading="lazy"
-              style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
-          </div>
-          <figcaption style="font-size:11px;color:var(--wdd);margin-top:8px;text-align:center;">
-            Canton Fair abril de 2027 — 141ª edição · 15 de abril a 5 de maio
-          </figcaption>
-        </figure>
-      </div>
 
     </div>
   </div>

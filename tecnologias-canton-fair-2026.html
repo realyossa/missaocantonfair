@@ -459,6 +459,30 @@ footer a{color:var(--g);}
   .amo1f .amo1f-in{flex:0 0 auto;width:100%;}
   .amo1f .amo1f-bt{width:100%;}
 }
+
+/* ==========================================================
+   CONTRATO DE LAYOUT MOBILE — AMO
+   Bloco padrao, identico nas paginas do missaocantonfair.com.
+   Regra unica: nenhum elemento pode ultrapassar a largura da
+   tela. Coluna centralizada, margens simetricas, texto alinhado
+   a esquerda dentro da coluna. Verificado automaticamente pelo
+   passo 10 do portao de publicacao (render a 390px e 360px).
+   ========================================================== */
+@media (max-width:760px){
+  img,svg,video,iframe{max-width:100%;}
+  h1,h2,h3,h4,p,li,td,th,dd,dt,figcaption{overflow-wrap:break-word;}
+  .wrap{padding-left:20px;padding-right:20px;}
+}
+
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:20px 0;}
+.tbl-wrap .price-table{margin:0;min-width:520px;}
+.tbl-hint{display:none;font-size:11px;color:var(--wdd);margin:-12px 0 20px;}
+@media (max-width:760px){
+  .stat-bar{grid-template-columns:1fr 1fr;}
+  .tech-grid{grid-template-columns:1fr;}
+  .img-grid-2{grid-template-columns:1fr;}
+  .tbl-hint{display:block;}
+}
 </style>
 <link rel="stylesheet" href="/assets/css/amo-crm.css?v=49">
 </head>
@@ -650,6 +674,7 @@ footer a{color:var(--g);}
     <p class="art-p">A Ti5 Robot exibia múltiplos modelos: do T170D (com array de 6 microfones para interação por voz) ao T230C (com capacidade de carga de 40kg). A PHYBOT apresentou o C1, capaz de jogar badminton contra humanos — e vencer. A ChangingTek mostrou a mão robótica X2, com 5 dedos funcionais e capacidade de manipulação de ferramentas.</p>
     <p class="art-p">Mais importante: todos estes produtos estavam disponíveis para negociação B2B. Não era exposição acadêmica. Era catálogo.</p>
 
+    <div class="tbl-wrap" tabindex="0" role="region" aria-label="Tabela de preços de robótica na Canton Fair 2026">
     <table class="price-table">
       <thead>
         <tr>
@@ -692,6 +717,8 @@ footer a{color:var(--g);}
         </tr>
       </tbody>
     </table>
+    </div>
+    <p class="tbl-hint">Role a tabela para o lado para ver todas as colunas.</p>
 
     <figure style="margin:24px 0;">
       <img src="img/canton-fair-2026-robo-humanoide-ia-guangdong-missao-brasil-1200.webp" srcset="img/canton-fair-2026-robo-humanoide-ia-guangdong-missao-brasil-400.webp 400w, img/canton-fair-2026-robo-humanoide-ia-guangdong-missao-brasil-800.webp 800w, img/canton-fair-2026-robo-humanoide-ia-guangdong-missao-brasil-1200.webp 1200w, img/canton-fair-2026-robo-humanoide-ia-guangdong-missao-brasil.png 1731w" sizes="(max-width:900px) 92vw, 840px" width="1200" height="630" decoding="async"
