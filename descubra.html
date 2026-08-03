@@ -121,6 +121,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .hero-layout{display:flex;align-items:center;justify-content:space-between;gap:40px;padding:72px 0;}
 .hero-content{flex:1;max-width:520px;}
 .hero-cta-box{
+  position:relative;z-index:2;
   flex-shrink:0;
   display:flex;flex-direction:column;align-items:center;gap:14px;
   background:rgba(10,15,10,.85);
@@ -191,6 +192,34 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
   .hero-layout{flex-direction:column;gap:24px;padding:52px 0 40px;}
   .hero-cta-box{width:100%;max-width:420px;}
   .hero-content{max-width:100%;}
+}
+@media(max-width:640px){
+  /* o gradiente de 90deg foi desenhado para o hero de duas colunas: escuro na
+     esquerda (texto) e claro na direita (foto). Empilhado no celular ele deixa
+     a pagina inteira sob a faixa preta. Vertical mantem a legibilidade e ainda
+     deixa a imagem aparecer. */
+  .hero-overlay{background:linear-gradient(180deg,rgba(8,11,8,.58) 0%,rgba(8,11,8,.86) 62%,rgba(8,11,8,.95) 100%);}
+  /* com o overlay vertical a foto some se ficar em .22; no celular ela e o
+     unico respiro visual do hero. */
+  .hero-bg{opacity:.34;background-position:center 30%;}
+  .hero-layout{gap:22px;}
+  /* a seta "CONHECER A FEIRA" ocupava ~90px de espaco morto logo acima do
+     CTA principal, que ja tem a propria seta. Redundante no celular. */
+  .hero-arrow{display:none;}
+  /* .58 de alfa sobre preto some no celular ao sol. */
+  .hero-cta-sub{color:rgba(244,247,238,.82);}
+  .hero{min-height:0;}
+  .hero-content{padding:0 0 8px;}
+  .hero-layout{padding:32px 0 36px;}
+  .hero-content h1{font-size:30px;}
+  .hero-sub{font-size:15px;margin-bottom:22px;}
+  /* nav em uma linha: o rotulo longo quebrava em duas e a nav ficava com 96px
+     de altura. O logo ja leva para a mesma URL do "Ver a missao". */
+  .nav{padding:12px 16px;gap:12px;}
+  .nav-back{display:none;}
+  .nav-cta{white-space:nowrap;font-size:11px;padding:9px 14px;}
+  .nav-logo img{width:26px;height:26px;}
+  .nav-logo span{font-size:12px;}
 }
 
 /* CANTON FAIR SECTION */
@@ -887,7 +916,7 @@ footer a{color:var(--g);}
   <div class="bridge-title">Descubra sua fase<br>em <em>menos de 1 minuto.</em></div>
   <p class="bridge-sub">Cada setor tem um momento certo na feira. 3 perguntas rápidas — e você sabe exatamente quando precisa estar em Guangzhou.</p>
   <div class="bridge-pills">
-    <div class="bridge-pill">⏱ <span>3 perguntas</span> · menos de 1 min</div>
+    <div class="bridge-pill"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" style="vertical-align:-2px"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg> <span>3 perguntas</span> · menos de 1 min</div>
     <div class="bridge-pill">— Resultado com <span>data exata</span></div>
     <div class="bridge-pill">Proposta via <span>WhatsApp</span></div>
     <div class="bridge-pill">— <span>100% gratuito</span> · sem spam</div>
