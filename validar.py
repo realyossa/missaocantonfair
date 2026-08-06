@@ -29,7 +29,12 @@ NAP = {
 
 # Os unicos telefones que podem aparecer no site, so digitos (com 55 na frente).
 # Fixo, WhatsApp Turismo e WhatsApp Corporativo. Qualquer outro numero e erro.
-TELEFONES = {"554933161858", "5549998005666", "5549999380070"}
+TELEFONES = {
+    "554933161858",    # fixo da loja
+    "5549998005666",   # WhatsApp Turismo (Jamila)
+    "5549999380070",   # WhatsApp Corporativo / missoes
+    "5549998020177",   # WhatsApp Kadidia Umar (CEO) — confirmado pelo Yossa em 06/08/2026
+}
 
 # Arquivos que nao sao pagina de conteudo e ficam de fora de quase tudo.
 ISENTOS = {"./google06948f8d5d62d0b6.html", "./404.html", "./ai-info.html"}
