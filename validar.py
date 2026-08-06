@@ -182,6 +182,21 @@ def main():
             if "alt=" not in tag.group(0):
                 erro(p, "<img> sem alt: %s" % tag.group(0)[:80])
 
+        # --- links internos quebrados ---------------------------------------
+        # Ancora para id que nao existe e link para pagina que nao existe nao
+        # dao erro em lugar nenhum: o visitante clica e nada acontece, e o
+        # crawler segue para o vazio. Achado real: o botao "Ver depoimentos"
+        # do hub de turismo apontava para #depoimentos, secao inexistente.
+        ids_da_pagina = set(re.findall(r'id="([^"]+)"', s))
+        for href in re.findall(r'<a\b[^>]*href="([^"]+)"', s):
+            if href.startswith("#") and len(href) > 1:
+                if href[1:] not in ids_da_pagina:
+                    erro(p, "link para ancora inexistente nesta pagina: %s" % href)
+            elif href.startswith("/") and not href.startswith("//"):
+                alvo = caminho_local(DOMINIO + href)
+                if alvo and not os.path.isfile(alvo):
+                    erro(p, "link interno para pagina que nao existe: %s" % href)
+
         # --- emoji (regra da marca) -----------------------------------------
         achado = EMOJI.search(s)
         if achado:
