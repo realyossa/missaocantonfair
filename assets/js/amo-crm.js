@@ -31,7 +31,6 @@
   //
   //   data-amo-braco="corporativo"      forca o braco (sem isto, sai do caminho)
   //   data-amo-assunto="a missao..."    assunto do WhatsApp quando nao ha rota
-  //   data-amo-privacidade="https://..." destino do link do aviso de medicao
   //
   // Sem atributo nenhum, o comportamento e exatamente o de antes.
   var RAIZ = document.documentElement;
@@ -527,7 +526,6 @@
   function podeAbrir() {
     if (popupAberto || document.getElementById('amo-cap')) return false;
     if (popupBloqueado()) return false;
-    // O aviso trava a captura so enquanto esta em primeiro plano. Antes ele
     for (var i = 0; i < SEM_POPUP.length; i++) {
       if (location.pathname.indexOf(SEM_POPUP[i]) === 0) return false;
     }
@@ -606,11 +604,11 @@
     var tentativas = 0;
     setTimeout(function tenta() {
       if (abrirCaptura(motivo)) return;
-      // Recusou a medicao, ja enviou, dispensou nos ultimos 7 dias ou o cartao
-      // ja esta aberto: nao ha nada a repetir.
+      // Ja enviou, dispensou nos ultimos 7 dias ou o cartao ja esta aberto:
+      // nao ha nada a repetir.
       if (popupAberto || popupBloqueado()) return;
-      // Sobrou o caso temporario — o aviso de medicao ainda na tela nos
-      // primeiros segundos da visita. Esse resolve sozinho; vale reesperar.
+      // Sobrou o caso temporario — a pessoa estava com o cursor num campo
+      // quando a hora chegou. Esse resolve sozinho; vale reesperar.
       if (++tentativas < 4) setTimeout(tenta, 3000);
     }, 900);
   }
