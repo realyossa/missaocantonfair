@@ -247,6 +247,13 @@
       extra: (extras && extras.extra) || {}
     };
     despachar(ev);
+    // Espelha o evento no Umami. Sem cookie, sem identificador: vai so o nome
+    // do evento e o contexto de pagina. Se o script nao carregou, nao faz nada.
+    try {
+      if (window.umami && typeof window.umami.track === 'function') {
+        window.umami.track(tipo + ':' + (nome || 'sem-nome'), { pagina: ev.p, braco: ev.b });
+      }
+    } catch (e) {}
     return ev;
   }
 

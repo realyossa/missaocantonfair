@@ -187,6 +187,13 @@ def main():
         if achado:
             erro(p, "emoji encontrado (%r). A marca usa icones proprios, nunca emoji." % achado.group(0))
 
+        # --- medicao de acesso ----------------------------------------------
+        # Pagina publicada sem o script do Umami e pagina cega: some do relatorio
+        # sem avisar ninguem. Erro de proposito, e nao aviso.
+        if "cloud.umami.is/script.js" not in s:
+            erro(p, "sem o script de medicao do Umami. Pagina indexavel sem medicao some do "
+                    "relatorio sem que ninguem perceba.")
+
         # --- microdata de avaliacao -----------------------------------------
         if 'itemprop="aggregateRating"' in s or "schema.org/AggregateRating" in s:
             erro(p, "microdata de AggregateRating. Avaliacao sobre a propria empresa no proprio site e "
