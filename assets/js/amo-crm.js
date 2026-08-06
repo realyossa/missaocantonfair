@@ -32,7 +32,6 @@
   //   data-amo-braco="corporativo"      forca o braco (sem isto, sai do caminho)
   //   data-amo-assunto="a missao..."    assunto do WhatsApp quando nao ha rota
   //   data-amo-privacidade="https://..." destino do link do aviso de medicao
-  //   data-amo-ga="G-AAA G-BBB"         medidores que a recusa precisa desligar
   //
   // Sem atributo nenhum, o comportamento e exatamente o de antes.
   var RAIZ = document.documentElement;
@@ -42,8 +41,6 @@
   }
   var BRACO_FIXO = cfg('braco', '');
   var ASSUNTO_FIXO = cfg('assunto', '');
-  var URL_PRIVACIDADE = cfg('privacidade', '/privacidade/');
-  var MEDIDORES = cfg('ga', 'G-TKW7ZSSV34').split(/[,\s]+/).filter(Boolean);
 
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbwGwDaoN0STrc_aPpTTD7O8UvaBLNPR832pPh8uod2ep-qYCEu_fQQiirq7ZenSC0CJ/exec';
   var TOKEN = 'amo-2026';          // filtro de ruido, nao seguranca
@@ -117,7 +114,6 @@
   var CHAVE_V = 'amo_v';           // visitor_id + origem da primeira visita
   var CHAVE_FILA = 'amo_fila';     // eventos que nao sairam
   var CHAVE_POPUP = 'amo_popup';   // captura de segunda chance ja resolvida
-  var CHAVE_CONSENT = 'amo_consent';
   var CHAVE_ULT = 'amo_ult';      // ultimo formulario enviado, para a pagina de obrigado
   var TETO_FILA = 20;
   var VALIDADE_FILA = 7 * 24 * 3600 * 1000;
@@ -132,7 +128,20 @@
     } catch (e) { return null; }
   }
 
-  function consentiu() { return ls(CHAVE_CONSENT) !== 'nao'; }
+  // Guarda de sessao: vive na aba, morre quando ela fecha. Nao e identificador
+  // persistente, so preserva a origem da PRIMEIRA pagina dentro da visita.
+  function ss(k, v) {
+    try {
+      if (v === undefined) return window.sessionStorage.getItem(k);
+      if (v === null) { window.sessionStorage.removeItem(k); return null; }
+      window.sessionStorage.setItem(k, v); return v;
+    } catch (e) { return null; }
+  }
+
+  // A pessoa so passa a ser identificada depois de enviar um formulario —
+  // momento em que ela entrega nome e WhatsApp por vontade propria. Antes
+  // disso nada persiste no navegador e nenhum id sai nos eventos.
+  function identificado() { return !!ls(CHAVE_V); }
 
   function hostDe(u) {
     try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; }
@@ -148,7 +157,7 @@
   // Gravada na PRIMEIRA visita. Sem isso, quem chega pelo ChatGPT, navega
   // pelo site e so depois clica aparece como origem "amoembarque.com".
   function visitante() {
-    var cru = ls(CHAVE_V);
+    var cru = ls(CHAVE_V) || ss(CHAVE_V);
     if (cru) { try { return JSON.parse(cru); } catch (e) { /* regrava */ } }
     var q = new URLSearchParams(location.search);
     var v = {
@@ -162,8 +171,13 @@
       p1: location.pathname,
       t0: new Date().toISOString()
     };
-    if (consentiu()) ls(CHAVE_V, JSON.stringify(v));
+    ss(CHAVE_V, JSON.stringify(v));
     return v;
+  }
+
+  // Promove a visita a identificada. Chamado no envio de formulario.
+  function identificar() {
+    try { if (!ls(CHAVE_V)) ls(CHAVE_V, JSON.stringify(VISITANTE)); } catch (e) {}
   }
 
   var VISITANTE = visitante();
@@ -223,7 +237,7 @@
       p: location.pathname,
       b: braco(),
       c: (extras && extras.c) || '',
-      v: consentiu() ? VISITANTE.id : '',
+      v: identificado() ? VISITANTE.id : '',
       s: VISITANTE.s,
       u: VISITANTE.u,
       dev: window.matchMedia('(max-width: 820px)').matches ? 'mobile' : 'desktop',
@@ -315,6 +329,7 @@
       else if (k === 'whatsapp' || k === 'telefone' || k === 'fone') fone = v;
       else campos[k] = v;
     });
+    identificar();
     evento('form', nomeForm || 'lead', { nome: pessoa, fone: fone, extra: campos });
     try {
       ls(CHAVE_ULT, JSON.stringify({ n: pessoa, f: fone, ts: Date.now() }));
@@ -412,6 +427,7 @@
       else if (k === 'contato') { if (/\d{8,}/.test(v.replace(/\D/g, ''))) fone = v; else campos[k] = v; }
       else campos[k] = v;
     });
+    identificar();
     evento('form', nome, { nome: pessoa, fone: fone, extra: campos });
     // Guardado para a pagina de obrigado saber se ficou faltando o nome.
     try {
@@ -503,16 +519,8 @@
 
   function podeAbrir() {
     if (popupAberto || document.getElementById('amo-cap')) return false;
-    if (popupBloqueado() || !consentiu()) return false;
+    if (popupBloqueado()) return false;
     // O aviso trava a captura so enquanto esta em primeiro plano. Antes ele
-    // travava para sempre: quem simplesmente ignorava a barra nunca via o
-    // cartao de captura, porque a barra so saia da tela no clique. Era o
-    // caminho mais comum do visitante e o que mais custava lead. Depois de
-    // AVISO_RECOLHE_MS a barra vira uma pastilha discreta (classe recolhido),
-    // continua clicavel — a promessa de /privacidade/ segue de pe — e libera
-    // a captura.
-    var av = document.getElementById('amo-lgpd');
-    if (av && !av.classList.contains('recolhido')) return false;
     for (var i = 0; i < SEM_POPUP.length; i++) {
       if (location.pathname.indexOf(SEM_POPUP[i]) === 0) return false;
     }
@@ -593,7 +601,7 @@
       if (abrirCaptura(motivo)) return;
       // Recusou a medicao, ja enviou, dispensou nos ultimos 7 dias ou o cartao
       // ja esta aberto: nao ha nada a repetir.
-      if (popupAberto || popupBloqueado() || !consentiu()) return;
+      if (popupAberto || popupBloqueado()) return;
       // Sobrou o caso temporario — o aviso de medicao ainda na tela nos
       // primeiros segundos da visita. Esse resolve sozinho; vale reesperar.
       if (++tentativas < 4) setTimeout(tenta, 3000);
@@ -677,7 +685,8 @@
       }
       var fd = new FormData(ev.target);
       var pessoa = String(fd.get('nome') || '').slice(0, 120).trim();
-      evento('form', 'flutuante-form-' + motivo, {
+      identificar();
+    evento('form', 'flutuante-form-' + motivo, {
         nome: pessoa,
         fone: String(fd.get('fone') || '').slice(0, 40),
         extra: { assunto: assuntoCrm() }
@@ -742,7 +751,8 @@
       ev.preventDefault();
       var pessoa = String(f.querySelector('input').value || '').trim().slice(0, 60);
       if (!pessoa) { f.querySelector('input').focus(); return; }
-      evento('form', 'obrigado-nome', {
+      identificar();
+    evento('form', 'obrigado-nome', {
         nome: pessoa,
         fone: ult.f || '',
         extra: { assunto: assuntoCrm() }
@@ -753,69 +763,6 @@
       pronto.className = 'amo-nome-ok';
       pronto.textContent = 'Obrigada, ' + pessoa.split(' ')[0] + '. Já anotei aqui.';
       f.parentNode.replaceChild(pronto, f);
-    });
-  }
-
-  // ------------------------------------------------- aviso de consentimento
-  // A politica de privacidade promete um aviso na primeira visita com opcao
-  // de recusar a medicao. Recusar tem efeito real: desliga o GA4 (a guarda
-  // no <head> le a mesma chave na proxima navegacao), zera o identificador
-  // de visitante e para de mandar 'v' nos eventos.
-  function decidido() { var c = ls(CHAVE_CONSENT); return c === 'sim' || c === 'nao'; }
-
-  function aplicarRecusa() {
-    // Um site pode reportar para mais de uma propriedade. Recusar a medicao e
-    // uma escolha sobre SER medido, nao sobre uma propriedade especifica:
-    // desligar so a primeira deixaria a segunda gravando, que e pior do que
-    // nao ter aviso nenhum, porque a promessa foi feita e nao cumprida.
-    try {
-      for (var i = 0; i < MEDIDORES.length; i++) {
-        window['ga-disable-' + MEDIDORES[i]] = true;
-      }
-    } catch (e) {}
-    ls(CHAVE_V, null);
-    ls(CHAVE_FILA, null);
-  }
-
-  function abrirAviso() {
-    if (decidido()) return;
-    if (document.getElementById('amo-lgpd')) return;
-    var b = document.createElement('div');
-    b.id = 'amo-lgpd';
-    b.setAttribute('role', 'region');
-    b.setAttribute('aria-label', 'Aviso de privacidade');
-    // Texto curto de proposito. A versao anterior explicava o que era medido e
-    // jurava que nao virava publicidade — informacao correta, mas no lugar
-    // errado: uma barra de aviso que da explicacao longa chama atencao para
-    // si e faz o visitante desconfiar de algo que ele nem tinha notado. O
-    // detalhe vive em /privacidade/, que e onde quem quiser vai procurar.
-    // O que NAO encolhe: continuam sendo dois botoes com o mesmo peso. A
-    // /privacidade/ promete "recusar a medicao no aviso que aparece na
-    // primeira visita" — um aviso de aceite unico quebraria essa promessa.
-    b.innerHTML =
-      '<p>Usamos dados de navega\u00e7\u00e3o para medir o acesso ao site. ' +
-      '<a href="' + esc(URL_PRIVACIDADE) + '">Pol\u00edtica de privacidade</a>.</p>' +
-      '<div class="amo-lgpd-b">' +
-      '<button type="button" data-amo-lgpd="nao">Recusar</button>' +
-      '<button type="button" data-amo-lgpd="sim" class="amo-lgpd-ok">Aceitar</button>' +
-      '</div>' +
-      '<button type="button" class="amo-lgpd-pill" data-amo-lgpd-abrir ' +
-      'aria-label="Abrir as op\u00e7\u00f5es de privacidade">Privacidade</button>';
-    document.body.appendChild(b);
-    setTimeout(function () {
-      if (b.isConnected) { b.classList.add('recolhido'); }
-    }, AVISO_RECOLHE_MS);
-    b.addEventListener('click', function (e) {
-      if (b.classList.contains('recolhido')) {
-        var pill = e.target.closest && e.target.closest('[data-amo-lgpd-abrir]');
-        if (pill) { b.classList.remove('recolhido'); return; }
-      }
-      var alvo = e.target.closest && e.target.closest('[data-amo-lgpd]');
-      if (!alvo) return;
-      var v = alvo.getAttribute('data-amo-lgpd');
-      try { window.localStorage.setItem(CHAVE_CONSENT, v); } catch (er) {}
-      if (v === 'nao') aplicarRecusa();
-      b.remove();
     });
   }
 
@@ -870,8 +817,7 @@
   });
 
   // ---------------------------------------------------------------- start
-  var AVISO_RECOLHE_MS = 22000;   // 22s: tempo de ler a barra sem que ela vire pedagio
-  function iniciar() { drenar(); pedirNome(); setTimeout(abrirAviso, 1500); }
+  function iniciar() { drenar(); pedirNome(); }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', iniciar);
   } else {

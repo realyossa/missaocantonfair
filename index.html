@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR" data-amo-braco="corporativo"
       data-amo-assunto="a missão à Canton Fair"
-      data-amo-privacidade="https://amoembarque.com/privacidade/"
-      data-amo-ga="G-EY0B7MKZ3E G-TKW7ZSSV34">
+      data-amo-privacidade="https://amoembarque.com/privacidade/">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2892,30 +2891,6 @@ body::after{z-index:9999;}
   .wrap{padding-left:20px;padding-right:20px;}
 }
 </style>
-<!-- Google tag (gtag.js) — DUAS propriedades de proposito.
-     G-EY0B7MKZ3E e a propriedade historica deste site. G-TKW7ZSSV34 e a da AMO
-     Embarque. So com as duas medindo o mesmo visitante da para responder a
-     unica pergunta que importa aqui: quem chega pela feira vira missao no
-     amoembarque.com? Sem o mesmo identificador nos dois dominios, essa
-     travessia aparece como duas visitas de duas pessoas diferentes. -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EY0B7MKZ3E"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  // LGPD: quem recusou a medicao no aviso desliga o GA4 antes do page_view.
-  // Precisa estar aqui, no head, e nao no amo-crm.js (defer roda tarde demais).
-  // Recusar desliga as DUAS propriedades: a escolha e sobre ser medido, nao
-  // sobre qual planilha recebe.
-  try { if (localStorage.getItem('amo_consent') === 'nao') {
-    window['ga-disable-G-EY0B7MKZ3E'] = true;
-    window['ga-disable-G-TKW7ZSSV34'] = true;
-  } } catch (e) {}
-  var AMO_DOMINIOS = ['missaocantonfair.com', 'www.missaocantonfair.com',
-                      'amoembarque.com', 'www.amoembarque.com'];
-  gtag('config', 'G-EY0B7MKZ3E', { linker: { domains: AMO_DOMINIOS } });
-  gtag('config', 'G-TKW7ZSSV34', { linker: { domains: AMO_DOMINIOS } });
-</script>
 <link rel="stylesheet" href="/assets/css/amo-crm.css?v=49">
 </head>
 <body>
