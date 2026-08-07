@@ -12,7 +12,7 @@ A regra que orienta o que e ERRO e o que e AVISO:
 
 Nao precisa de dependencia externa. Python 3.8+.
 """
-import os, re, sys, json, glob, collections, datetime, xml.dom.minidom
+import os, re, sys, json, glob, html, collections, datetime, unicodedata, xml.dom.minidom
 
 # ---------------------------------------------------------------- configuracao
 DOMINIO = "https://missaocantonfair.com"
@@ -53,6 +53,22 @@ HOJE = datetime.date.today()
 erros, avisos = [], []
 def erro(arq, msg):  erros.append((arq, msg))
 def aviso(arq, msg): avisos.append((arq, msg))
+
+
+def texto_normalizado(texto):
+    """Texto visivel da pagina, sem acento e sem pontuacao. Serve para conferir
+    se o que esta declarado no schema realmente aparece na tela."""
+    t = re.sub(r"<(script|style|noscript).*?</\1>", " ", texto, flags=re.S)
+    t = re.sub(r"<!--.*?-->", " ", t, flags=re.S)
+    t = re.sub(r"<[^>]+>", " ", t)
+    return normalizar(t)
+
+
+def normalizar(t):
+    t = html.unescape(t)
+    t = unicodedata.normalize("NFKD", t.lower()).encode("ascii", "ignore").decode()
+    t = re.sub(r"[^a-z0-9 ]", " ", t)
+    return re.sub(r"\s+", " ", t).strip()
 
 
 def paginas_html():
@@ -189,13 +205,22 @@ def main():
         # do hub de turismo apontava para #depoimentos, secao inexistente.
         ids_da_pagina = set(re.findall(r'id="([^"]+)"', s))
         for href in re.findall(r'<a\b[^>]*href="([^"]+)"', s):
+            # URL absoluta do proprio dominio conta como link interno.
+            if href.startswith(DOMINIO):
+                href = href[len(DOMINIO):] or "/"
             if href.startswith("#") and len(href) > 1:
                 if href[1:] not in ids_da_pagina:
                     erro(p, "link para ancora inexistente nesta pagina: %s" % href)
             elif href.startswith("/") and not href.startswith("//"):
-                alvo = caminho_local(DOMINIO + href)
+                caminho, _, ancora = href.partition("#")
+                alvo = caminho_local(DOMINIO + caminho)
                 if alvo and not os.path.isfile(alvo):
                     erro(p, "link interno para pagina que nao existe: %s" % href)
+                elif alvo and ancora:
+                    destino = open(alvo, encoding="utf-8", errors="ignore").read()
+                    if ancora not in set(re.findall(r'id="([^"]+)"', destino)):
+                        erro(p, "link aponta para a ancora #%s de %s, que nao existe naquela pagina."
+                                % (ancora, caminho))
 
         # --- emoji (regra da marca) -----------------------------------------
         achado = EMOJI.search(s)
@@ -243,6 +268,32 @@ def main():
                 if not isinstance(no, dict):
                     continue
                 tp = tipos(no)
+
+                if "FAQPage" in tp:
+                    visivel_norm = texto_normalizado(s)
+                    for q in no.get("mainEntity", []):
+                        if not isinstance(q, dict):
+                            continue
+                        pergunta = (q.get("name") or "").strip()
+                        resposta = ((q.get("acceptedAnswer") or {}).get("text") or "").strip()
+                        if not pergunta:
+                            erro(p, "FAQPage com Question sem 'name'.")
+                            continue
+                        if len(pergunta) > 150:
+                            aviso(p, "pergunta de FAQ com %d caracteres: %r... Pergunta longa demais "
+                                     "costuma ser conteudo colado por engano dentro do 'name'."
+                                     % (len(pergunta), pergunta[:80]))
+                        if normalizar(pergunta) not in visivel_norm:
+                            erro(p, "pergunta de FAQ existe no schema mas nao aparece no texto visivel: %r. "
+                                    "O Google exige que o conteudo marcado esteja visivel na pagina."
+                                    % pergunta[:110])
+                        if resposta:
+                            palavras = [w for w in normalizar(resposta).split() if len(w) > 4]
+                            if palavras:
+                                cob = sum(1 for w in palavras if w in visivel_norm) / len(palavras)
+                                if cob < 0.95:
+                                    erro(p, "resposta de FAQ divergente do que esta na pagina (%.0f%% do "
+                                            "conteudo visivel) na pergunta %r." % (cob * 100, pergunta[:80]))
 
                 if "aggregateRating" in no and (tp & TIPOS_ORG):
                     erro(p, "aggregateRating em no %s. Politica do Google: entidade que controla as "
