@@ -153,6 +153,45 @@ def avaliacoes_recursivas(no, caminho="", achados=None):
     return achados
 
 
+# Nomes de arquivo que varias imagens diferentes compartilham (miniaturas do
+# YouTube, por exemplo). Alts diferentes ai sao esperados, nao contradicao.
+IMAGENS_SEM_ALT_UNICO = {"hqdefault.jpg", "mqdefault.jpg", "maxresdefault.jpg", "default.jpg"}
+
+# Abaixo disso, os dois alts falam de coisas diferentes o bastante para que o
+# nome proprio exclusivo de cada um seja contradicao, e nao parafrase.
+LIMITE_ALT_SEMELHANTE = 0.25
+
+PALAVRAS_GENERICAS = set("""
+AMO Embarque Chapeco SC Brasil A O E Da De Do Das Dos Em Na No Com Para Uma Um
+Foto Imagem Agencia Viagens Viagem Turismo Corporativo Missao Canton Fair
+""".split())
+
+
+def arquivo_base(src):
+    """Nome do arquivo da imagem, sem o sufixo de largura do srcset."""
+    base = os.path.basename(src.split("?")[0])
+    return re.sub(r"-(320|480|640|800|1024|1200|1360)(\.(webp|jpg|jpeg|png|avif))$", r"\2", base)
+
+
+def nomes_proprios(t):
+    """Substantivos proprios de um alt — o que faz dele uma afirmacao factual.
+    A primeira palavra e descartada: maiuscula de inicio de frase nao e nome
+    proprio, e confundir as duas transforma parafrase em contradicao."""
+    t = unicodedata.normalize("NFC", html.unescape(t)).strip()
+    t = re.sub(r"^\S+\s*", "", t)
+    achados = re.findall(r"\b[A-Z][^\W\d_]+", t, re.UNICODE)
+    return {w for w in achados if w not in PALAVRAS_GENERICAS}
+
+
+def conteudo(t):
+    """Palavras de conteudo de um alt, para medir o quanto dois alts falam da
+    mesma coisa."""
+    vazias = set("a o e de da do das dos em na no nas nos com para por um uma "
+                 "os as ao aos que se sua seu suas seus onde ate entre sobre "
+                 "foto imagem".split())
+    return {w for w in normalizar(t).split() if w not in vazias and len(w) > 2}
+
+
 def tipos(no):
     t = no.get("@type")
     return set(t) if isinstance(t, list) else ({t} if t else set())
@@ -167,11 +206,24 @@ def main():
 
     titulos = collections.Counter()
     ids_evento = collections.defaultdict(set)   # @id -> {(start, end)}
+    alts_por_imagem = collections.defaultdict(set)  # arquivo de imagem -> {(alt, pagina)}
+    heros = collections.defaultdict(list)           # imagem de hero -> [paginas]
     urls_indexaveis = set()
 
     for p in paginas:
         s = open(p, encoding="utf-8", errors="ignore").read()
         isento = p in ISENTOS
+
+        # --- inventario de imagens (alt e hero) ------------------------------
+        for tag in re.findall(r"<img[^>]*>", s):
+            m_src = re.search(r'src="([^"]+)"', tag)
+            m_alt = re.search(r'alt="([^"]*)"', tag)
+            if not m_src or not m_alt:
+                continue
+            base = arquivo_base(m_src.group(1))
+            alts_por_imagem[base].add((html.unescape(m_alt.group(1)).strip(), p))
+            if 'class="photo-main"' in tag and not isento:
+                heros[base].append(p)
 
         # --- meta robots -----------------------------------------------------
         m = re.search(r'<meta\s+name="robots"[^>]*content="([^"]*)"', s, re.I)
@@ -427,6 +479,45 @@ def main():
         for bot in ("GPTBot", "PerplexityBot", "ClaudeBot", "Bingbot", "Google-Extended"):
             if bot not in r:
                 aviso("robots.txt", "crawler de IA %s nao esta declarado." % bot)
+
+    # --- coerencia dos textos alternativos -----------------------------------
+    # Um mesmo arquivo de imagem descrito de dois jeitos incompativeis significa
+    # que pelo menos um dos dois alts esta errado.
+    for base, conjunto in sorted(alts_por_imagem.items()):
+        if base in IMAGENS_SEM_ALT_UNICO:
+            continue
+        textos = sorted({a for a, _ in conjunto if a})
+        if len(textos) < 2:
+            continue
+        parou = False
+        for i in range(len(textos)):
+            if parou:
+                break
+            for j in range(i + 1, len(textos)):
+                na, nb = nomes_proprios(textos[i]), nomes_proprios(textos[j])
+                so_a, so_b = na - nb, nb - na
+                ca, cb = conteudo(textos[i]), conteudo(textos[j])
+                uniao = ca | cb
+                semelhanca = len(ca & cb) / len(uniao) if uniao else 1.0
+                if so_a and so_b and semelhanca < LIMITE_ALT_SEMELHANTE:
+                    onde = sorted({pg for a, pg in conjunto if a in (textos[i], textos[j])})
+                    aviso("(global)",
+                          "a imagem %s e descrita de duas formas que se contradizem: "
+                          "%r (cita %s) e %r (cita %s). Em %s. "
+                          "Um dos dois alts descreve uma foto que nao e essa — confira a imagem antes de publicar."
+                          % (base, textos[i], ", ".join(sorted(so_a)),
+                             textos[j], ", ".join(sorted(so_b)), ", ".join(onde)))
+                    parou = True
+                    break
+
+    # --- imagem principal repetida entre paginas -----------------------------
+    for base, onde in sorted(heros.items()):
+        if len(onde) > 1:
+            aviso("(global)",
+                  "a mesma imagem de destaque (%s) abre %d paginas: %s. "
+                  "Se a repeticao for proposital, tudo bem; se nao for, cada pagina "
+                  "ganha mais com uma imagem propria."
+                  % (base, len(onde), ", ".join(sorted(onde))))
 
     # --- relatorio -----------------------------------------------------------
     largura = 78
