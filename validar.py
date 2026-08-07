@@ -130,6 +130,29 @@ def ofertas_recursivas(obj, achados=None):
     return achados
 
 
+def avaliacoes_recursivas(no, caminho="", achados=None):
+    """Procura QUALQUER construcao de avaliacao em JSON-LD, em qualquer
+    profundidade e em qualquer tipo de no. A regra antiga so olhava
+    aggregateRating em no de organizacao e nao pegaria um Review solto nem um
+    rating pendurado em Product/Service/Event."""
+    if achados is None:
+        achados = []
+    if isinstance(no, dict):
+        t = no.get("@type")
+        if isinstance(t, str) and t in ("Review", "AggregateRating", "Rating", "UserReview"):
+            achados.append((caminho or "raiz", "@type=" + t))
+        for k, v in no.items():
+            if k in ("aggregateRating", "review", "reviews", "ratingValue",
+                     "reviewCount", "ratingCount", "bestRating", "worstRating",
+                     "reviewRating", "reviewBody"):
+                achados.append((caminho + "." + k, str(v)[:80]))
+            avaliacoes_recursivas(v, caminho + "." + k, achados)
+    elif isinstance(no, list):
+        for i, x in enumerate(no):
+            avaliacoes_recursivas(x, caminho + "[%d]" % i, achados)
+    return achados
+
+
 def tipos(no):
     t = no.get("@type")
     return set(t) if isinstance(t, list) else ({t} if t else set())
@@ -235,9 +258,23 @@ def main():
                     "relatorio sem que ninguem perceba.")
 
         # --- microdata de avaliacao -----------------------------------------
-        if 'itemprop="aggregateRating"' in s or "schema.org/AggregateRating" in s:
-            erro(p, "microdata de AggregateRating. Avaliacao sobre a propria empresa no proprio site e "
-                    "self-serving e inelegivel para review snippet — mantenha a nota so como texto visivel.")
+        sem_comentario_aval = re.sub(r"<!--.*?-->", " ", s, flags=re.S)
+        for padrao, nome in (
+            ('itemprop="aggregateRating"', "microdata aggregateRating"),
+            ('itemprop="ratingValue"', "microdata ratingValue"),
+            ('itemprop="reviewCount"', "microdata reviewCount"),
+            ('itemprop="ratingCount"', "microdata ratingCount"),
+            ('itemprop="review"', "microdata review"),
+            ("schema.org/AggregateRating", "itemtype AggregateRating"),
+            ("schema.org/Review", "itemtype Review"),
+            ('property="v:rating"', "RDFa v:rating"),
+            ('class="hreview', "microformato hReview"),
+            ('class="rating"', "microformato rating"),
+        ):
+            if padrao in sem_comentario_aval:
+                erro(p, "%s encontrado (%s). Avaliacao sobre a propria empresa no proprio site e "
+                        "self-serving e inelegivel para review snippet — a nota do Google fica so "
+                        "como texto visivel, sem marcacao." % (nome, padrao))
 
         # --- og:image --------------------------------------------------------
         for og in re.findall(r'<meta property="og:image" content="([^"]+)"', s):
@@ -295,9 +332,11 @@ def main():
                                     erro(p, "resposta de FAQ divergente do que esta na pagina (%.0f%% do "
                                             "conteudo visivel) na pergunta %r." % (cob * 100, pergunta[:80]))
 
-                if "aggregateRating" in no and (tp & TIPOS_ORG):
-                    erro(p, "aggregateRating em no %s. Politica do Google: entidade que controla as "
-                            "avaliacoes sobre si mesma e inelegivel." % "/".join(sorted(tp)))
+                for onde, o_que in avaliacoes_recursivas(no):
+                    erro(p, "avaliacao em JSON-LD no no %s, em %s (%s). Politica do Google: entidade "
+                            "que controla as avaliacoes sobre si mesma e inelegivel para review "
+                            "snippet. A nota do Google fica so como texto visivel."
+                            % ("/".join(sorted(tp)) or "sem @type", onde, o_que))
 
                 if "Event" in tp:
                     for obrig in ("name", "startDate", "location"):
