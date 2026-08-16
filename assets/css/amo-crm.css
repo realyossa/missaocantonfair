@@ -1,7 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════════════
    amo-crm.css — estilo dos dois elementos que assets/js/amo-crm.js cria
-   em tempo de execucao: o aviso de medicao (#amo-lgpd) e a captura de
-   segunda chance (#amo-cap).
+   em tempo de execucao: a captura de segunda chance (#amo-cap).
 
    Por que arquivo proprio e nao dentro de amo.css: nove paginas do site
    (a familia canton-fair) carregam amo-crm.js e NAO carregam amo.css —
@@ -14,92 +13,14 @@
    nove paginas os tokens :root da AMO podem nao existir.
    ═══════════════════════════════════════════════════════════════════════ */
 
-/* ---------- LGPD: aviso de medicao ---------- */
-/* Barra inferior, nao modal: nao bloqueia leitura nem exige clique para
-   navegar. A /privacidade/ promete "aviso na primeira visita com opcao de
-   recusar" — entao as duas escolhas tem o mesmo peso de alvo. Recusar nao
-   e escondido, nao e cinza-sobre-cinza, nao e menor. */
-#amo-lgpd {
-  position: fixed; left: 50%; bottom: 0; transform: translateX(-50%);
-  z-index: 9998; width: min(100vw, 980px); box-sizing: border-box;
-  background: var(--amo-paper, #F7F8F3); color: var(--amo-ink, #0F130F);
-  border: 1px solid var(--amo-neutral-300, #D3D6CC); border-bottom: 0;
-  border-radius: var(--radius-lg, 20px) var(--radius-lg, 20px) 0 0;
-  padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
-  box-shadow: 0 -10px 34px rgba(15, 19, 15, .16);
-  font-family: var(--font-text, "Plus Jakarta Sans", system-ui, sans-serif);
-  display: grid; gap: var(--space-3, .75rem); align-items: center;
-}
-#amo-lgpd p {
-  margin: 0; max-width: none; font-size: .86rem; line-height: 1.5;
-  color: var(--amo-neutral-700, #45483F);
-}
-/* Estado recolhido: depois de 22 segundos a barra vira uma pastilha discreta
-   no canto. Continua clicavel — quem quiser recusar a medicao encontra a
-   escolha ali, como /privacidade/ promete — mas para de ocupar a tela e para
-   de bloquear o cartao de captura. Barra que so some no clique vira pedagio:
-   o visitante que ignora nunca chega ao cartao, e esse e o caminho mais
-   comum. */
-.amo-lgpd-pill { display: none; }
-#amo-lgpd.recolhido {
-  left: auto; right: var(--space-4, 1rem);
-  bottom: var(--space-4, 1rem);
-  transform: none; width: auto;
-  padding: 0; border: 0; border-radius: 999px;
-  box-shadow: none; background: transparent;
-}
-#amo-lgpd.recolhido p,
-#amo-lgpd.recolhido .amo-lgpd-b { display: none; }
-#amo-lgpd.recolhido .amo-lgpd-pill {
-  display: block;
-  font-family: var(--font-text, "Plus Jakarta Sans", system-ui, sans-serif);
-  font-size: .74rem; font-weight: 600; letter-spacing: .02em;
-  padding: .4rem .85rem;
-  border: 1px solid var(--amo-neutral-300, #D3D6CC);
-  border-radius: 999px;
-  background: var(--amo-paper, #F7F8F3);
-  color: var(--amo-neutral-700, #45483F);
-  box-shadow: 0 .25rem .75rem rgba(15, 19, 15, .12);
-  cursor: pointer; opacity: .82;
-}
-#amo-lgpd.recolhido .amo-lgpd-pill:hover { opacity: 1; }
-#amo-lgpd.recolhido .amo-lgpd-pill:focus-visible {
-  outline: 2px solid var(--amo-ink, #0F130F); outline-offset: 2px; opacity: 1;
-}
-#amo-lgpd p a {
-  color: var(--amo-green-deep, #3E7B00);
-  text-decoration: underline; text-underline-offset: 2px;
-}
-#amo-lgpd .amo-lgpd-b { display: flex; gap: var(--space-2, .5rem); flex-wrap: wrap; }
-#amo-lgpd .amo-lgpd-b button {
-  flex: 1 1 auto; min-width: 9rem; padding: .7rem 1rem; cursor: pointer;
-  border-radius: var(--radius-md, 10px);
-  font: inherit; font-weight: 600; font-size: .88rem;
-  border: 1px solid var(--amo-neutral-300, #D3D6CC);
-  background: #fff; color: var(--amo-neutral-700, #45483F);
-}
-#amo-lgpd .amo-lgpd-b button:hover { border-color: var(--amo-neutral-500, #878B80); }
-#amo-lgpd .amo-lgpd-b .amo-lgpd-ok {
-  background: var(--amo-green-deep, #3E7B00);
-  border-color: var(--amo-green-deep, #3E7B00); color: #fff;
-}
-#amo-lgpd .amo-lgpd-b .amo-lgpd-ok:hover {
-  background: var(--amo-ink, #0F130F); border-color: var(--amo-ink, #0F130F);
-}
-#amo-lgpd .amo-lgpd-b button:focus-visible {
-  outline: 2px solid var(--amo-green, #7DFF00); outline-offset: 2px;
-}
-@media (min-width: 720px) {
-  #amo-lgpd { grid-template-columns: 1fr auto; gap: var(--space-5, 1.25rem); }
-  #amo-lgpd .amo-lgpd-b button { min-width: 10rem; }
-}
-@media (prefers-reduced-motion: no-preference) {
-  #amo-lgpd { animation: amoLgpdIn .3s ease-out; }
-}
-@keyframes amoLgpdIn {
-  from { opacity: 0; transform: translate(-50%, 16px); }
-  to   { opacity: 1; transform: translate(-50%, 0); }
-}
+/* ---------- LGPD ---------- */
+/* A barra de consentimento saiu em 16/08/2026 junto com o que a obrigava: o
+   GA4 agora carrega travado em analytics_storage negado, sem nenhum caminho
+   de concessao. Sem cookie e sem identificador de navegador nao ha permissao
+   a pedir, e barra que nao pede nada e so atrito.
+   A oposicao (legitimo interesse, LGPD art. 18) mora em /privacidade/ e usa
+   .aviso-box + .btn, que ja existem. Componente novo nao se justifica para um
+   botao so — e um seletor a menos e um seletor que nao pode divergir. */
 
 /* ---------- CRM: convite de contato ----------
    Regra de layout: no desktop o cartao mora no canto inferior DIREITO, nunca
@@ -253,14 +174,6 @@
 @keyframes amoCapIn {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Os dois moram no mesmo canto de baixo. Se coexistirem, o aviso de LGPD
-   sai de cena para nao cobrir o campo de nome do popup — que e o unico
-   dos dois que o visitante precisa preencher. */
-#amo-lgpd:has(~ #amo-cap) {
-  transform: translateX(-50%) translateY(100%);
-  pointer-events: none; animation: none;
 }
 
 /* --------------------------------------------- nome na pagina de obrigado
