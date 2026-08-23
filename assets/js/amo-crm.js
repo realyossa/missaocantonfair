@@ -242,6 +242,59 @@
     return ok;
   }
 
+  // ------------------------------------------------------------- sinais
+  // Perfil passivo do visitante, colhido sem pedir nada: fuso horario,
+  // idioma, tela e aparelho vem do navegador; IP e cidade chegam pela
+  // ipapi.co, uma vez por sessao, sem bloquear eventos. Se o provedor de
+  // IP falhar (bloqueador, cota), os demais sinais ja bastam para situar.
+  var SINAIS = null;
+  function aparelho() {
+    var ua = navigator.userAgent || '';
+    var so = 'outro';
+    if (/iPad/.test(ua)) so = 'iPad';
+    else if (/iPhone/.test(ua)) so = 'iPhone';
+    else if (/Android/.test(ua)) so = 'Android';
+    else if (/Windows/.test(ua)) so = 'Windows';
+    else if (/Mac OS X/.test(ua)) so = 'Mac';
+    else if (/Linux/.test(ua)) so = 'Linux';
+    var nav = 'navegador';
+    if (/Edg\//.test(ua)) nav = 'Edge';
+    else if (/Firefox\//.test(ua)) nav = 'Firefox';
+    else if (/Chrome\//.test(ua)) nav = 'Chrome';
+    else if (/Safari\//.test(ua)) nav = 'Safari';
+    return so + ' - ' + nav;
+  }
+  function sinais() {
+    if (!SINAIS) {
+      SINAIS = { tz: '', lang: '', tela: '', ap: '', ip: '', cid: '', uf: '' };
+      try { SINAIS.tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+      try { SINAIS.lang = navigator.language || ''; } catch (e2) {}
+      try { SINAIS.tela = String(screen.width) + 'x' + String(screen.height); } catch (e3) {}
+      SINAIS.ap = aparelho();
+      try {
+        var cache = window.sessionStorage.getItem('amo_ip');
+        if (cache) {
+          var cj = JSON.parse(cache);
+          SINAIS.ip = cj.ip || ''; SINAIS.cid = cj.cid || ''; SINAIS.uf = cj.uf || '';
+        } else if (window.fetch) {
+          window.fetch('https://ipapi.co/json/', { mode: 'cors' })
+            .then(function (r) { return r.json(); })
+            .then(function (j) {
+              if (!j || !j.ip) return;
+              SINAIS.ip = String(j.ip).slice(0, 45);
+              SINAIS.cid = String(j.city || '').slice(0, 60);
+              SINAIS.uf = String(j.region_code || j.region || '').slice(0, 30);
+              try {
+                window.sessionStorage.setItem('amo_ip', JSON.stringify({ ip: SINAIS.ip, cid: SINAIS.cid, uf: SINAIS.uf }));
+              } catch (e4) {}
+            })
+            .catch(function () {});
+        }
+      } catch (e5) {}
+    }
+    return SINAIS;
+  }
+
   function evento(tipo, nome, extras) {
     var ev = {
       k: TOKEN,
@@ -253,6 +306,7 @@
       v: identificado() ? VISITANTE.id : '',
       s: VISITANTE.s,
       u: VISITANTE.u,
+      sig: sinais(),
       dev: window.matchMedia('(max-width: 820px)').matches ? 'mobile' : 'desktop',
       ts: new Date().toISOString(),
       nome: (extras && extras.nome) || '',
