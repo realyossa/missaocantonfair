@@ -4747,8 +4747,15 @@ function submitForm(){
   const setor=document.getElementById('setor').value;
   const fase=document.getElementById('fase').value;
   if(!nome||!wa){alert('Por favor preencha seu nome e WhatsApp.');return;}
+  /* registra o lead no CRM ANTES de abrir o WhatsApp — ate aqui este
+     formulario inteiro saia sem deixar nome, telefone, setor ou fase */
+  if(typeof window.amoLead==='function'){
+    window.amoLead('canton-fair-formulario',{nome:nome,whatsapp:wa,setor:setor,fase:fase});
+  }
   const msg=encodeURIComponent(`Olá! Me chamo ${nome} e tenho interesse na Missão Canton Fair 2026.\nSetor: ${setor||'Não informado'}\nFase de interesse: ${fase||'Não informado'}\nWhatsApp: ${wa}`);
-  window.open(`https://wa.me/5549999380070?text=${msg}`,'_blank');
+  const href=`https://wa.me/5549999380070?text=${msg}`;
+  const rastreada=(typeof window.amoWA==='function')?window.amoWA(href,'form-cantonfair-whatsapp'):href;
+  window.open(rastreada,'_blank');
 }
 
 /* ===== CUSTOM CURSOR ===== */
@@ -4962,6 +4969,6 @@ document.querySelectorAll('a,button,.pc-wrap,.fi,.oc').forEach(el=>{
 </script>
 <!-- CRM da AMO. Mesmo arquivo do amoembarque.com, byte a byte: o que muda
      por site vem nos atributos data-amo-* do <html>, la em cima. -->
-<script defer src="/assets/js/amo-crm.js?v=54"></script>
+<script defer src="/assets/js/amo-crm.js?v=55"></script>
 </body>
 </html>

@@ -183,6 +183,32 @@
 
   var VISITANTE = visitante();
 
+  // ------------------------------------------- utm atravessa os dominios
+  // Quem chega do ChatGPT no site da missao e clica para amoembarque.com
+  // continuava virando "interno": cada dominio tem seu localStorage. Com a
+  // UTM reescrita no link, a origem de IA atravessa os dois sites.
+  (function decorarIrmaos() {
+    try {
+      if (!VISITANTE.u || !VISITANTE.u.src) return;
+      var irmaos = ['amoembarque.com', 'amoembarque.com.br', 'missaocantonfair.com'];
+      var aqui = location.hostname.replace(/^www\./, '');
+      var as = document.querySelectorAll('a[href]');
+      for (var i = 0; i < as.length; i++) {
+        var h = as[i].getAttribute('href') || '';
+        if (h.indexOf('http') !== 0) continue;
+        var host = hostDe(h);
+        if (!host || host === aqui || irmaos.indexOf(host) === -1) continue;
+        if (h.indexOf('utm_source=') > -1) continue;   // respeita utm propria
+        var partes = h.split('#');
+        var sep = partes[0].indexOf('?') > -1 ? '&' : '?';
+        var extra = 'utm_source=' + encodeURIComponent(VISITANTE.u.src);
+        if (VISITANTE.u.med) extra += '&utm_medium=' + encodeURIComponent(VISITANTE.u.med);
+        if (VISITANTE.u.cmp) extra += '&utm_campaign=' + encodeURIComponent(VISITANTE.u.cmp);
+        as[i].setAttribute('href', partes[0] + sep + extra + (partes[1] ? '#' + partes[1] : ''));
+      }
+    } catch (e) {}
+  })();
+
   function braco() {
     if (BRACO_FIXO) return BRACO_FIXO;
     var p = location.pathname;
