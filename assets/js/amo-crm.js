@@ -43,6 +43,8 @@
 
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbwGwDaoN0STrc_aPpTTD7O8UvaBLNPR832pPh8uod2ep-qYCEu_fQQiirq7ZenSC0CJ/exec';
   var TOKEN = 'amo-2026';          // filtro de ruido, nao seguranca
+  var ENDPOINT_V2 = 'https://script.google.com/macros/s/AKfycbzjAb6PCEOYIpfBhZlQCWzSLTptoyY9MqbmUhzwCa7m1Bv7riwonN971Oe0OSHdgeM-Qg/exec';
+  var TOKEN_V2 = 'amo-2026-v2';   // espelho para o CRM v2 (dual-post)
   var WA_TURISMO = '5549998005666';
   var WA_CORPORATIVO = '5549999380070';
   // A frase carrega a atribuicao: "Vim pelo site" e o sinal de origem que o
@@ -225,6 +227,18 @@
       );
     } catch (e) { ok = false; }
     if (!ok && !semRefila) enfileirar(ev);
+    // Espelho para o CRM v2: token proprio, fora da fila de reenvio.
+    // O trilho de prova nao muda; isto so alimenta o painel.
+    if (ENDPOINT_V2) {
+      try {
+        var ev2 = JSON.parse(JSON.stringify(ev));
+        ev2.k = TOKEN_V2;
+        navigator.sendBeacon(
+          ENDPOINT_V2,
+          new Blob([JSON.stringify(ev2)], { type: 'text/plain;charset=UTF-8' })
+        );
+      } catch (e2) {}
+    }
     return ok;
   }
 
