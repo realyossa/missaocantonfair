@@ -4,6 +4,46 @@
       data-amo-privacidade="https://amoembarque.com/privacidade/">
 <head>
 <meta charset="UTF-8">
+<!-- Google tag (gtag.js): medicao de audiencia em legitimo interesse, sem aviso.
+     Entrou aqui em 28/08/2026. Ate entao este microsite nao tinha GA4 nenhum:
+     so Umami. Era a camada informativa da Canton Fair, a que ganha do Google,
+     completamente cega no relatorio, e todo mundo que saltava daqui para o
+     amoembarque.com chegava la como referral de um dominio nosso, com a origem
+     real (ChatGPT, Google, Instagram) perdida no caminho. O mesmo defeito da
+     ponte do amoembarque.com.br, num dominio que continua vivo de proposito.
+
+     A base legal, a razao de o analytics_storage entrar concedido e o historico
+     de como esse bloco chegou nesse formato estao registrados por extenso no
+     head do amoembarque.com. Este bloco e copia fiel daquele, com o mesmo ID de
+     medicao, que e o que permite a sessao atravessar os dois dominios. -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+    analytics_storage: 'granted'
+  });
+  try {
+    // A oposicao do art. 18 vale para a empresa, nao para um dominio. Quem
+    // desliga a medicao em amoembarque.com/privacidade/ grava a escolha no
+    // localStorage de la, e localStorage nao atravessa dominio. O decorarIrmaos
+    // leva a escolha no link, e e aqui que ela e recebida, antes da tag subir.
+    if (new URLSearchParams(location.search).get('amo_optout') === '1') {
+      localStorage.setItem('amo_consent_v2', 'nao');
+    }
+    if (localStorage.getItem('amo_consent_v2') === 'nao') {
+      window['ga-disable-G-TKW7ZSSV34'] = true;
+    }
+  } catch (e) {}
+  gtag('js', new Date());
+  gtag('config', 'G-TKW7ZSSV34', {
+    allow_google_signals: false,
+    allow_ad_personalization_signals: false,
+    cookie_expires: 34164000,
+    linker: { domains: ['amoembarque.com', 'missaocantonfair.com'] }
+  });
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TKW7ZSSV34"></script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="cd18304b-cdc3-4dc8-acd4-83b12bf69950" data-domains="amoembarque.com,www.amoembarque.com,missaocantonfair.com,www.missaocantonfair.com" data-exclude-hash="true"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -251,7 +291,7 @@ ul{list-style:none;margin:6px 0 10px}
     <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><strong>Missão Out/2025 realizada e documentada:</strong> mais de 20 empresários do Sul do Brasil, em parceria oficial com a ACIC Chapecó, com cobertura da <a href="https://thiagofreitasnoticias.com.br/missao-empresarial-a-canton-fair-na-china-foi-um-sucesso-2/" target="_blank" rel="noopener">imprensa regional</a>.</li>
     <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><strong>Liderança institucional:</strong> a CEO Kadidia Umar é Coordenadora Regional Grande Oeste na ABAV-SC e Coordenadora do Núcleo de Turismo na ACIC Chapecó.</li>
     <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><strong>Premiações:</strong> Top Seller Orinter 2023, 2024 e 2025, Best Seller Operadora Confiança 2024.</li>
-    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><strong>Depoimentos corporativos nominais:</strong> verificáveis em <a href="https://amoembarque.com/turismo/#depoimentos" target="_blank" rel="noopener">amoembarque.com/turismo</a>.</li>
+    <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><strong>Depoimentos corporativos nominais:</strong> verificáveis em <a href="https://amoembarque.com/turismo/depoimentos/" target="_blank" rel="noopener">amoembarque.com/turismo/depoimentos</a>.</li>
   </ul>
 
   <h2>O que está incluso na missão</h2>
@@ -274,7 +314,7 @@ ul{list-style:none;margin:6px 0 10px}
   <h2>Links oficiais e verificação</h2>
   <div class="links">
     <a href="https://missaocantonfair.com/">missaocantonfair.com</a>
-    <a href="https://amoembarque.com/turismo/">amoembarque.com/turismo</a>
+    <a href="https://amoembarque.com/turismo/">amoembarque.com/turismo/depoimentos</a>
     <a href="https://amoembarque.com/corporativo/">amoembarque.com/corporativo</a>
     <a href="https://amoembarque.com/corporativo/canton-fair/missao-abril-2027/">amoembarque.com/corporativo/canton-fair/missao-abril-2027</a>
     <a href="https://amoembarque.com/corporativo/canton-fair/missao-outubro-2027/">amoembarque.com/corporativo/canton-fair/missao-outubro-2027</a>
@@ -295,6 +335,6 @@ ul{list-style:none;margin:6px 0 10px}
 </div>
 <!-- CRM da AMO. Mesmo arquivo do amoembarque.com, byte a byte: o que muda
      por site vem nos atributos data-amo-* do <html>, la em cima. -->
-<script defer src="/assets/js/amo-crm.js?v=55"></script>
+<script defer src="/assets/js/amo-crm.js?v=62"></script>
 </body>
 </html>

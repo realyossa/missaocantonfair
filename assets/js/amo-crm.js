@@ -154,6 +154,36 @@
     return 'AMO-' + s;
   }
 
+  // Dominios da casa. Nenhum deles e origem de lead: sao saltos internos entre
+  // sites nossos. Este arquivo e um irmao do amo-crm.js do amoembarque.com e
+  // manda para o MESMO painel, entao a regra de origem tem que ser a mesma nos
+  // dois. Se divergir, metade dos leads entra com a origem errada e ninguem ve.
+  // Medido no GA4 de 31/07 a 27/08: com a regra antiga, o dominio antigo
+  // amoembarque.com.br aparecia como a maior fonte do site, 125 sessoes, o que
+  // e impossivel. Eram ChatGPT, Google e Instagram escondidos atras dele.
+  var IRMAOS = [
+    'amoembarque.com',
+    'amoembarque.com.br',
+    'amocorporativo.com.br',
+    'missaocantonfair.com'
+  ];
+
+  // Ordem de verdade da origem, da mais confiavel para a menos:
+  //  1. utm_source na URL (foi alguem, ou o decorarIrmaos, que declarou)
+  //  2. referrer de fora de casa (o navegador declarou)
+  //  3. referrer de um dominio irmao  -> a origem real se perdeu no salto
+  //  4. referrer do proprio dominio   -> navegacao interna
+  //  5. sem referrer                  -> direto
+  function origemReal(q) {
+    var utm = (q.get('utm_source') || '').trim();
+    if (utm) return utm;
+    var h = hostDe(document.referrer);
+    if (!h) return '(direto)';
+    if (h === location.hostname.replace(/^www\./, '')) return '(interno)';
+    if (IRMAOS.indexOf(h) > -1) return '(origem perdida)';
+    return h;
+  }
+
   // ------------------------------------------------- identidade e origem
   // Gravada na PRIMEIRA visita. Sem isso, quem chega pelo ChatGPT, navega
   // pelo site e so depois clica aparece como origem "amoembarque.com".
@@ -163,7 +193,7 @@
     var q = new URLSearchParams(location.search);
     var v = {
       id: 'v_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
-      s: hostDe(document.referrer) || '(direto)',
+      s: origemReal(q),
       u: {
         src: q.get('utm_source') || '',
         med: q.get('utm_medium') || '',
@@ -189,8 +219,17 @@
   // UTM reescrita no link, a origem de IA atravessa os dois sites.
   (function decorarIrmaos() {
     try {
-      if (!VISITANTE.u || !VISITANTE.u.src) return;
-      var irmaos = ['amoembarque.com', 'amoembarque.com.br', 'missaocantonfair.com'];
+      var temUtm = !!(VISITANTE.u && VISITANTE.u.src);
+
+      // A oposicao do art. 18 vale para a empresa, nao para um dominio.
+      // localStorage nao atravessa dominio: sem isto, quem desligou a medicao
+      // aqui continuaria medido no site irmao. A escolha viaja no link, do
+      // mesmo jeito que a utm, e e recebida no head da pagina de destino.
+      var optout = false;
+      try { optout = window.localStorage.getItem('amo_consent_v2') === 'nao'; } catch (e0) {}
+
+      if (!temUtm && !optout) return;
+      var irmaos = IRMAOS;   // mesma lista da origemReal, para nao divergirem
       var aqui = location.hostname.replace(/^www\./, '');
       var as = document.querySelectorAll('a[href]');
       for (var i = 0; i < as.length; i++) {
@@ -198,12 +237,22 @@
         if (h.indexOf('http') !== 0) continue;
         var host = hostDe(h);
         if (!host || host === aqui || irmaos.indexOf(host) === -1) continue;
-        if (h.indexOf('utm_source=') > -1) continue;   // respeita utm propria
+
+        var extra = '';
+        // Link que ja carrega utm propria manda mais do que a gente sabe:
+        // nao se sobrescreve. A oposicao, essa, entra de qualquer forma.
+        if (temUtm && h.indexOf('utm_source=') === -1) {
+          extra = 'utm_source=' + encodeURIComponent(VISITANTE.u.src);
+          if (VISITANTE.u.med) extra += '&utm_medium=' + encodeURIComponent(VISITANTE.u.med);
+          if (VISITANTE.u.cmp) extra += '&utm_campaign=' + encodeURIComponent(VISITANTE.u.cmp);
+        }
+        if (optout && h.indexOf('amo_optout=') === -1) {
+          extra += (extra ? '&' : '') + 'amo_optout=1';
+        }
+        if (!extra) continue;
+
         var partes = h.split('#');
         var sep = partes[0].indexOf('?') > -1 ? '&' : '?';
-        var extra = 'utm_source=' + encodeURIComponent(VISITANTE.u.src);
-        if (VISITANTE.u.med) extra += '&utm_medium=' + encodeURIComponent(VISITANTE.u.med);
-        if (VISITANTE.u.cmp) extra += '&utm_campaign=' + encodeURIComponent(VISITANTE.u.cmp);
         as[i].setAttribute('href', partes[0] + sep + extra + (partes[1] ? '#' + partes[1] : ''));
       }
     } catch (e) {}
