@@ -309,6 +309,25 @@ def main():
             erro(p, "sem o script de medicao do Umami. Pagina indexavel sem medicao some do "
                     "relatorio sem que ninguem perceba.")
 
+        # O GA4 so chegou a este dominio em 28/08/2026. Ate entao o microsite
+        # tinha apenas Umami, e quem saltava daqui para o amoembarque.com
+        # chegava la como referral de um dominio nosso, com a origem real
+        # (ChatGPT, Google, Instagram) perdida no salto. A ausencia nao doia:
+        # o relatorio simplesmente nao mostrava esta metade do trafego, e
+        # ninguem sente falta do que nunca viu. Por isso e erro, nao aviso.
+        if "G-TKW7ZSSV34" not in s:
+            erro(p, "sem a tag do GA4 (G-TKW7ZSSV34). Sem ela esta pagina some do relatorio "
+                    "e quem sai daqui para o amoembarque.com chega la como referral de um "
+                    "dominio nosso, com a origem real perdida no salto.")
+        elif "linker: { domains" not in s:
+            erro(p, "tem GA4 mas nao tem o linker entre dominios. Sem o linker a visita que "
+                    "comeca aqui e termina no amoembarque.com vira duas sessoes, e a segunda "
+                    "nasce sem origem.")
+        elif "amo_optout" not in s:
+            erro(p, "tem GA4 mas nao recebe a oposicao vinda do dominio irmao. localStorage "
+                    "nao atravessa dominio: sem ler amo_optout=1 da URL, esta pagina mede "
+                    "justamente quem desligou a medicao em amoembarque.com/privacidade/.")
+
         # --- microdata de avaliacao -----------------------------------------
         sem_comentario_aval = re.sub(r"<!--.*?-->", " ", s, flags=re.S)
         for padrao, nome in (
@@ -466,6 +485,40 @@ def main():
                 erro("sitemap.xml", "imagem de outro dominio no sitemap: %s" % img)
             elif not os.path.isfile(caminho_local(img)):
                 erro("sitemap.xml", "imagem no sitemap sem arquivo: %s" % img)
+
+        # --- lastmod conferido contra o git ---------------------------------
+        # Medido em 28/08/2026: as seis URLs diziam 2026-08-03 depois de tres
+        # commits de conteudo. O microsite passou quase um mes dizendo ao
+        # rastreador que nada tinha mudado, justo no dominio que ganha as
+        # impressoes do Google e alimenta o ChatGPT pelo indice do Bing.
+        # O atualizar_sitemap.py roda ANTES deste validador no build e corrige
+        # sozinho; se ainda assim a data nao bater, o problema e nele, e ai o
+        # deploy tem mesmo que parar.
+        try:
+            import atualizar_sitemap
+            if atualizar_sitemap.conferir(corrigir=False) != 0:
+                erro("sitemap.xml",
+                     "lastmod nao bate com o git (as datas divergentes estao listadas "
+                     "logo acima). Rode 'python3 atualizar_sitemap.py --corrigir' e faca "
+                     "commit. Lastmod errado atrasa o rastreio do site inteiro.")
+        except ImportError:
+            erro("(global)", "atualizar_sitemap.py nao existe. Sem ele o lastmod congela, "
+                             "que foi o defeito medido em 28/08.")
+
+        # --- imagem declarada em mais de uma pagina --------------------------
+        # Regra herdada do amoembarque.com, onde 53% das requisicoes do
+        # Googlebot eram imagem e so 32% HTML: a mesma foto convidada varias
+        # vezes gasta orcamento de rastreio que faltaria para o HTML.
+        vezes = {}
+        for bloco in re.findall(r"<url>.*?</url>", bruto, re.S):
+            for img in set(re.findall(r"<image:loc>([^<]+)</image:loc>", bloco)):
+                vezes[img] = vezes.get(img, 0) + 1
+        for img, n in sorted(vezes.items()):
+            if n > 1:
+                aviso("sitemap.xml",
+                      "a imagem %s esta declarada em %d paginas. Cada imagem rende mais "
+                      "convidada uma vez so, na pagina mais importante em que aparece."
+                      % (img.split("/")[-1], n))
 
     # --- robots.txt ----------------------------------------------------------
     if not os.path.isfile("robots.txt"):

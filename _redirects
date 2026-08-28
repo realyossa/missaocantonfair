@@ -1,0 +1,28 @@
+# missaocantonfair.com
+
+# Higiene de URL: a versao com .html some.
+#
+# Medido no navegador em 28/08/2026: /guia-canton-fair.html respondia 200 com
+# o mesmo conteudo de /guia-canton-fair, e /index.html respondia 200 junto com
+# a raiz. Sao doze enderecos servindo seis paginas. A canonical de cada pagina
+# ja aponta para a versao sem extensao, o que evita o pior, mas a canonical e
+# uma dica: o rastreador ainda gasta requisicao na copia antes de descobrir
+# que e copia. Neste dominio isso pesa mais do que pareceria, porque e ele que
+# ganha as impressoes do Google para "canton fair" e alimenta a resposta do
+# ChatGPT pelo indice do Bing.
+#
+# O "!" forca o 301 mesmo com o arquivo em disco. E preciso: sem ele a Netlify
+# serviria o arquivo diretamente e a regra nunca valeria.
+#
+# Nao ha risco de laco. A Netlify aplica as regras ao caminho PEDIDO; so depois,
+# se nenhuma casou, procura o arquivo. O pedido de /guia-canton-fair nao casa
+# com nenhuma linha abaixo e cai direto no arquivo, como sempre caiu.
+/index.html                          /                                  301!
+/guia-canton-fair.html               /guia-canton-fair                  301!
+/fases-canton-fair-outubro-2026.html /fases-canton-fair-outubro-2026    301!
+/tecnologias-canton-fair-2026.html   /tecnologias-canton-fair-2026      301!
+/descubra.html                       /descubra                          301!
+/ai-info.html                        /ai-info                           301!
+
+# O arquivo de verificacao de propriedade do Search Console NAO entra aqui.
+# Ele precisa continuar respondendo 200 no proprio caminho, com extensao.

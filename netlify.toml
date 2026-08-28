@@ -1,0 +1,50 @@
+# missaocantonfair.com
+#
+# Este arquivo nasceu em 28/08/2026, e a razao de ele nao existir antes e o
+# proprio motivo de ele ser necessario: sem netlify.toml nao ha build, sem
+# build nao ha porteiro, e sem porteiro ninguem percebe quando algo quebra.
+# O validar.py estava aqui no repositorio desde sempre, e ninguem o chamava.
+#
+# O que isso custou, medido: as seis URLs do sitemap declaravam lastmod
+# 2026-08-03 depois de tres commits de conteudo. Quase um mes dizendo ao
+# rastreador que nada tinha mudado, justo no dominio que ganha as impressoes
+# do Google para "canton fair" e que alimenta a resposta do ChatGPT pelo
+# indice do Bing. E a chave do IndexNow estava hospedada aqui desde o inicio
+# sem que nada nunca pingasse.
+
+[build]
+  publish = "."
+  # A ordem e a mesma do amoembarque.com, e cada elo tem uma razao:
+  #
+  #  1. atualizar_sitemap.py --corrigir  arruma o lastmod no proprio build, sem
+  #     tocar em imagem, legenda, prioridade ou comentario do arquivo. Vem
+  #     ANTES do validador porque o contrario e o pior dos mundos: o deploy
+  #     seria cancelado E o sitemap no ar continuaria errado.
+  #  2. validar.py  e o porteiro. Se sair com codigo 1, a Netlify cancela a
+  #     publicacao e o site continua no ar na versao anterior. E de proposito:
+  #     e mais barato nao publicar do que descobrir o defeito no Search Console
+  #     tres dias depois. Ele tambem le o sitemap de novo, como segunda opiniao:
+  #     se ainda reclamar, o problema esta no gerador e nao no arquivo.
+  #  3. avisar_indexnow.py  avisa Bing, Yandex, Seznam e Naver das paginas que
+  #     mudaram de verdade. O && importa: nao se anuncia pagina que nao vai ao
+  #     ar. Ele sempre sai com codigo 0, entao jamais cancela uma publicacao
+  #     aprovada; falha de rede vira aviso no log e nada mais.
+  command = "python3 atualizar_sitemap.py --corrigir && python3 validar.py && python3 avisar_indexnow.py"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    # strict-origin-when-cross-origin preserva o dominio de origem quando o
+    # visitante sai daqui para o amoembarque.com. Uma politica mais fechada
+    # apagaria o referrer e reintroduziria, por cabecalho, a mesma perda de
+    # origem que a ponte do dominio antigo causava por redirecionamento.
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    # 1 ano, imutavel: o nome do arquivo carrega o conteudo, e quando a foto
+    # muda o nome muda. Mesma regra do amoembarque.com.
+    Cache-Control = "public, max-age=31536000, immutable"
