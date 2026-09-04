@@ -40,6 +40,7 @@
   }
   var BRACO_FIXO = cfg('braco', '');
   var ASSUNTO_FIXO = cfg('assunto', '');
+  var MEDIDORES = cfg('ga', 'G-TKW7ZSSV34').split(/[,\s]+/).filter(Boolean);
 
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbwGwDaoN0STrc_aPpTTD7O8UvaBLNPR832pPh8uod2ep-qYCEu_fQQiirq7ZenSC0CJ/exec';
   var TOKEN = 'amo-2026';          // filtro de ruido, nao seguranca
@@ -115,6 +116,11 @@
   var CHAVE_V = 'amo_v';           // visitor_id + origem da primeira visita
   var CHAVE_FILA = 'amo_fila';     // eventos que nao sairam
   var CHAVE_POPUP = 'amo_popup';   // captura de segunda chance ja resolvida
+  // v2 de proposito: o 'sim' colhido em julho veio do aviso antigo, que era
+  // opt-out disfarcado de opt-in. Consentimento dado sob aviso defeituoso,
+  // para uma tag que desde entao saiu e voltou, nao vale hoje. Chave nova
+  // faz todo mundo ser perguntado de novo, sob o aviso correto.
+  var CHAVE_CONSENT = 'amo_consent_v2';
   var CHAVE_ULT = 'amo_ult';      // ultimo formulario enviado, para a pagina de obrigado
   var TETO_FILA = 20;
   var VALIDADE_FILA = 7 * 24 * 3600 * 1000;
@@ -129,20 +135,7 @@
     } catch (e) { return null; }
   }
 
-  // Guarda de sessao: vive na aba, morre quando ela fecha. Nao e identificador
-  // persistente, so preserva a origem da PRIMEIRA pagina dentro da visita.
-  function ss(k, v) {
-    try {
-      if (v === undefined) return window.sessionStorage.getItem(k);
-      if (v === null) { window.sessionStorage.removeItem(k); return null; }
-      window.sessionStorage.setItem(k, v); return v;
-    } catch (e) { return null; }
-  }
-
-  // A pessoa so passa a ser identificada depois de enviar um formulario —
-  // momento em que ela entrega nome e WhatsApp por vontade propria. Antes
-  // disso nada persiste no navegador e nenhum id sai nos eventos.
-  function identificado() { return !!ls(CHAVE_V); }
+  function consentiu() { return ls(CHAVE_CONSENT) !== 'nao'; }
 
   function hostDe(u) {
     try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; }
@@ -154,13 +147,15 @@
     return 'AMO-' + s;
   }
 
+  // ------------------------------------------------- identidade e origem
+  // Gravada na PRIMEIRA visita. Sem isso, quem chega pelo ChatGPT, navega
+  // pelo site e so depois clica aparece como origem "amoembarque.com".
   // Dominios da casa. Nenhum deles e origem de lead: sao saltos internos entre
-  // sites nossos. Este arquivo e um irmao do amo-crm.js do amoembarque.com e
-  // manda para o MESMO painel, entao a regra de origem tem que ser a mesma nos
-  // dois. Se divergir, metade dos leads entra com a origem errada e ninguem ve.
-  // Medido no GA4 de 31/07 a 27/08: com a regra antiga, o dominio antigo
-  // amoembarque.com.br aparecia como a maior fonte do site, 125 sessoes, o que
-  // e impossivel. Eram ChatGPT, Google e Instagram escondidos atras dele.
+  // sites nossos. Registrar "amoembarque.com.br" como fonte foi o defeito
+  // medido no GA4 de 31/07 a 27/08, quando o dominio antigo apareceu como a
+  // MAIOR fonte do site (125 sessoes, a frente de google/organic com 65 e de
+  // chatgpt.com com 22). Nao existe visitante do dominio antigo: existe
+  // visitante do ChatGPT e do Google que a ponte antiga mascarava.
   var IRMAOS = [
     'amoembarque.com',
     'amoembarque.com.br',
@@ -174,6 +169,8 @@
   //  3. referrer de um dominio irmao  -> a origem real se perdeu no salto
   //  4. referrer do proprio dominio   -> navegacao interna
   //  5. sem referrer                  -> direto
+  // O campo continua sendo 's' de proposito: o painel ja agrupa por ele, e o
+  // conserto tem que aparecer no painel sem depender de mudanca no back-end.
   function origemReal(q) {
     var utm = (q.get('utm_source') || '').trim();
     if (utm) return utm;
@@ -184,11 +181,8 @@
     return h;
   }
 
-  // ------------------------------------------------- identidade e origem
-  // Gravada na PRIMEIRA visita. Sem isso, quem chega pelo ChatGPT, navega
-  // pelo site e so depois clica aparece como origem "amoembarque.com".
   function visitante() {
-    var cru = ls(CHAVE_V) || ss(CHAVE_V);
+    var cru = ls(CHAVE_V);
     if (cru) { try { return JSON.parse(cru); } catch (e) { /* regrava */ } }
     var q = new URLSearchParams(location.search);
     var v = {
@@ -202,13 +196,8 @@
       p1: location.pathname,
       t0: new Date().toISOString()
     };
-    ss(CHAVE_V, JSON.stringify(v));
+    if (consentiu()) ls(CHAVE_V, JSON.stringify(v));
     return v;
-  }
-
-  // Promove a visita a identificada. Chamado no envio de formulario.
-  function identificar() {
-    try { if (!ls(CHAVE_V)) ls(CHAVE_V, JSON.stringify(VISITANTE)); } catch (e) {}
   }
 
   var VISITANTE = visitante();
@@ -378,7 +367,7 @@
       p: location.pathname,
       b: braco(),
       c: (extras && extras.c) || '',
-      v: identificado() ? VISITANTE.id : '',
+      v: consentiu() ? VISITANTE.id : '',
       s: VISITANTE.s,
       u: VISITANTE.u,
       sig: sinais(),
@@ -389,14 +378,70 @@
       extra: (extras && extras.extra) || {}
     };
     despachar(ev);
-    // Espelha o evento no Umami. Sem cookie, sem identificador: vai so o nome
-    // do evento e o contexto de pagina. Se o script nao carregou, nao faz nada.
+    // semEspelho: eventos passivos do Espiao (pageview, tempo, abandono) NAO
+    // vao para Umami/GA4 — la cada propriedade custa cota, e pageview o
+    // Umami ja mede sozinho. Eles existem so para a planilha e o Telegram.
+    if (!(extras && extras.semEspelho)) espelhar(tipo, nome || 'sem-nome');
+    return ev;
+  }
+
+  // Espelho do trilho de prova na camada de medicao. Sem cookie, sem
+  // identificador, sem nome e sem telefone: vai o nome do evento e o botao.
+  //
+  // Duas correcoes de 15/08/2026 em relacao a versao anterior:
+  //
+  //  1. A propriedade 'pagina' saiu. O Umami ja guarda a URL de cada evento
+  //     por conta propria — mandar o caminho de novo era pagar duas vezes
+  //     pelo mesmo dado. E o plano cobra CADA PROPRIEDADE como um evento:
+  //     track(nome, {pagina, braco}) custava 3 unidades de cota, sendo que
+  //     uma delas era copia do que ja vinha de graca.
+  //
+  //  2. O nome deixou de ser 'cta:hero-whatsapp' e virou 'contato_whatsapp'
+  //     com o botao em propriedade. Nome de evento com detalhe ilimitado
+  //     dentro cria um evento novo a cada botao do site: em seis meses sao
+  //     centenas de series de uma linha cada e nenhuma pergunta respondida.
+  //     Detalhe ilimitado vive em propriedade; o nome fica no vocabulario
+  //     fechado, que e o que permite perguntar "quantos contatos no total".
+  function espelhar(tipo, nome) {
+    var evt, props;
+    if (tipo === 'tel') { evt = 'contato_telefone'; props = { botao: nome }; }
+    else if (tipo === 'form') { evt = 'formulario_enviado'; props = { formulario: nome }; }
+    else if (nome.indexOf('formulario-form-') === 0) {
+      evt = 'funil_etapa'; props = { etapa: nome.slice(16) };
+    } else { evt = 'contato_whatsapp'; props = { botao: nome }; }
     try {
-      if (window.umami && typeof window.umami.track === 'function') {
-        window.umami.track(tipo + ':' + (nome || 'sem-nome'), { pagina: ev.p, braco: ev.b });
+      // A camada de medicao aplica o teto e o espelho no GA4 num lugar so.
+      if (typeof window.amoMedir === 'function') { window.amoMedir(evt, props, true); }
+      else {
+        // Se ela nao carregou, o espelho nao pode sumir junto.
+        if (window.umami && typeof window.umami.track === 'function') window.umami.track(evt, props);
+        if (typeof window.gtag === 'function') window.gtag('event', evt, props);
+      }
+      espelharLead(evt);
+    } catch (e) {}
+  }
+
+  // O GA4 tem vocabulario proprio para lead, e a familia de relatorios "Geracao
+  // de leads" so enxerga esse vocabulario: generate_lead, qualify_lead,
+  // disqualify_lead. Nenhum nome nosso entra la, por melhor que seja. Por isso
+  // o gesto de contato passa a sair com DOIS nomes: 'contato_whatsapp' responde
+  // "qual botao converteu" e 'generate_lead' responde ao Google.
+  //
+  // A armadilha que isso cria, escrita aqui para quem abrir o arquivo daqui a
+  // seis meses: SOMAR os dois conta o mesmo contato duas vezes. Por isso o
+  // segundo evento carrega 'metodo' com o nome do primeiro, e nao carrega mais
+  // nada: ele existe para o Google, nao para a nossa leitura.
+  //
+  // E so no GA4 de proposito. O Umami cobra por evento E por propriedade, e o
+  // segundo nome nao responde nada que o primeiro ja nao responda la.
+  var EVENTO_E_LEAD = { contato_whatsapp: 1, contato_telefone: 1, formulario_enviado: 1 };
+  function espelharLead(evt) {
+    if (!EVENTO_E_LEAD[evt]) return;
+    try {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'generate_lead', { metodo: evt });
       }
     } catch (e) {}
-    return ev;
   }
 
   // --------------------------------------------------- WhatsApp: reescrita
@@ -478,7 +523,6 @@
       else if (k === 'whatsapp' || k === 'telefone' || k === 'fone') fone = v;
       else campos[k] = v;
     });
-    identificar();
     evento('form', nomeForm || 'lead', { nome: pessoa, fone: fone, extra: campos });
     try {
       ls(CHAVE_ULT, JSON.stringify({ n: pessoa, f: fone, ts: Date.now() }));
@@ -576,8 +620,9 @@
       else if (k === 'contato') { if (/\d{8,}/.test(v.replace(/\D/g, ''))) fone = v; else campos[k] = v; }
       else campos[k] = v;
     });
-    identificar();
     evento('form', nome, { nome: pessoa, fone: fone, extra: campos });
+    // Espiao: este formulario foi concluido — nao e abandono (ver secao espiao).
+    try { if (typeof FORMS_ESP !== 'undefined' && FORMS_ESP[nome]) FORMS_ESP[nome].enviado = true; } catch (er2) {}
     // Guardado para a pagina de obrigado saber se ficou faltando o nome.
     try {
       ls(CHAVE_ULT, JSON.stringify({ n: pessoa, f: fone, ts: Date.now() }));
@@ -668,7 +713,7 @@
 
   function podeAbrir() {
     if (popupAberto || document.getElementById('amo-cap')) return false;
-    if (popupBloqueado()) return false;
+    if (popupBloqueado() || !consentiu()) return false;
     for (var i = 0; i < SEM_POPUP.length; i++) {
       if (location.pathname.indexOf(SEM_POPUP[i]) === 0) return false;
     }
@@ -747,11 +792,11 @@
     var tentativas = 0;
     setTimeout(function tenta() {
       if (abrirCaptura(motivo)) return;
-      // Ja enviou, dispensou nos ultimos 7 dias ou o cartao ja esta aberto:
-      // nao ha nada a repetir.
-      if (popupAberto || popupBloqueado()) return;
-      // Sobrou o caso temporario — a pessoa estava com o cursor num campo
-      // quando a hora chegou. Esse resolve sozinho; vale reesperar.
+      // Recusou a medicao, ja enviou, dispensou nos ultimos 7 dias ou o cartao
+      // ja esta aberto: nao ha nada a repetir.
+      if (popupAberto || popupBloqueado() || !consentiu()) return;
+      // Sobrou o caso temporario — o aviso de medicao ainda na tela nos
+      // primeiros segundos da visita. Esse resolve sozinho; vale reesperar.
       if (++tentativas < 4) setTimeout(tenta, 3000);
     }, 900);
   }
@@ -833,8 +878,7 @@
       }
       var fd = new FormData(ev.target);
       var pessoa = String(fd.get('nome') || '').slice(0, 120).trim();
-      identificar();
-    evento('form', 'flutuante-form-' + motivo, {
+      evento('form', 'flutuante-form-' + motivo, {
         nome: pessoa,
         fone: String(fd.get('fone') || '').slice(0, 40),
         extra: { assunto: assuntoCrm() }
@@ -899,8 +943,7 @@
       ev.preventDefault();
       var pessoa = String(f.querySelector('input').value || '').trim().slice(0, 60);
       if (!pessoa) { f.querySelector('input').focus(); return; }
-      identificar();
-    evento('form', 'obrigado-nome', {
+      evento('form', 'obrigado-nome', {
         nome: pessoa,
         fone: ult.f || '',
         extra: { assunto: assuntoCrm() }
@@ -914,7 +957,74 @@
     });
   }
 
-  // ------------------------------------------------------- modal de vaga
+  // ------------------------------------------------- oposicao a medicao
+  // A barra de consentimento SAIU em 16/08/2026, e ela so pode sair porque o
+  // que a obrigava saiu junto: o <head> agora carrega o GA4 com
+  // analytics_storage NEGADO e sem nenhum caminho que conceda. Sem cookie e
+  // sem identificador de navegador, nao ha permissao a pedir — a base e o
+  // legitimo interesse (LGPD art. 7, IX), nao o consentimento.
+  //
+  // O que legitimo interesse cobra em troca e o DIREITO DE SE OPOR (art. 18).
+  // Oposicao que so existe no texto da politica nao e oposicao. Por isso este
+  // bloco: um botao real, em /privacidade/, que desliga o GA4 neste navegador
+  // agora e nas proximas visitas (a guarda do <head> le a mesma chave).
+  //
+  // Note que ele NAO desliga o Umami: o Umami nao grava nada no navegador e
+  // nao distingue uma pessoa da outra. Nao ha dado pessoal ali para se opor,
+  // e prometer desligar o que nao trata dado seria teatro.
+  function aplicarRecusa() {
+    // Um site pode reportar para mais de uma propriedade. Recusar a medicao e
+    // uma escolha sobre SER medido, nao sobre uma propriedade especifica:
+    // desligar so a primeira deixaria a segunda gravando.
+    try {
+      for (var i = 0; i < MEDIDORES.length; i++) {
+        window['ga-disable-' + MEDIDORES[i]] = true;
+      }
+    } catch (e) {}
+    ls(CHAVE_V, null);
+    ls(CHAVE_FILA, null);
+  }
+
+  function textoOptout(el, desligado) {
+    el.textContent = desligado
+      ? 'Voltar a permitir a medi\u00e7\u00e3o'
+      : 'N\u00e3o quero ser medido neste site';
+    el.setAttribute('aria-pressed', desligado ? 'true' : 'false');
+  }
+
+  function ligarOptout() {
+    var bt = document.querySelector('[data-amo-optout]');
+    if (!bt) return;
+    var estado = document.getElementById('amo-optout-estado');
+    function pintar() {
+      var desligado = ls(CHAVE_CONSENT) === 'nao';
+      textoOptout(bt, desligado);
+      if (estado) {
+        estado.textContent = desligado
+          ? 'A medi\u00e7\u00e3o est\u00e1 DESLIGADA neste navegador.'
+          : 'A medi\u00e7\u00e3o est\u00e1 ligada neste navegador.';
+      }
+    }
+    pintar();
+    bt.addEventListener('click', function () {
+      var desligado = ls(CHAVE_CONSENT) === 'nao';
+      if (desligado) {
+        ls(CHAVE_CONSENT, null);
+        // Nao da para "religar" o ga-disable nesta carga sem recarregar a
+        // pagina: a flag ja foi lida. Dizer a verdade custa uma frase.
+        if (estado) {
+          estado.textContent = 'Pronto. A medi\u00e7\u00e3o volta a valer no pr\u00f3ximo carregamento desta p\u00e1gina.';
+        }
+        textoOptout(bt, false);
+      } else {
+        ls(CHAVE_CONSENT, 'nao');
+        aplicarRecusa();
+        pintar();
+      }
+    });
+  }
+
+
   // Captura curta (nome + WhatsApp) para o CTA de maior intencao da
   // pagina. Fica no centro da tela com o resto borrado atras, porque
   // quem clicou em "garantir vaga" ja decidiu: aqui o atrito de fechar
@@ -964,8 +1074,108 @@
     else if (!e.shiftKey && document.activeElement === ult) { e.preventDefault(); pri.focus(); }
   });
 
-  // ---------------------------------------------------------------- start
-  function iniciar() { drenar(); pedirNome(); }
+  // ------------------------------------------------------------- espiao
+  // Eventos passivos que alimentam o "Espiao - Amo Embarque" (Telegram).
+  // Nenhum deles vai para Umami/GA4 (semEspelho) — custariam cota sem
+  // responder pergunta nova la. Eles existem para a planilha e para o
+  // cartao em tempo real de cada visitante no grupo do Telegram.
+  //
+  // O que sai daqui:
+  //   t='pv'        uma por carregamento de pagina — e o que permite montar
+  //                 o trajeto "x > y > z" com links clicaveis no Telegram.
+  //   t='tempo'     marcos de leitura engajada (aba visivel): 1, 5 e 10 min.
+  //   t='funil'     'form-aberto-<nome>' no primeiro foco num campo.
+  //   t='abandono'  'form-abandonado-<nome>' / 'quiz-abandonado-<funil>' no
+  //                 pagehide: saiu da pagina com o formulario sujo ou com o
+  //                 quiz aberto sem ter enviado. pagehide + sendBeacon e o
+  //                 par que sobrevive a saida; visibilitychange dispararia
+  //                 falso toda vez que o celular vai ao WhatsApp e volta.
+  var FORMS_ESP = {};          // nome -> { sujo, enviado }
+  var QUIZ_ESP = { aberto: '', enviou: {} };
+
+  function nomeFormulario(f) {
+    return f.getAttribute('name') || f.getAttribute('data-amo-cta') || 'form-sem-nome';
+  }
+
+  function espiaoPassivo(tipo, nome, extra) {
+    evento(tipo, nome, { extra: extra || {}, semEspelho: true });
+  }
+
+  // pageview com URL completa — o Telegram precisa dela para o link clicavel.
+  function espiaoPageview() {
+    espiaoPassivo('pv', location.pathname, {
+      url: location.href,
+      titulo: String(document.title || '').split(/[|—–]/)[0].trim().slice(0, 120)
+    });
+  }
+
+  // Tempo de leitura engajado: so conta com a aba visivel. Quem abre e troca
+  // de aba nao "le" 10 minutos.
+  function espiaoTempo() {
+    var marcos = [[60, '1min'], [300, '5min'], [600, '10min']];
+    var idx = 0, acum = 0, tick = Date.now();
+    setInterval(function () {
+      var agora = Date.now();
+      if (document.visibilityState === 'visible') acum += agora - tick;
+      tick = agora;
+      if (idx < marcos.length && acum >= marcos[idx][0] * 1000) {
+        espiaoPassivo('tempo', marcos[idx][1]);
+        idx++;
+      }
+    }, 5000);
+  }
+
+  // Formulario aberto: primeiro foco em qualquer campo de um <form> real
+  // (o cartao #amo-cap e o pedido de nome da pagina de obrigado tem trilha
+  // propria e ficam de fora). Uma vez por formulario por pagina.
+  document.addEventListener('focusin', function (e) {
+    var f = e.target && e.target.closest && e.target.closest('form');
+    if (!f) return;
+    if (f.closest('#amo-cap') || f.closest('.amo-nome')) return;
+    var nome = nomeFormulario(f);
+    if (FORMS_ESP[nome]) return;
+    FORMS_ESP[nome] = { sujo: false, enviado: false };
+    espiaoPassivo('funil', 'form-aberto-' + nome);
+  }, true);
+
+  document.addEventListener('input', function (e) {
+    var f = e.target && e.target.closest && e.target.closest('form');
+    if (!f || (f.closest('#amo-cap') || f.closest('.amo-nome'))) return;
+    var nome = nomeFormulario(f);
+    if (FORMS_ESP[nome]) FORMS_ESP[nome].sujo = true;
+  }, true);
+
+  // Quiz/diagnostico: o amoFunil ja registra 'abriu' e 'enviou'. Embrulhar
+  // aqui da ao espiao o estado "aberto e nao enviado" sem tocar nas paginas.
+  var amoFunilBase = window.amoFunil;
+  window.amoFunil = function (funil, etapa, extra) {
+    try {
+      if (etapa === 'abriu') QUIZ_ESP.aberto = funil;
+      if (etapa === 'enviou') QUIZ_ESP.enviou[funil] = true;
+    } catch (e) {}
+    return amoFunilBase(funil, etapa, extra);
+  };
+
+  // Abandono real: a pagina esta sendo descarregada. Quiz aberto sem envio,
+  // ou formulario com digitacao sem submit.
+  window.addEventListener('pagehide', function () {
+    try {
+      if (QUIZ_ESP.aberto && !QUIZ_ESP.enviou[QUIZ_ESP.aberto]) {
+        espiaoPassivo('abandono', 'quiz-abandonado-' + QUIZ_ESP.aberto);
+        QUIZ_ESP.aberto = ''; // pagehide pode repetir em navegadores com bfcache
+      }
+      Object.keys(FORMS_ESP).forEach(function (nome) {
+        var f = FORMS_ESP[nome];
+        if (f.sujo && !f.enviado) {
+          espiaoPassivo('abandono', 'form-abandonado-' + nome);
+          f.enviado = true; // idem: nao repete se a pagina voltar do bfcache
+        }
+      });
+    } catch (e) {}
+  });
+
+
+  function iniciar() { drenar(); pedirNome(); ligarOptout(); espiaoPageview(); espiaoTempo(); }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', iniciar);
   } else {
