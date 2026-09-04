@@ -1097,7 +1097,20 @@
     return f.getAttribute('name') || f.getAttribute('data-amo-cta') || 'form-sem-nome';
   }
 
+  // Robos que executam JS (Googlebot renderiza paginas e dispara beacons)
+  // nao sao visitantes: sem este filtro, cada rastreio vira cartao no
+  // Telegram e linha no CRM. Vale so para os eventos passivos do espiao —
+  // o trilho de prova (cta/form/tel) ja e filtrado pela natureza do gesto.
+  var EH_ROBO = (function () {
+    try {
+      if (navigator.webdriver) return true;
+      return /bot|crawl|spider|slurp|headless|lighthouse|pingdom|facebookexternal/i
+        .test(navigator.userAgent || '');
+    } catch (e) { return false; }
+  })();
+
   function espiaoPassivo(tipo, nome, extra) {
+    if (EH_ROBO) return;
     evento(tipo, nome, { extra: extra || {}, semEspelho: true });
   }
 
