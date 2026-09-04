@@ -351,6 +351,11 @@
               try {
                 window.sessionStorage.setItem('amo_ip', JSON.stringify({ ip: SINAIS.ip, cid: SINAIS.cid, uf: SINAIS.uf }));
               } catch (e4) {}
+              // A cidade chega ~1s DEPOIS do pageview. Sem este aviso, o
+              // cartao do Espiao nascia sem cidade/UF e so se corrigia no
+              // proximo evento. O re-envio deduplica o trajeto (mesma URL)
+              // e so atualiza os sinais do cartao.
+              try { if (window.__amoPvRefresh) window.__amoPvRefresh(); } catch (e6) {}
             })
             .catch(function () {});
         }
@@ -1121,6 +1126,8 @@
       titulo: String(document.title || '').split(/[|—–]/)[0].trim().slice(0, 120)
     });
   }
+  // Chamada quando a cidade/UF chega (ipapi resolve depois do pageview).
+  window.__amoPvRefresh = function () { espiaoPageview(); };
 
   // Tempo de leitura engajado: so conta com a aba visivel. Quem abre e troca
   // de aba nao "le" 10 minutos.
