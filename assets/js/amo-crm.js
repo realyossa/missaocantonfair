@@ -492,6 +492,12 @@
     var i = href.indexOf('?text=');
     var msg = i > -1 ? semCodigo(decodeURIComponent(href.slice(i + 6))) : '';
     if (!msg) msg = msgDaPagina(arm);
+    // Auto-identificacao (CRO): toda conversa chega com nome quando a
+    // pessoa completa a frase antes de enviar — sem formulario, sem atrito.
+    // Texto proprio que ja pede nome (quiz da Canton Fair) nao duplica.
+    msg = msg.replace(/\s+$/, '');
+    if (msg && msg.charAt(msg.length - 1) !== '.') msg += '.';
+    if (msg.toLowerCase().indexOf('chamo') === -1) msg += ' Me chamo ';
     var cod = ENDPOINT ? codigo() : '';
     evento('cta', nomeCta, { c: cod });
     return {
@@ -532,10 +538,6 @@
     try {
       ls(CHAVE_ULT, JSON.stringify({ n: pessoa, f: fone, ts: Date.now() }));
     } catch (er) {}
-    // Quem ja entregou nome e telefone num formulario completo nao pode
-    // receber depois um cartao pedindo nome e telefone. 'enviou' cala para
-    // sempre, que e o mesmo tratamento do proprio cartao quando e preenchido.
-    ls(CHAVE_POPUP, 'enviou');
     return true;
   };
 
@@ -584,20 +586,13 @@
     var href = a.getAttribute('href') || '';
     var nome = a.getAttribute('data-amo-cta') || '';
 
-    // O proprio convite tem um link de WhatsApp dentro. Ele continua sendo
-    // medido normalmente, mas nao pode reabrir o cartao que acabou de fechar.
-    var dentroDoConvite = !!(a.closest && a.closest('#amo-cap'));
-
     if (href.indexOf('wa.me') > -1) {
       var r = urlWhats(a.href, nome);
       a.setAttribute('href', r.url);      // o clique segue para a URL nova
-      marcarVolta();
-      if (!dentroDoConvite) agendarConvite('wa');
       return;
     }
     if (href.indexOf('tel:') === 0) {
       evento('tel', nome);
-      if (!dentroDoConvite) agendarConvite('tel');
       return;
     }
   }, false);  // fase de bolha: o href ja pode ser reescrito antes da navegacao
@@ -635,274 +630,11 @@
   }, true);
 
   // --------------------------------------------------- convite de contato
-  // Principio de projeto: o visitante nao esta se comprometendo com nada.
-  // Ele esta PEDINDO para receber uma coisa de tamanho conhecido. Por isso:
-  // telefone e o unico campo obrigatorio, o nome e opcional, o verbo do botao
-  // e "Pode mandar" (autorizacao, nao submissao), e existe uma saida visivel
-  // escrita — "Agora nao" — alem do X.
-  //
-  // Disciplina de texto (revisao de 31/07/2026): a versao anterior NOMEAVA
-  // cada garantia — "com ideia de investimento", "uma mensagem so", "sem
-  // ligacao e sem insistencia". Cada uma era verdadeira e, somadas, viraram
-  // um cartao defensivo: quem precisa jurar que nao vai insistir plantou a
-  // ideia de que poderia. Ficaram tres linhas curtas — rotulo, pergunta e
-  // uma frase de conforto. A promessa de nao insistir agora e cumprida pelo
-  // comportamento (uma mensagem, sem ligacao, silencio de 7 dias apos o
-  // "Agora nao"), nao declarada no texto.
-  var ESPERA_FECHOU = 7 * 24 * 3600 * 1000;   // dispensou: 7 dias de silencio
-  var SEM_POPUP = ['/privacidade/', '/obrigada/'];
-  var popupAberto = false;
-  var entrouEm = Date.now();
-  var saiuEm = 0;
-
-  function marcarVolta() { saiuEm = Date.now(); }
-
-  function esc(s) {
-    return String(s).replace(/[&<>"]/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
-    });
-  }
-
-  // 'enviou' cala para sempre. 'fechou:<carimbo>' cala por 7 dias — dispensar
-  // uma vez nao pode significar nunca mais, e insistir na mesma visita seria
-  // exatamente o assedio que o texto promete que nao existe.
-  function popupBloqueado() {
-    var v = ls(CHAVE_POPUP);
-    if (!v) return false;
-    if (v.indexOf('fechou:') === 0) {
-      return (Date.now() - (Number(v.slice(7)) || 0)) < ESPERA_FECHOU;
-    }
-    return true;
-  }
-
-  // O assunto sai do H1 da propria pagina. Em /turismo/lua-de-mel/ o rotulo do
-  // cartao diz "AMO - LUA DE MEL", nao "AMO EMBARQUE": a pessoa reconhece que o
-  // convite e sobre o que ela estava lendo. A personalizacao cabe em tres
-  // palavras de etiqueta em vez de gastar uma frase inteira de promessa.
-  function assunto() {
-    var h = document.querySelector('h1');
-    var t = h ? String(h.textContent || '') : '';
-    t = t.split(/[:|—–]/)[0].replace(/\s+/g, ' ').trim();
-    if (t.length >= 3 && t.length <= 40) return t;
-    return '';
-  }
-
-  function rotulo() {
-    var a = assunto();
-    return a ? 'AMO \u00b7 ' + a : 'AMO Embarque';
-  }
-
-  // Valor guardado na planilha: nunca vazio, porque no painel esse campo e o
-  // que diz de qual pagina o lead veio sem precisar ler a URL inteira.
-  function assuntoCrm() {
-    return assunto() || String(document.title || '').split(/[|—–]/)[0].trim() ||
-           location.pathname;
-  }
-
-  function digitos(s) { return String(s || '').replace(/\D/g, ''); }
-
-  function mascara(s) {
-    var d = digitos(s).slice(0, 11);
-    if (!d) return '';
-    if (d.length <= 2) return '(' + d;
-    var corpo = d.slice(2);
-    var q = d.length > 10 ? 5 : 4;
-    return '(' + d.slice(0, 2) + ') ' + corpo.slice(0, q) +
-           (corpo.length > q ? '-' + corpo.slice(q) : '');
-  }
-
-  // Telefone errado e lead morto que ainda conta como lead: infla o painel e
-  // some na hora de cobrar comissao. Barrar aqui custa um aviso; barrar depois
-  // custa a prova.
-  function foneValido(s) { var d = digitos(s); return d.length === 10 || d.length === 11; }
-
-  function podeAbrir() {
-    if (popupAberto || document.getElementById('amo-cap')) return false;
-    if (popupBloqueado() || !consentiu()) return false;
-    for (var i = 0; i < SEM_POPUP.length; i++) {
-      if (location.pathname.indexOf(SEM_POPUP[i]) === 0) return false;
-    }
-    var a = document.activeElement;
-    if (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return false;  // ja digitando
-    // Nenhum convite abre por cima de uma captura maior que ja esta aberta.
-    // O quiz da Canton Fair pede quatro respostas e so entao os dados; um
-    // cartao de duas linhas surgindo por cima dele nao e segunda chance, e
-    // concorrencia — e a captura pobre rouba a rica. Guardado por classe no
-    // body e por seletor de modal para valer para qualquer quiz futuro.
-    if (document.body && document.body.classList.contains('quiz-open')) return false;
-    if (document.querySelector('.quiz-modal.open')) return false;
-    return true;
-  }
-
-  // Gatilho 1 — voltou do WhatsApp sem conversar.
-  document.addEventListener('visibilitychange', function () {
-    if (document.visibilityState !== 'visible') return;
-    if (!saiuEm) return;
-    var fora = Date.now() - saiuEm;
-    saiuEm = 0;
-    if (fora > 300000) return;             // demorou demais: provavelmente conversou
-    setTimeout(function () { abrirCaptura('volta'); }, 1200);
-  });
-
-  // Gatilho 2 — o ponteiro sobe para fechar a aba, no desktop, depois de 25s.
-  document.addEventListener('mouseout', function (e) {
-    if (e.clientY > 0 || e.relatedTarget) return;
-    if (Date.now() - entrouEm < 25000) return;
-    if (window.matchMedia('(max-width: 820px)').matches) return;
-    abrirCaptura('saida');
-  });
-
-  // Gatilho 3 — leu de verdade: 55% da pagina e 45s dentro dela.
-  //
-  // Desligado nas paginas que tem quiz proprio. Este e o unico gatilho que
-  // mira o leitor ENGAJADO — exatamente a pessoa que deveria estar entrando
-  // no quiz. Interceptar essa pessoa com um cartao de dois campos troca um
-  // lead de oito campos por um de dois, e foi o que produziu a tela com as
-  // duas capturas abertas ao mesmo tempo. Os outros tres gatilhos continuam
-  // ativos: todos miram quem esta SAINDO ou quem ja levantou a mao e nao foi
-  // atendido, e para esses um pedido curto continua sendo o pedido certo.
-  var TEM_QUIZ = !!document.querySelector('.quiz-modal');
-  var vigia = setInterval(function () {
-    if (TEM_QUIZ) { clearInterval(vigia); return; }
-    if (Date.now() - entrouEm < 45000) return;
-    var alt = document.documentElement.scrollHeight - window.innerHeight;
-    if (alt > 0 && (window.pageYOffset / alt) < 0.55) return;
-    // So encerra a vigia quando o convite realmente abriu. Se abrirCaptura
-    // recusou (aviso de LGPD na tela, campo em foco), a condicao volta a ser
-    // testada daqui a 5s em vez de a chance se perder de vez.
-    if (abrirCaptura('leitura')) clearInterval(vigia);
-  }, 5000);
-
-  // Gatilho 4 — a pessoa clicou para falar com a gente (WhatsApp ou telefone).
-  //
-  // Esta e a diferenca de fundo entre este desenho e o de quase todo site: o
-  // cartao NAO barra o botao. Quem clica em "Falar no WhatsApp" vai para o
-  // WhatsApp na hora, sem passar por formulario nenhum — botao com pedagio na
-  // frente e exatamente a sensacao de compromisso que o cartao existe para
-  // evitar, e o clique em si ja carrega o codigo [AMO-XXXXX] que garante a
-  // atribuicao. O cartao abre logo DEPOIS, na aba que ficou para tras. Quando
-  // a pessoa volta ao navegador — em dez segundos ou dez minutos — ele ja esta
-  // la. Se a conversa engatou, ela nunca volta e nunca ve o cartao; se nao
-  // engatou, o cartao e a segunda chance.
-  //
-  // Ganho de cobertura: sao 321 botoes de WhatsApp e 130 de telefone no site.
-  // Ate aqui nenhum deles abria o convite — so a leitura de 45s, a saida do
-  // ponteiro e a volta em menos de 90s. Isto e, o site pedia o contato de quem
-  // estava lendo e ignorava quem tinha acabado de levantar a mao.
-  //
-  // O clique no telefone merece o mesmo tratamento por um motivo proprio: no
-  // computador um "tel:" quase sempre nao faz nada visivel. E uma pessoa que
-  // quis falar e nao conseguiu.
-  function agendarConvite(motivo) {
-    var tentativas = 0;
-    setTimeout(function tenta() {
-      if (abrirCaptura(motivo)) return;
-      // Recusou a medicao, ja enviou, dispensou nos ultimos 7 dias ou o cartao
-      // ja esta aberto: nao ha nada a repetir.
-      if (popupAberto || popupBloqueado() || !consentiu()) return;
-      // Sobrou o caso temporario — o aviso de medicao ainda na tela nos
-      // primeiros segundos da visita. Esse resolve sozinho; vale reesperar.
-      if (++tentativas < 4) setTimeout(tenta, 3000);
-    }, 900);
-  }
-
-  function abrirCaptura(motivo) {
-    if (!podeAbrir()) return false;
-    popupAberto = true;
-    var num = braco() === 'corporativo' ? WA_CORPORATIVO : WA_TURISMO;
-    var b = document.createElement('div');
-    b.id = 'amo-cap';
-    b.setAttribute('role', 'dialog');
-    b.setAttribute('aria-label', 'Receber as opcoes da AMO no WhatsApp');
-    // O titulo muda com o gatilho porque a situacao da pessoa e outra. Quem
-    // voltou do WhatsApp sem conversar provavelmente nao foi respondido na
-    // hora — para ela a frase certa e "se cair, a gente te chama". Quem esta
-    // saindo da pagina ou terminou de ler ainda nao tentou nada, e para essa
-    // a frase certa e a pergunta direta.
-    var titulo =
-      motivo === 'tel' ? 'Se não atender, a gente te chama.' :
-      (motivo === 'wa' || motivo === 'volta') ? 'Se cair, a gente te chama.' :
-      'Quer as opções no WhatsApp?';
-    b.innerHTML =
-      '<button type="button" class="amo-cap-x" aria-label="Fechar">&times;</button>' +
-      '<p class="amo-cap-marca">' + esc(rotulo()) + '</p>' +
-      '<p class="amo-cap-t">' + titulo + '</p>' +
-      '<p class="amo-cap-s">Sem compromisso e com atendimento personalizado.</p>' +
-      '<form class="amo-cap-f" novalidate>' +
-      '<input type="text" name="nome" placeholder="Seu nome (opcional)" aria-label="Seu nome, opcional" autocomplete="given-name">' +
-      '<input type="tel" name="fone" placeholder="WhatsApp com DDD" aria-label="Seu WhatsApp com DDD" inputmode="numeric" autocomplete="tel" required>' +
-      '<p class="amo-cap-erro" role="alert" hidden>Faltou o DDD ou um número — confere para eu não errar o envio.</p>' +
-      '<button type="submit">Pode mandar</button>' +
-      '</form>' +
-      '<p class="amo-cap-saidas">' +
-      (/^(volta|wa|tel)$/.test(motivo) ? '' :
-        '<a class="amo-cap-wa" href="https://wa.me/' + num +
-        '" data-amo-cta="flutuante-whatsapp-popup">Prefiro chamar eu mesmo</a><span>·</span>') +
-      '<button type="button" class="amo-cap-nao">Agora não</button></p>' +
-      '<p class="amo-cap-p">Seu número fica só com a AMO. ' +
-      '<a href="/privacidade/">Política de privacidade</a>.</p>';
-    document.body.appendChild(b);
-
-    function dispensar() {
-      ls(CHAVE_POPUP, 'fechou:' + Date.now());
-      b.remove(); popupAberto = false;
-      document.removeEventListener('keydown', porEsc);
-    }
-    function porEsc(e) { if (e.key === 'Escape') dispensar(); }
-    document.addEventListener('keydown', porEsc);
-
-    b.querySelector('.amo-cap-x').addEventListener('click', dispensar);
-    b.querySelector('.amo-cap-nao').addEventListener('click', dispensar);
-
-    // Quem escolhe puxar conversa sozinho ja resolveu o que o popup queria:
-    // o link passa pela delegacao de clique, ganha o codigo de comissao e
-    // vira evento. So silencia o convite pelos proximos 7 dias.
-    var wa = b.querySelector('.amo-cap-wa');
-    if (wa) wa.addEventListener('click', function () {
-      ls(CHAVE_POPUP, 'fechou:' + Date.now());
-      setTimeout(function () { b.remove(); popupAberto = false; }, 120);
-    });
-
-    var campoFone = b.querySelector('input[name="fone"]');
-    var aviso = b.querySelector('.amo-cap-erro');
-    campoFone.addEventListener('input', function () {
-      this.value = mascara(this.value);
-      if (!aviso.hidden && foneValido(this.value)) aviso.hidden = true;
-    });
-
-    // Foco automatico so no desktop. No celular, abrir o teclado sozinho tampa
-    // metade da tela e parece cobranca.
-    if (!window.matchMedia('(max-width: 820px)').matches) {
-      try { b.querySelector('input[name="nome"]').focus({ preventScroll: true }); } catch (e) {}
-    }
-
-    b.querySelector('.amo-cap-f').addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      if (!foneValido(campoFone.value)) {
-        aviso.hidden = false; campoFone.focus(); return;
-      }
-      var fd = new FormData(ev.target);
-      var pessoa = String(fd.get('nome') || '').slice(0, 120).trim();
-      evento('form', 'flutuante-form-' + motivo, {
-        nome: pessoa,
-        fone: String(fd.get('fone') || '').slice(0, 40),
-        extra: { assunto: assuntoCrm() }
-      });
-      ls(CHAVE_POPUP, 'enviou');
-      document.removeEventListener('keydown', porEsc);
-      b.innerHTML =
-        '<button type="button" class="amo-cap-x" aria-label="Fechar">&times;</button>' +
-        '<p class="amo-cap-t">Combinado' + (pessoa ? ', ' + esc(pessoa.split(' ')[0]) : '') + '.</p>' +
-        '<p class="amo-cap-s">Mando as opções no seu WhatsApp. Se quiser adiantar, ' +
-        '<a href="https://wa.me/' + num + '" data-amo-cta="flutuante-whatsapp-obrigado">fale com a gente agora</a>.</p>';
-      b.querySelector('.amo-cap-x').addEventListener('click', function () {
-        b.remove(); popupAberto = false;
-      });
-      setTimeout(function () { b.remove(); popupAberto = false; }, 9000);
-    });
-    return true;
-  }
-
+  // REMOVIDO em 04/09/2026 a pedido do dono: o cartao flutuante de segunda
+  // chance renderizava quebrado no celular (transparente, texto sobreposto,
+  // tampa a tela) e a captura passiva se mostrou falha. O rastreamento de
+  // cliques e formularios continua intacto; uma captura nova sera desenhada
+  // do zero, com oferta real, quando formos aplicar CRO de verdade.
   // --------------------------------------- nome na pagina de obrigado
   // 42 dos 48 formularios do site pedem um campo so — "Seu WhatsApp ou
   // e-mail". Isso e proposital e converte bem, mas deixa o lead chegando sem
