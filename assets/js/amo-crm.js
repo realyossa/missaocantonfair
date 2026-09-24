@@ -111,7 +111,16 @@
     ['/corporativo/blog/', 'as viagens da minha empresa'],
     ['/corporativo/blog/erro-comeca-antes-da-passagem/', 'a política de viagens da minha empresa'],
     ['/corporativo/blog/viagem-corporativa-como-estrategia/', 'as viagens da minha empresa'],
-    ['/corporativo/obrigado/', 'as viagens da minha empresa']
+    ['/corporativo/obrigado/', 'as viagens da minha empresa'],
+    // 24/09/2026: paginas que nasceram depois da lista e caiam no assunto
+    // generico do braco.
+    ['/corporativo/bauma/', 'a ida da minha empresa à feira bauma'],
+    ['/corporativo/nrf/', 'a missão para a NRF, em Nova York'],
+    ['/corporativo/politica-de-viagens-e-assistencia-especial/', 'a política de viagens da minha empresa'],
+    ['/corporativo/executiva-em-viagem/', 'as viagens a trabalho de uma executiva da minha empresa'],
+    ['/turismo/viajar-com-a-mae/', 'uma viagem com a minha mãe'],
+    ['/turismo/gravida-pode-viajar-de-aviao/', 'uma viagem durante a gravidez'],
+    ['/turismo/idoso-pode-viajar-de-aviao/', 'uma viagem de avião com uma pessoa idosa']
   ];
   var CHAVE_V = 'amo_v';           // visitor_id + origem da primeira visita
   var CHAVE_FILA = 'amo_fila';     // eventos que nao sairam
@@ -456,12 +465,25 @@
   }
 
   // Assunto da pagina atual, pelo prefixo mais longo que casa com o caminho.
+  // 24/09/2026: o assunto so vale para o braco do numero clicado. Antes, o
+  // botao do WhatsApp CORPORATIVO no rodape de uma pagina de pacote montava
+  // "Vim pelo site da AMO Corporativo e quero falar sobre um pacote para
+  // Maceio" — assunto de turismo no numero da area de empresas. Assunto de
+  // outro braco cai no assunto padrao do braco do numero.
+  function bracoDoPrefixo(pref) {
+    if (pref.indexOf('/corporativo/') === 0) return 'corporativo';
+    if (pref.indexOf('/turismo/') === 0) return 'turismo';
+    return '';
+  }
+
   function assuntoDoCaminho(arm) {
     var p = location.pathname;
     var melhor = '';
     var achado = '';
     for (var i = 0; i < ASSUNTOS.length; i++) {
       var pref = ASSUNTOS[i][0];
+      var bp = bracoDoPrefixo(pref);
+      if (bp && bp !== arm) continue;
       if (p.indexOf(pref) === 0 && pref.length > melhor.length) {
         melhor = pref;
         achado = ASSUNTOS[i][1];
@@ -492,12 +514,16 @@
     var i = href.indexOf('?text=');
     var msg = i > -1 ? semCodigo(decodeURIComponent(href.slice(i + 6))) : '';
     if (!msg) msg = msgDaPagina(arm);
-    // Auto-identificacao (CRO): toda conversa chega com nome quando a
-    // pessoa completa a frase antes de enviar — sem formulario, sem atrito.
-    // Texto proprio que ja pede nome (quiz da Canton Fair) nao duplica.
-    msg = msg.replace(/\s+$/, '');
-    if (msg && msg.charAt(msg.length - 1) !== '.') msg += '.';
-    if (msg.toLowerCase().indexOf('chamo') === -1) msg += ' Me chamo ';
+    // 24/09/2026 — saiu a "auto-identificacao" de 04/09, que terminava toda
+    // mensagem com " Me chamo ". A ideia era a pessoa completar com o nome antes
+    // de enviar. Na pratica quase ninguem completava: a mensagem chegava no
+    // WhatsApp da equipe terminando em "Me chamo." solto, e o primeiro contato
+    // parecia formulario mal preenchido. Mensagem pronta tem que poder ser
+    // enviada do jeito que abriu. O nome a equipe pergunta na conversa.
+    // Higiene de texto antigo: links compartilhados, paginas em cache ou um
+    // href ja reescrito num clique anterior ainda podem trazer o sufixo.
+    msg = msg.replace(/\s*Me chamo\s*\.?\s*$/i, '').replace(/\s+$/, '');
+    if (msg && !/[.!?…]$/.test(msg)) msg += '.';
     var cod = ENDPOINT ? codigo() : '';
     evento('cta', nomeCta, { c: cod });
     return {
