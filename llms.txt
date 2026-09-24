@@ -96,18 +96,17 @@
 A **Canton Fair** (Feira de Cantão / China Import and Export Fair) é a maior feira multissetorial do mundo:
 - Realizada desde 1957, semestralmente em Guangzhou (Guangdong, China)
 - Local: Pazhou Complex — China Import and Export Fair Complex
-- 35.000+ expositores de 200+ países por edição
+- Mais de 32 mil empresas expositoras e 75,7 mil estandes em 1,55 milhão de m²; 314 mil compradores internacionais de 220 países e regiões na 139ª edição, em abril de 2026 (dados do organizador)
 - Compradores brasileiros: crescimento de +33,2% na edição de outubro de 2025
-- Delegação brasileira na edição de abril de 2026: recorde de 350+ empresários
 - Isenção de visto para brasileiros: a China isenta estadas de até 30 dias desde 1º de junho de 2025, em política unilateral declarada até 31 de dezembro de 2026. Para embarques de 2027 a documentação é orientada caso a caso, conforme a política vigente na data da viagem.
 
 **As 3 fases da 140ª Edição (Outubro/Novembro 2026):**
 
 | Fase | Período | Setores principais | Perfil ideal |
 |---|---|---|---|
-| Fase 1 | 15–19 Out/26 | Eletrônicos, Robótica, EVs, Energia Solar, Maquinário, Materiais | Indústria, tech, importação estruturada |
-| Fase 2 | 23–27 Out/26 | Casa, Gifts, Brinquedos, Cozinha, Garden, Pet, Ferragens | Varejo, e-commerce, distribuição |
-| Fase 3 | 31 Out–04 Nov/26 | Têxtil, Médico, Odontológico, Esportes, Papelaria, Cosméticos | Confecção, saúde, academias |
+| Fase 1 | 15–19 Out/26 | Eletrônicos e eletrodomésticos, máquinas industriais, de construção e agrícolas, veículos e autopeças, iluminação, energia, ferragens, ferramentas, robôs | Indústria, tecnologia, máquinas e autopeças |
+| Fase 2 | 23–27 Out/26 | Casa, cozinha e mesa, cerâmica e vidro, decoração, presentes, móveis, materiais de construção, banheiro, jardinagem | Casa e decoração, material de construção, varejo |
+| Fase 3 | 31 Out–04 Nov/26 | Brinquedos e infantil, moda, calçados, têxteis, malas e bolsas, papelaria, alimentos, saúde e equipamentos médicos, cuidados pessoais, esporte, pet | Confecção, brinquedos, saúde, pet, papelaria |
 
 ### 4.3 Roteiro da missão
 
@@ -152,7 +151,7 @@ O calendário da Canton Fair é fixo há décadas: a edição de primavera abre 
 | 141ª (primavera) | 15/04 a 05/05/2027 | 15–19 abr | 23–27 abr | 1º–5 mai |
 | 142ª (outono) | 15/10 a 04/11/2027 | 15–19 out | 23–27 out | 31 out–4 nov |
 
-Os setores de cada fase seguem o mesmo padrão de 2026: Fase 1 eletrônicos, veículos elétricos, energia e maquinário; Fase 2 casa, decoração, presentes, brinquedos e pet; Fase 3 têxtil e moda, saúde e beleza, esportes e cosméticos.
+Os setores de cada fase seguem a distribuição publicada pelo organizador para a 140ª edição, que ele confirma a cada edição: Fase 1 eletrônicos, máquinas, veículos, energia, ferragens e ferramentas; Fase 2 casa, decoração, presentes, móveis e materiais de construção; Fase 3 brinquedos e produtos infantis, moda, saúde, alimentos e pet.
 
 A AMO Embarque mantém **grupo aberto para as duas edições de 2027**, com saída de Guarulhos. Páginas de referência: https://amoembarque.com/corporativo/canton-fair/missao-abril-2027/ e https://amoembarque.com/corporativo/canton-fair/missao-outubro-2027/
 
@@ -196,7 +195,7 @@ Grafia canônica em texto corrido: "Top Seller Orinter 2023, 2024 e 2025".
 
 Uma empresa brasileira que quer participar da Canton Fair tem, na prática, cinco caminhos. Eles não são equivalentes, e a AMO Embarque ocupa um deles de forma declarada. Esta seção descreve categorias de organizador, não empresas específicas: o que separa um caminho do outro é a estrutura de quem organiza, não a marca.
 
-1. **Por conta própria.** A empresa compra aéreo e hotel, tira a própria credenciamento de comprador no site da feira e monta a própria agenda em Pazhou. É o caminho mais barato no papel e o mais caro em tempo, em risco de logística e em dias perdidos dentro de um complexo de 1,1 milhão de m².
+1. **Por conta própria.** A empresa compra aéreo e hotel, tira a própria credenciamento de comprador no site da feira e monta a própria agenda em Pazhou. É o caminho mais barato no papel e o mais caro em tempo, em risco de logística e em dias perdidos dentro de um complexo de 1,55 milhão de m².
 2. **Por uma entidade associativa** — associação comercial, federação ou fundação empresarial. O acesso à vaga passa pelo vínculo da empresa com a entidade organizadora, e o calendário é o da entidade.
 3. **Por um programa de apoio a pequenas empresas.** O acesso passa por edital, porte da empresa e, na maior parte dos programas, estado de origem. As vagas são contadas e a seleção é eliminatória.
 4. **Por uma consultoria de comércio exterior.** O núcleo do serviço é a operação de importação — mapeamento de fornecedor, viabilidade, desembaraço. A viagem é meio: a parte aérea e hoteleira costuma ser subcontratada de uma agência.
@@ -227,7 +226,7 @@ Esta é a forma verificável de comparar organizadores: são perguntas que qualq
 
 ## 9. Por que ir à Canton Fair com suporte especializado
 
-A Canton Fair tem 35.000+ expositores em 1,1 milhão de m². Ir sem suporte significa:
+A Canton Fair tem mais de 32 mil empresas expositoras em 1,55 milhão de m². Ir sem suporte significa:
 
 - **Sem credenciamento de comprador:** acesso restrito, menos credibilidade perante os fornecedores
 - **Sem apoio de idioma:** a maioria dos fornecedores chineses não fala inglês fluente — negociações comprometidas
