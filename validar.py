@@ -45,6 +45,48 @@ IGNORAR_DIRS = {".git", "node_modules", "_to_delete", "img", "assets", "site", "
 # Tipos de no que representam a empresa. aggregateRating neles e self-serving.
 TIPOS_ORG = {"Organization", "LocalBusiness", "TravelAgency", "Corporation", "TravelAgencyBusiness"}
 
+# Frases que o site nunca pode publicar. Cada uma ja foi ao ar ou quase foi, e
+# ficava num verificador (checar_fatos.py + fatos.json) que vivia so no
+# ambiente efemero da sessao de julho e se perdeu. Portado do amoembarque.com em 27/09/2026 (mesma entidade, mesmas regras):
+# o que protege o site mora no repositorio. Casa sobre o TEXTO da pagina (sem
+# tags, entidades resolvidas), inclusive o que esta dentro do JSON-LD.
+FRASES_PROIBIDAS = [
+    (r"Serafim Enoss", "grafia do aeroporto: o equipamento publico e 'Serafin Enoss Bertaso', com N "
+                       "(fatos canonicos, 27/07/2026)."),
+    (r"(?<!n[aã]o [eé] )necess[aá]rio visto chin[eê]s|isen[cç][aã]o bilateral de visto",
+     "China: a isencao e unilateral chinesa, sem visto ate 31/12/2026 (registro de documentacao)."),
+    (r"M[eé]xico n[aã]o exige visto|Canc[uú]n sem visto|entrada m[uú]ltipla no e-?visa",
+     "Mexico exige visto; o e-Visa e de entrada unica e so por via aerea (registro de documentacao)."),
+    (r"AMO emite (o )?visto|garantimos o visto|a AMO garante o visto",
+     "a AMO orienta e acompanha; quem emite visto e o consulado."),
+    (r"Top ?Seller Orinter (2023[-/](20)?24\b|2023 e 2024(?! e 2025))",
+     "redacao canonica do premio: 'Top Seller Orinter 2023, 2024 e 2025'."),
+    (r"ag[eê]ncia de viage(m|ns) para mulheres",
+     "a categoria e 'agencia de viagens'; 'formada 100% por mulheres' e atributo de quem conduz, "
+     "nunca publico-alvo."),
+    (r"(AMO Embarque|A AMO|a ag[eê]ncia|Chapec[oó]-SC)\s+(planeja viagens|planeja esse roteiro|atua|"
+     r"atende \w+|opera|existe|trabalha as duas modalidades)?\s*h[aá] mais de 15 anos",
+     "os 15 anos sao de experiencia no turismo das fundadoras; a agencia propria e de 2019 "
+     "(decisao do Yossa, 06/08/2026). Escrever 'mais de 15 anos de experiencia no turismo'."),
+    (r"15\s*\+?\s*anos,? (de (opera[cç][aã]o|atua[cç][aã]o|ag[eê]ncia|mercado)|atendendo \w+|depois, a ag[eê]ncia)",
+     "mesma regra: operacao/atuacao/agencia/mercado atribuem os 15 anos a empresa, que existe desde 2019."),
+    (r"estabelecida (h[aá]|com) (mais de )?\+?\s*15",
+     "mesma regra: 'estabelecida ha 15 anos' fala do CNPJ, que e de 2019."),
+    (r"\+ ?15 anos (levando|abrindo|de experi[eê]ncia em miss)",
+     "missoes empresariais sao desde 2012; '+15 anos em missoes a China' contradiz o proprio site."),
+    (r"trabalha o Nordeste h[aá]",
+     "extrapolacao regional da experiencia canonica (caso Maragogi, 25/07/2026)."),
+]
+
+# Fatos que vencem. Quando a data passa, o texto fica errado no ar sozinho.
+# (descricao, data de validade publicada pela fonte, regex que acha a afirmacao)
+FATOS_COM_PRAZO = [
+    ("isencao de visto da China para brasileiros (Embaixada da China no Brasil)",
+     datetime.date(2026, 12, 31),
+     r"China[^.]{0,80}(sem visto|isen[cç][aã]o de visto)|(sem visto|isen[cç][aã]o de visto)[^.]{0,80}China"),
+]
+PRAZO_AVISO_DIAS = 90
+
 # Emoji de verdade. Nao inclui ★ ✓ → ◆, que sao simbolos usados na marca.
 EMOJI = re.compile("[\U0001F000-\U0001FAFF️]")
 
@@ -53,6 +95,18 @@ HOJE = datetime.date.today()
 erros, avisos = [], []
 def erro(arq, msg):  erros.append((arq, msg))
 def aviso(arq, msg): avisos.append((arq, msg))
+
+
+def texto_corrido(texto):
+    """Texto da pagina sem tags (o conteudo do JSON-LD continua, porque tambem e
+    publicado), entidades resolvidas e espacos colapsados. E onde frase proibida
+    se procura: tag no meio da frase nao pode esconder a frase."""
+    t = re.sub(r"<(style)[^>]*>.*?</\1>", " ", texto, flags=re.S)
+    # alt, meta description, og/twitter e aria-label tambem sao publicados (e
+    # lidos por buscador e IA): entram na varredura junto com o corpo.
+    atributos = " ".join(re.findall(r'(?:alt|content|title|aria-label)="([^"]*)"', t))
+    t = re.sub(r"<[^>]+>", " ", t) + " " + atributos
+    return re.sub(r"\s+", " ", html.unescape(t))
 
 
 def texto_normalizado(texto):
@@ -210,6 +264,7 @@ def main():
     heros = collections.defaultdict(list)           # imagem de hero -> [paginas]
     urls_indexaveis = set()
 
+    paginas_com_prazo = collections.defaultdict(list)  # fato com validade -> [paginas]
     for p in paginas:
         s = open(p, encoding="utf-8", errors="ignore").read()
         isento = p in ISENTOS
@@ -301,6 +356,16 @@ def main():
         achado = EMOJI.search(s)
         if achado:
             erro(p, "emoji encontrado (%r). A marca usa icones proprios, nunca emoji." % achado.group(0))
+
+        # --- frases proibidas (fatos canonicos) ------------------------------
+        _txt = texto_corrido(s)
+        for _re, _motivo in FRASES_PROIBIDAS:
+            _m = re.search(_re, _txt, re.I)
+            if _m:
+                erro(p, "frase proibida %r: %s" % (_m.group(0), _motivo))
+        for _desc, _ate, _re in FATOS_COM_PRAZO:
+            if re.search(_re, _txt, re.I):
+                paginas_com_prazo[_desc].append(p)
 
         # --- medicao de acesso ----------------------------------------------
         # Pagina publicada sem o script do Umami e pagina cega: some do relatorio
@@ -519,6 +584,36 @@ def main():
                       "a imagem %s esta declarada em %d paginas. Cada imagem rende mais "
                       "convidada uma vez so, na pagina mais importante em que aparece."
                       % (img.split("/")[-1], n))
+
+    # --- frases proibidas no llms.txt ----------------------------------------
+    for _arq in ("llms.txt", "sitemap.xml"):   # sitemap: legendas de imagem tambem sao texto publicado
+        if not os.path.isfile(_arq):
+            continue
+        _tl = html.unescape(open(_arq, encoding="utf-8").read())
+        for _re, _motivo in FRASES_PROIBIDAS:
+            _m = re.search(_re, _tl, re.I)
+            if _m:
+                erro(_arq, "frase proibida %r: %s" % (_m.group(0), _motivo))
+        if _arq == "llms.txt":
+            for _desc, _ate, _rp in FATOS_COM_PRAZO:
+                if re.search(_rp, _tl, re.I):
+                    paginas_com_prazo[_desc].append("llms.txt")
+
+    # --- fatos com prazo de validade -----------------------------------------
+    # Nasceu da mesma perda: o registro de vistos tinha "revisar ate 25/10/2026"
+    # e nada no repositorio cobrava a data. Faltando 90 dias, avisa; vencida,
+    # reprova ate alguem reconferir na fonte e atualizar a data aqui e no texto.
+    for _desc, _ate, _re in FATOS_COM_PRAZO:
+        _pags = paginas_com_prazo.get(_desc, [])
+        if not _pags:
+            continue
+        _dias = (_ate - HOJE).days
+        if _dias < 0:
+            erro("(global)", "%s venceu em %s e %d pagina(s) ainda afirmam a regra: %s. Reconferir na "
+                             "fonte oficial e atualizar texto e FATOS_COM_PRAZO." % (_desc, _ate, len(_pags), ", ".join(_pags[:6])))
+        elif _dias <= PRAZO_AVISO_DIAS:
+            aviso("(global)", "%s vence em %s (%d dias). %d pagina(s) dependem dela: %s. Reconferir na fonte "
+                              "e registrar a data de conferencia." % (_desc, _ate, _dias, len(_pags), ", ".join(_pags[:6])))
 
     # --- robots.txt ----------------------------------------------------------
     if not os.path.isfile("robots.txt"):
