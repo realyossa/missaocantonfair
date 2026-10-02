@@ -114,6 +114,10 @@
     // 24/09/2026: paginas que nasceram depois da lista e caiam no assunto
     // generico do braco.
     ['/corporativo/bauma/', 'a ida da minha empresa à feira bauma'],
+    // 02/10/2026: familia de paginas de feiras.
+    ['/corporativo/feiras/', 'a ida da minha empresa a uma feira de negócios'],
+    ['/corporativo/feiras/china/', 'a ida da minha empresa a uma feira na China'],
+    ['/corporativo/feiras/agro/', 'a ida da minha empresa a uma feira agro ou de alimentos'],
     ['/corporativo/nrf/', 'a missão para a NRF, em Nova York'],
     ['/corporativo/politica-de-viagens-e-assistencia-especial/', 'a política de viagens da minha empresa'],
     ['/corporativo/executiva-em-viagem/', 'as viagens a trabalho de uma executiva da minha empresa'],
