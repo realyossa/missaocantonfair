@@ -31,8 +31,8 @@ NAP = {
 # Fixo, WhatsApp Turismo e WhatsApp Corporativo. Qualquer outro numero e erro.
 TELEFONES = {
     "554933161858",    # fixo da loja
-    "5549998005666",   # WhatsApp Turismo (Jamila)
-    "5549999380070",   # WhatsApp Corporativo / missoes
+    "5549999380070",   # WhatsApp AMO Turismo (desde 15/10/2026; antes era o do Corporativo)
+    "5549998005666",   # WhatsApp AMO Corporativo e missoes (desde 15/10/2026; antes era o do Turismo)
     "5549998020177",   # WhatsApp Kadidia Umar (CEO) — confirmado pelo Yossa em 06/08/2026
 }
 
@@ -508,7 +508,7 @@ def main():
             digitos = re.sub(r"\D", "", bruto_tel)
             if len(digitos) >= 12 and digitos.startswith("55") and digitos[:13] not in TELEFONES:
                 erro(p, "telefone %s nao esta na lista de numeros canonicos da AMO." % bruto_tel.strip())
-        # formato visivel brasileiro: (49) 3316-1858 / (49) 99938-0070
+        # formato visivel brasileiro: (49) 3316-1858 / (49) 99800-5666
         for visivel in re.findall(r"\(\d{2}\)\s?\d{4,5}[-\s]?\d{4}", s):
             if "55" + re.sub(r"\D", "", visivel) not in TELEFONES:
                 erro(p, "telefone visivel %s nao esta na lista de numeros canonicos da AMO." % visivel)

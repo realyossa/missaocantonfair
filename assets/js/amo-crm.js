@@ -46,8 +46,8 @@
   var TOKEN = 'amo-2026';          // filtro de ruido, nao seguranca
   var ENDPOINT_V2 = 'https://script.google.com/macros/s/AKfycbzjAb6PCEOYIpfBhZlQCWzSLTptoyY9MqbmUhzwCa7m1Bv7riwonN971Oe0OSHdgeM-Qg/exec';
   var TOKEN_V2 = 'amo-2026-v2';   // espelho para o CRM v2 (dual-post)
-  var WA_TURISMO = '5549998005666';
-  var WA_CORPORATIVO = '5549999380070';
+  var WA_TURISMO = '5549999380070';
+  var WA_CORPORATIVO = '5549998005666';
   // A frase carrega a atribuicao: "Vim pelo site" e o sinal de origem que o
   // codigo entre colchetes carregava antes, so que legivel e sem constranger
   // quem envia. O ASSUNTO por caminho existe porque os botoes de menu, rodape
