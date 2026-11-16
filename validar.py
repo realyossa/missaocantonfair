@@ -51,6 +51,34 @@ TIPOS_ORG = {"Organization", "LocalBusiness", "TravelAgency", "Corporation", "Tr
 # o que protege o site mora no repositorio. Casa sobre o TEXTO da pagina (sem
 # tags, entidades resolvidas), inclusive o que esta dentro do JSON-LD.
 FRASES_PROIBIDAS = [
+    # Ficha M1, Aditivo 4 (16/11/2026): saida fixa em GRU sobrou no llms.txt e no ai-info depois da regra de
+    # 12/10/2026 (saida calculada para cada participante).
+    (r"(parte|sai|sa[ií]da|partida)[^.|<]{0,40}S[aã]o Paulo \(GRU\)"
+     r"|De S[aã]o Paulo \(GRU\), ponto de sa[ií]da",
+     "saida das missoes e calculada para cada participante; nunca 'sempre em GRU' nem saida fixa de Sao Paulo."),
+    (r"(embarque|sa[ií]da|partida|ponto de encontro)( da miss[aã]o)? [ée] sempre (em|de|no|do) (S[aã]o Paulo|GRU|Guarulhos|Chapec[oó])",
+     "saida fixa: a AMO calcula a saida de cada participante a partir da cidade dele (copiada do validar.py do "
+     "amoembarque.com, 16/11/2026)."),
+    # Ficha M1 (16/11/2026): a missao de outubro de 2026 foi de 21/10 a 05/11/2026 e esta encerrada.
+    # Primeira alternativa-grupo = trava da Ficha A2 do site principal; as demais sao as formas proprias
+    # do microsite. O padrao casa sobre texto_corrido (sem tags, entidades resolvidas).
+    (r"[Oo]utubro (de )?2026 n[aã]o d[aá]"
+     r"|[Oo]utubro 2026 n[aã]o vai dar"
+     r"|(Pacote oficial|pacote oficial) 2026"
+     r"|(miss[aã]o|edi[cç][aã]o) (de )?(outubro de )?2026[^.<]{0,40}(em aberto|grupo em forma[cç][aã]o|garant|vagas? (abertas|limitadas))"
+     r"|(em aberto|garanta sua vaga|vagas limitadas)[^.<]{0,40}(Miss[aã]o Canton Fair|edi[cç][aã]o de outubro) (de )?2026"
+     r"|Vagas limitadas\s*[—–-]\s*Miss[aã]o Canton Fair Out(ubro)?\s?/\s?2026"
+     r"|Miss[aã]o Canton Fair Out(ubro)?\s?/\s?2026\s*[—–-]\s*Vagas limitadas"
+     r"|(outubro( de)?|out/) ?2026[^.<]{0,40}est[aá] com vagas abertas"
+     r"|140[ªa] edi[cç][aã]o[^.<]{0,60}est[aá] com vagas abertas"
+     r"|Quer ir [àa] Canton Fair\s+(em )?outubro( de)? 2026"
+     r"|grupo aberto para outubro( de)? 2026"
+     r"|Out/2026 em organiza[cç][aã]o"
+     r"|inscri[cç][oõ]es abertas[^.<]{0,60}2026|2026[^.<]{0,60}inscri[cç][oõ]es abertas"
+     r"|Miss[aã]o Canton Fair 2026\s*[—–-]\s*vagas"
+     r"|140[ªa] edi[cç][aã]o(?:(?!14[12][ªa] edi)[^<]){0,200}?Grupo AMO aberto",
+     "missao de outubro de 2026 tratada como aberta: a edicao foi de 21/10 a 05/11/2026 e esta encerrada; "
+     "quem chega vai para o grupo de abril de 2027 (/corporativo/canton-fair/missao/)."),
     (r"Serafim Enoss", "grafia do aeroporto: o equipamento publico e 'Serafin Enoss Bertaso', com N "
                        "(fatos canonicos, 27/07/2026)."),
     (r"(?<!n[aã]o [eé] )necess[aá]rio visto chin[eê]s|isen[cç][aã]o bilateral de visto",

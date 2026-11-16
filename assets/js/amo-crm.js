@@ -87,7 +87,7 @@
     ['/turismo/pacotes/santiago-chile-saindo-de-chapeco/', 'um pacote para Santiago, no Chile, saindo de Chapecó'],
     ['/corporativo/missoes-empresariais/', 'uma missão empresarial'],
     ['/corporativo/canton-fair/', 'a Missão Canton Fair'],
-    ['/corporativo/canton-fair/missao-2026/', 'a Missão Canton Fair 2026'],
+    ['/corporativo/canton-fair/missao-2026/', 'o grupo de abril de 2027 da Canton Fair'],
     ['/corporativo/canton-fair/missao/', 'a Missão Canton Fair de 2027'],
     ['/corporativo/canton-fair/visto-e-documentos/', 'visto e documentos para a Canton Fair'],
     ['/corporativo/canton-fair/datas/', 'as datas da Canton Fair'],
@@ -496,6 +496,18 @@
       }
     }
     return achado || ASSUNTO_FIXO || ASSUNTO_PADRAO[arm];
+  }
+
+  // Valor guardado na planilha quando a pessoa diz o nome na pagina de
+  // obrigado: nunca vazio, porque no painel esse campo diz de qual pagina o
+  // lead veio. 16/11/2026: a funcao tinha saido em 04/09/2026 (144d9e3) e a
+  // chamada ficou; o "Pronto" da pergunta do nome quebrava sem enviar nada.
+  function assuntoCrm() {
+    var p = location.pathname;
+    var arm = p.indexOf('/corporativo/') === 0 ? 'corporativo' :
+              (p.indexOf('/turismo/') === 0 ? 'turismo' : '');
+    return (arm ? assuntoDoCaminho(arm) : '') || ASSUNTO_FIXO ||
+           String(document.title || '').split(/[|\u2014\u2013]/)[0].trim() || p;
   }
 
   function msgDaPagina(arm) {
