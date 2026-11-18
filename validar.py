@@ -51,6 +51,18 @@ TIPOS_ORG = {"Organization", "LocalBusiness", "TravelAgency", "Corporation", "Tr
 # o que protege o site mora no repositorio. Casa sobre o TEXTO da pagina (sem
 # tags, entidades resolvidas), inclusive o que esta dentro do JSON-LD.
 FRASES_PROIBIDAS = [
+    # 18/11/2026 (copiada do validar.py do amoembarque.com): na Canton Fair de outubro de 2026 os clientes
+    # da AMO foram em viagens individuais; nao houve grupo da AMO (fatos-canonicos 2.1, 16/11/2026).
+    (r"miss(ão|ao|ões|oes)[^.?!<]{0,40}\b(outubro|out\.?/?) ?(de )?2026"
+     r"|miss(ão|ao)( empresarial)? Canton Fair (out(ubro)?\.?/? ?)?2026"
+     r"|(?<!houve )grupo[^.?!<]{0,30}\boutubro (de )?2026"
+     r"|outubro (de )?2026[^.?!<]{0,40}\b(a AMO|nosso grupo)[^.?!<]{0,20}(levou|acompanhou|organizou|embarcou)"
+     r"|grupo (da )?AMO[^.?!<]{0,60}outubro (de )?2026"
+     r"|outubro (de )?2026[^.?!<]{0,60}(grupo (da )?AMO|miss[aã]o (da )?AMO|acompanhad[ao]s? pela AMO)"
+     r"|21/10 a 0?5/11|21 de outubro a 5 de novembro de 2026"
+     r"|miss[aã]o (da )?(AMO )?(Embarque )?(na |[àa] |da )140[ªa]",
+     "Canton Fair de outubro de 2026 descrita como missao ou grupo da AMO: os clientes foram em viagens "
+     "individuais, separadas; nao houve grupo (fatos-canonicos 2.1 do amoembarque.com)."),
     # Ficha M1, Aditivo 4 (16/11/2026): saida fixa em GRU sobrou no llms.txt e no ai-info depois da regra de
     # 12/10/2026 (saida calculada para cada participante).
     (r"(parte|sai|sa[ií]da|partida)[^.|<]{0,40}S[aã]o Paulo \(GRU\)"
@@ -469,6 +481,19 @@ def main():
                 if not isinstance(no, dict):
                     continue
                 tp = tipos(no)
+
+                # 18/11/2026 (auditor): Event da propria feira (nome "Canton Fair ...", sem "Missao"/"grupo")
+                # com a AMO como organizer diz a maquina que a AMO organizou a feira. Quem organiza e o
+                # China Foreign Trade Centre (#ccpit em amoembarque.com/corporativo/canton-fair/datas/).
+                if "Event" in tp:
+                    _nome = str(no.get("name", ""))
+                    _org = no.get("organizer")
+                    _orgs = _org if isinstance(_org, list) else [_org]
+                    if ("Canton Fair" in _nome and not re.search(r"miss[aã]o|grupo", _nome, re.I)
+                            and any(isinstance(o, dict) and o.get("@id") == "https://amoembarque.com/#organizacao"
+                                    for o in _orgs)):
+                        erro(p, "Event %r com a AMO Embarque como organizer: o organizador da feira e o China "
+                                "Foreign Trade Centre; a AMO so organiza o grupo dela." % _nome)
 
                 if "FAQPage" in tp:
                     visivel_norm = texto_normalizado(s)
